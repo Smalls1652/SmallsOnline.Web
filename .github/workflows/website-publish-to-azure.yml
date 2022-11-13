@@ -1,4 +1,4 @@
-name: Deploy web app container to Azure
+name: Website / Publish to Azure AppService
 
 on:
   # Automatically trigger it when detected changes in repo

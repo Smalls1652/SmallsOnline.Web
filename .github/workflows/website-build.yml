@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow
-name: Build website
+name: Website / Build
 on:
   - push
   - pull_request
