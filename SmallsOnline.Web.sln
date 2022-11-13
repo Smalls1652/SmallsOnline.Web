@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.Lib", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.Lib.Components", "src\SmallsOnline.Web.Lib.Components\SmallsOnline.Web.Lib.Components.csproj", "{97EB64C5-BF7F-490F-8AAE-903E87391B72}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Website", "Website", "{2DF3EEDF-0FD5-45CB-8FF9-900915C29419}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmallsOnline.Web.PublicSite", "SmallsOnline.Web.PublicSite", "{2DF3EEDF-0FD5-45CB-8FF9-900915C29419}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "src\SmallsOnline.Web.PublicSite\Client\Client.csproj", "{86C991D5-D280-4F1C-ACD3-528D799719F8}"
 EndProject
