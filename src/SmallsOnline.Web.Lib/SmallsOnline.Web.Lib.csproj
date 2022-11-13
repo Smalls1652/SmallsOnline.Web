@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>SmallsOnline.Web.Lib</PackageId>
+    <Authors>Timothy Small</Authors>
+    <Company>Smalls.Online</Company>
+    <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web.Lib</RepositoryUrl>
+    <Description>
+      Class library that defines classes used across multiple projects for https://smalls.online.
+    </Description>
+  </PropertyGroup>
+
+  <!-- Importing the version that's shared between SmallsOnline.Web.Lib and SmallsOnline.Web.Lib.Components. -->
+  <Import Project="../../SmallsOnline.Web.Lib.version.proj" />
+
+  <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.30.4" />
+    <PackageReference Include="YamlDotNet" Version="12.0.2" />
+  </ItemGroup>
+
+</Project>

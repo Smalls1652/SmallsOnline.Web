@@ -1,0 +1,64 @@
+@namespace SmallsOnline.Web.Lib.Components.Blog
+
+@inherits ComponentBase
+
+@if (BlogEntry is not null)
+{
+    <article>
+        <div class="card shadow">
+            <div class="card-header">
+                <div class="mb-0">
+                    <h1>
+                        @if (BlogEntry.Title is not null)
+                        {
+                            <span>
+                                @BlogEntry.Title
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                Error: Title not set
+                            </span>
+                        }
+                    </h1>
+                    <div>
+                        @if (BlogEntry.PostedDate is not null)
+                        {
+                            <time datetime="@BlogEntry.PostedDate.Value.ToLocalTime().ToString("yyyy-MM-dd hh:mm tt K")" itemProp="datePublished">
+                                <span class="fw-bold">Posted on:</span>
+                                <span class="card-subtitle text-muted dateline">
+                                    @BlogEntry.PostedDate.Value.ToLocalTime().ToString("MMMM dd, yyyy hh:mm tt")
+                                </span>
+                            </time>
+                        }
+                        else
+                        {
+                            <span class="card-subtitle text-muted">
+                                Error: Posted date not set
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        @if (BlogEntry.ContentHtml is not null)
+                        {
+                            <div>
+                                @((MarkupString)BlogEntry.ContentHtml)
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                Content not set.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+}
