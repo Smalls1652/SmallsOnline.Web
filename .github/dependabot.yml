@@ -29,3 +29,57 @@ updates:
       - "dependency update"
     assignees:
       - "Smalls1652"
+
+  # NuGet config for SmallsOnline.Web.PublicSite.Client
+  - package-ecosystem: "nuget"
+    directory: "/src/SmallsOnline.Web.PublicSite/Client"
+    target-branch: "dev"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependency update"
+    assignees:
+      - "Smalls1652"
+
+  # NPM config for SmallsOnline.Web.PublicSite.Client
+  - package-ecosystem: "npm"
+    directory: "/src/SmallsOnline.Web.PublicSite/Client"
+    target-branch: "dev"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependency update"
+    assignees:
+      - "Smalls1652"
+
+  # NuGet config for SmallsOnline.Web.PublicSite.Server
+  - package-ecosystem: "nuget"
+    directory: "/src/SmallsOnline.Web.PublicSite/Server"
+    target-branch: "dev"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependency update"
+    assignees:
+      - "Smalls1652"
+
+  # NuGet config for SmallsOnline.Web.PublicSite.Shared
+  - package-ecosystem: "nuget"
+    directory: "/src/SmallsOnline.Web.PublicSite/Shared"
+    target-branch: "dev"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependency update"
+    assignees:
+      - "Smalls1652"
+  
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "dev"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependency update"
+    assignees:
+      - "Smalls1652"

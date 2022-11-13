@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.PublicSite.Server", "src\SmallsOnline.Web.PublicSite\Server\SmallsOnline.Web.PublicSite.Server.csproj", "{C22C1F57-A44E-40BC-90D1-42331827861D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.PublicSite.Client", "src\SmallsOnline.Web.PublicSite\Client\SmallsOnline.Web.PublicSite.Client.csproj", "{80783887-8957-4A76-AA88-43FA230ED611}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.PublicSite.Shared", "src\SmallsOnline.Web.PublicSite\Shared\SmallsOnline.Web.PublicSite.Shared.csproj", "{889CD2EA-FF29-42C0-8714-49BFD6B8D033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.Lib", "src\SmallsOnline.Web.Lib\src\SmallsOnline.Web.Lib\SmallsOnline.Web.Lib.csproj", "{D2868233-99F7-4C1F-ABFD-7232D1056552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.Lib.Components", "src\SmallsOnline.Web.Lib\src\SmallsOnline.Web.Lib.Components\SmallsOnline.Web.Lib.Components.csproj", "{9670E123-B20F-4C80-9065-8737FD722840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.PublicSite.version", "src\SmallsOnline.Web.PublicSite\SmallsOnline.Web.PublicSite.version.proj", "{B5B3319B-E182-41FF-8DC7-C14463F620E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.PublicSite.sharedprops", "src\SmallsOnline.Web.PublicSite\SmallsOnline.Web.PublicSite.sharedprops.proj", "{FD1EBC04-A569-407A-894D-34693C12FF77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C22C1F57-A44E-40BC-90D1-42331827861D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22C1F57-A44E-40BC-90D1-42331827861D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22C1F57-A44E-40BC-90D1-42331827861D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22C1F57-A44E-40BC-90D1-42331827861D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80783887-8957-4A76-AA88-43FA230ED611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80783887-8957-4A76-AA88-43FA230ED611}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80783887-8957-4A76-AA88-43FA230ED611}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80783887-8957-4A76-AA88-43FA230ED611}.Release|Any CPU.Build.0 = Release|Any CPU
+		{889CD2EA-FF29-42C0-8714-49BFD6B8D033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{889CD2EA-FF29-42C0-8714-49BFD6B8D033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{889CD2EA-FF29-42C0-8714-49BFD6B8D033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{889CD2EA-FF29-42C0-8714-49BFD6B8D033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2868233-99F7-4C1F-ABFD-7232D1056552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2868233-99F7-4C1F-ABFD-7232D1056552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2868233-99F7-4C1F-ABFD-7232D1056552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2868233-99F7-4C1F-ABFD-7232D1056552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9670E123-B20F-4C80-9065-8737FD722840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9670E123-B20F-4C80-9065-8737FD722840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9670E123-B20F-4C80-9065-8737FD722840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9670E123-B20F-4C80-9065-8737FD722840}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

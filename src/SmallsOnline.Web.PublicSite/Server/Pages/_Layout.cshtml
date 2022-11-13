@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@namespace SmallsOnline.Web.PublicSite.Server.Pages
+@using SmallsOnline.Web.PublicSite.Client
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <component type="typeof(HeadOutlet)" render-mode="WebAssemblyPrerendered" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <!-- Theme color attribute. Primarily for theming supported web browsers. -->
+    <meta name="theme-color" content="#496e9c" />
+
+    <!-- Twitter Posting Format -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@@thetimmysmalls" />
+
+    <!-- OpenGraph Data -->
+    <meta property="og:image" content="https://smalls.online/smalls.png" />
+
+    <meta charset="utf-8" />
+    <base href="~/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="css/bootstrap-icons-custom.css" rel="stylesheet" />
+    <link href="css/bootstrap-custom.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/animation/animation.css" rel="stylesheet" />
+    <link href="SmallsOnline.Web.PublicSite.Client.styles.css" rel="stylesheet" />
+    <link href="highlight.js/styles/github.min.css" rel="stylesheet" />
+</head>
+<body>
+    @RenderBody()
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="highlight.js/highlight.min.js"></script>
+
+    <persist-component-state />
+</body>
+</html>

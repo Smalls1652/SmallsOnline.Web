@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
+name: Build
+on:
+  - push
+  - pull_request
+  - workflow_dispatch
+
+jobs:
+  build-lib:
+    name: Build web app
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup dotnet SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          global-json-file: global.json
+          source-url: https://nuget.pkg.github.com/Smalls1652/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+
+      - name: Install wasm-tools
+        run: dotnet workload install wasm-tools
+
+      - name: Build web app
+        shell: pwsh
+        run: dotnet restore ; dotnet build
+        working-directory: "src/SmallsOnline.Web.PublicSite/Server/"

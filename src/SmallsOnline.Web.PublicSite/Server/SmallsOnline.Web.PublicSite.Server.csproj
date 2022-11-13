@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>SmallsOnline.Web.PublicSite.Server</PackageId>
+    <Authors>Timothy Small</Authors>
+    <Company>Smalls.Online</Company>
+    <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web.PublicSite</RepositoryUrl>
+    <Description>
+      The codebase for the public website of https://smalls.online.
+    </Description>
+  </PropertyGroup>
+
+  <Import Project="../SmallsOnline.Web.PublicSite.version.proj" />
+  <Import Project="../SmallsOnline.Web.PublicSite.sharedprops.proj" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(CoreDependenciesVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\SmallsOnline.Web.PublicSite.Client.csproj" />
+    <ProjectReference Include="..\Shared\SmallsOnline.Web.PublicSite.Shared.csproj" />
+  </ItemGroup>
+
+
+</Project>

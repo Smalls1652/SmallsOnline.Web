@@ -1,0 +1,14 @@
+{
+  "name": "smallsonline.web.admin",
+  "version": "2022.07.00",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@highlightjs/cdn-assets": "^11.6.0",
+    "bootstrap": "^5.2.2",
+    "bootstrap-icons": "^1.9.1"
+  }
+}
