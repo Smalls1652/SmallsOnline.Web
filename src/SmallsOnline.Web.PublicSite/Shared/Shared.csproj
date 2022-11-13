@@ -4,10 +4,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SmallsOnline.Web.PublicSite.Shared</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>SmallsOnline.Web.PublicSite.Shared</PackageId>
+    <PackageId>Shared</PackageId>
     <Authors>Timothy Small</Authors>
     <Company>Smalls.Online</Company>
     <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web.PublicSite</RepositoryUrl>

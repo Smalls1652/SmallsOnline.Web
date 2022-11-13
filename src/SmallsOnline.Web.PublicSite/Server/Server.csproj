@@ -4,10 +4,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SmallsOnline.Web.PublicSite.Server</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>SmallsOnline.Web.PublicSite.Server</PackageId>
+    <PackageId>Server</PackageId>
     <Authors>Timothy Small</Authors>
     <Company>Smalls.Online</Company>
     <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web.PublicSite</RepositoryUrl>
@@ -24,8 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\SmallsOnline.Web.PublicSite.Client.csproj" />
-    <ProjectReference Include="..\Shared\SmallsOnline.Web.PublicSite.Shared.csproj" />
+    <ProjectReference Include="..\Client\Client.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
 
