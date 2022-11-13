@@ -2,7 +2,7 @@ version: 2
 updates:
   - package-ecosystem: "nuget"
     directory: "/src/SmallsOnline.Web.Lib/"
-    target-branch: "dev"
+    target-branch: "main"
     schedule:
       interval: "daily"
     labels:
@@ -12,7 +12,7 @@ updates:
 
   - package-ecosystem: "nuget"
     directory: "/src/SmallsOnline.Web.Lib.Components/"
-    target-branch: "dev"
+    target-branch: "main"
     schedule:
       interval: "daily"
     labels:
@@ -22,7 +22,7 @@ updates:
   
   - package-ecosystem: "github-actions"
     directory: "/"
-    target-branch: "dev"
+    target-branch: "main"
     schedule:
       interval: "daily"
     labels:
@@ -33,7 +33,7 @@ updates:
   # NuGet config for SmallsOnline.Web.PublicSite.Client
   - package-ecosystem: "nuget"
     directory: "/src/SmallsOnline.Web.PublicSite/Client"
-    target-branch: "dev"
+    target-branch: "main"
     schedule:
       interval: "daily"
     labels:
@@ -44,7 +44,7 @@ updates:
   # NPM config for SmallsOnline.Web.PublicSite.Client
   - package-ecosystem: "npm"
     directory: "/src/SmallsOnline.Web.PublicSite/Client"
-    target-branch: "dev"
+    target-branch: "main"
     schedule:
       interval: "daily"
     labels:
@@ -55,7 +55,7 @@ updates:
   # NuGet config for SmallsOnline.Web.PublicSite.Server
   - package-ecosystem: "nuget"
     directory: "/src/SmallsOnline.Web.PublicSite/Server"
-    target-branch: "dev"
+    target-branch: "main"
     schedule:
       interval: "daily"
     labels:
@@ -66,7 +66,7 @@ updates:
   # NuGet config for SmallsOnline.Web.PublicSite.Shared
   - package-ecosystem: "nuget"
     directory: "/src/SmallsOnline.Web.PublicSite/Shared"
-    target-branch: "dev"
+    target-branch: "main"
     schedule:
       interval: "daily"
     labels:
@@ -76,7 +76,7 @@ updates:
   
   - package-ecosystem: "github-actions"
     directory: "/"
-    target-branch: "dev"
+    target-branch: "main"
     schedule:
       interval: "daily"
     labels:
