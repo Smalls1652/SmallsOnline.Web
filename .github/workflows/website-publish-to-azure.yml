@@ -51,7 +51,7 @@ jobs:
           shell: pwsh
           run: |
             $currentDateTimeTicks = [System.DateTimeOffset]::Now.UtcTicks
-            "current_datetime_ticks=$($currentDateTimeTicks)" >> $GITHUB_ENV
+            "current_datetime_ticks=$($currentDateTimeTicks)" >> $env:GITHUB_ENV
 
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v2
@@ -68,20 +68,20 @@ jobs:
           shell: pwsh
           id: trim-ref-name-tag
           run: |
-            "trimmed_ref_name=$($env:latest_tag.Replace('website-', ''))" >> $GITHUB_ENV
+            "trimmed_ref_name=$(`"${{ env.latest_tag }}`".Replace('website-', ''))" >> $env:GITHUB_ENV
 
         - name: Trim ref name (Latest commit)
           if: ${{ inputs.on_latest_tag != true && github.event_name != 'schedule' }}
           shell: pwsh
           id: trim-ref-name-commit
           run: |
-            "trimmed_ref_name=$(`"${{ github.ref_name }}`"`.Replace('website-', ''))" >> $GITHUB_ENV
+            "trimmed_ref_name=$(`"${{ github.ref_name }}`".Replace('website-', ''))" >> $env:GITHUB_ENV
 
         - name: Build and push container image to registry
           uses: docker/build-push-action@v3
           with:
             push: true
-            tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.trimmed_ref_name }}_${{ env.get_current_ticks.outputs.ticks }}
+            tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.trimmed_ref_name }}_${{ env.current_datetime_ticks }}
             file: ./Dockerfile.publicsite
             context: ./
 
