@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\SmallsOnline.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.Services.CosmosDB", "src\SmallsOnline.Web.Services.CosmosDB\SmallsOnline.Web.Services.CosmosDB.csproj", "{459A91EE-9216-4135-966D-61A00A0F8ACA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.Api", "src\SmallsOnline.Web.Api\SmallsOnline.Web.Api.csproj", "{7C8D92DC-F5CB-468E-89F6-EB497C0C5ACD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{459A91EE-9216-4135-966D-61A00A0F8ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{459A91EE-9216-4135-966D-61A00A0F8ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{459A91EE-9216-4135-966D-61A00A0F8ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C8D92DC-F5CB-468E-89F6-EB497C0C5ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C8D92DC-F5CB-468E-89F6-EB497C0C5ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C8D92DC-F5CB-468E-89F6-EB497C0C5ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C8D92DC-F5CB-468E-89F6-EB497C0C5ACD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{86C991D5-D280-4F1C-ACD3-528D799719F8} = {2DF3EEDF-0FD5-45CB-8FF9-900915C29419}
