@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 as build-env
 
-RUN apt update; \
+RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -; \
+    apt update; \
     apt install -y nodejs python3
 
 RUN curl -qL https://www.npmjs.com/install.sh | sh
@@ -8,7 +9,11 @@ RUN dotnet dotnet workload install wasm-tools; \
     dotnet tool install --global PowerShell
 
 WORKDIR /app
-COPY . ./
+COPY ./SmallsOnline.Web.Lib.version.proj ./
+COPY ./cleanBuildOutput.ps1 ./
+COPY ./src/SmallsOnline.Web.Lib/ ./src/SmallsOnline.Web.Lib/
+COPY ./src/SmallsOnline.Web.Lib.Components/ ./src/SmallsOnline.Web.Lib.Components/
+COPY ./src/SmallsOnline.Web.PublicSite/ ./src/SmallsOnline.Web.PublicSite/
 
 RUN dotnet msbuild ./src/SmallsOnline.Web.PublicSite/Client/ -t:"InitProject_Combined"
 RUN dotnet restore ./src/SmallsOnline.Web.PublicSite/Server/
@@ -18,5 +23,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 
 COPY --from=build-env /app/out .
-ENTRYPOINT [ "dotnet", "SmallsOnline.Web.PublicSite.Server.dll" ]
+ENTRYPOINT [ "dotnet", "Server.dll" ]
 EXPOSE 80
