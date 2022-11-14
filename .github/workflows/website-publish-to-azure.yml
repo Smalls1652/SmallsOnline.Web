@@ -92,4 +92,4 @@ jobs:
             app-name: 'smallsonline-web'
             slot-name: 'production'
             publish-profile: ${{ secrets.WEBSITE_AZUREAPPSVC_PUBLISHPROFILE }}
-            images: 'smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.trimmed_ref_name }}_${{ steps.get_current_ticks.outputs.ticks }}'
+            images: 'smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.trimmed_ref_name }}_${{ env.current_datetime_ticks }}'
