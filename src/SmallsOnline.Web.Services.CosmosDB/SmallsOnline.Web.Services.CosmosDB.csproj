@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmallsOnline.Web.Lib\src\SmallsOnline.Web.Lib\SmallsOnline.Web.Lib.csproj">
+    <ProjectReference Include="..\SmallsOnline.Web.Lib\SmallsOnline.Web.Lib.csproj">
       <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
