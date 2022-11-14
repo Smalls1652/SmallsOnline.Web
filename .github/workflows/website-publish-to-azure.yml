@@ -68,7 +68,7 @@ jobs:
           with:
             push: true
             tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ github.ref_name }}_${{ steps.get_current_ticks.outputs.ticks }}
-            file: ./Dockerfile
+            file: ./Dockerfile.publicsite
             context: ./
 
         - name: Deploy to Azure Web App
