@@ -71,7 +71,19 @@ updates:
       - "dependency update"
     assignees:
       - "Smalls1652"
-  
+
+  # NuGet config for SmallsOnline.Web.Services.CosmosDB
+  - package-ecosystem: "nuget"
+    directory: "/src/SmallsOnline.Web.Services.CosmosDB"
+    target-branch: "main"
+    schedule:
+      interval: "daily"
+    labels:
+      - "middleware"
+      - "dependency update"
+    assignees:
+      - "Smalls1652"
+
   # Config for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
