@@ -1,9 +1,15 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow
 name: Website / Build
 on:
-  - push
-  - pull_request
-  - workflow_dispatch
+  push:
+    paths-ignore:
+      - 'src/SmallsOnline.Web.Services.CosmosDB/**'
+      - 'src/SmallsOnline.Web.Api/**'
+  pull_request:
+    paths-ignore:
+      - 'src/SmallsOnline.Web.Services.CosmosDB/**'
+      - 'src/SmallsOnline.Web.Api/**'
+  workflow_dispatch:
 
 jobs:
   build-lib:
