@@ -4,7 +4,7 @@ on:
   # Automatically trigger it when detected changes in repo
   # for tagged releases matching 'v*.*.*'
   push:
-    tags: [ 'v*.*.*', 'v*.*.*-*' ]
+    tags: [ 'website-v*.*.*', 'website-v*.*.*-*' ]
   # Push nightly builds
   # Should only pull from the latest tag
   schedule:
@@ -31,13 +31,13 @@ jobs:
         - name: Get latest tag
           if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
           id: get_latest_tag
-          run: echo "latest_tag=$(git describe --abbrev=0 --tags 'dev')" >> $GITHUB_OUTPUT
+          run: echo "latest_tag=$(git describe --abbrev=0 --tags 'main' --match 'website-*')" >> $GITHUB_ENV
 
         - name: 'Checkout: Latest tag'
           uses: actions/checkout@v3
           if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
           with:
-            ref: ${{ steps.get_latest_tag.outputs.latest_tag }}
+            ref: ${{ env.latest_tag }}
             submodules: true
 
         - name: 'Checkout: Latest commit'
@@ -51,7 +51,7 @@ jobs:
           shell: pwsh
           run: |
             $currentDateTimeTicks = [System.DateTimeOffset]::Now.UtcTicks
-            "::set-output name=ticks::$($currentDateTimeTicks)"
+            "current_datetime_ticks=$($currentDateTimeTicks)" >> $GITHUB_ENV
 
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v2
@@ -63,11 +63,25 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
 
+        - name: Trim ref name (Latest tag)
+          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
+          shell: pwsh
+          id: trim-ref-name-tag
+          run: |
+            "trimmed_ref_name=$($env:latest_tag.Replace('website-', ''))" >> $GITHUB_ENV
+
+        - name: Trim ref name (Latest commit)
+          if: ${{ inputs.on_latest_tag != true && github.event_name != 'schedule' }}
+          shell: pwsh
+          id: trim-ref-name-commit
+          run: |
+            "trimmed_ref_name=$(`"${{ github.ref_name }}`"`.Replace('website-', ''))" >> $GITHUB_ENV
+
         - name: Build and push container image to registry
           uses: docker/build-push-action@v3
           with:
             push: true
-            tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ github.ref_name }}_${{ steps.get_current_ticks.outputs.ticks }}
+            tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.trimmed_ref_name }}_${{ env.get_current_ticks.outputs.ticks }}
             file: ./Dockerfile.publicsite
             context: ./
 
@@ -77,5 +91,5 @@ jobs:
           with:
             app-name: 'smallsonline-web'
             slot-name: 'production'
-            publish-profile: ${{ secrets.AzureAppService_PublishProfile_b1b841cd4dcd4e7f88d9294392235e37 }}
-            images: 'smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ github.ref_name }}_${{ steps.get_current_ticks.outputs.ticks }}'
+            publish-profile: ${{ secrets.WEBSITE_AZUREAPPSVC_PUBLISHPROFILE }}
+            images: 'smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.trimmed_ref_name }}_${{ steps.get_current_ticks.outputs.ticks }}'
