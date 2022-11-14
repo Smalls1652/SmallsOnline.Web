@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 as build-env
+WORKDIR /app
+
+COPY ./SmallsOnline.Web.Lib.version.proj ./
+COPY ./src/SmallsOnline.Web.Services.CosmosDB/ ./src/SmallsOnline.Web.Services.CosmosDB/
+COPY ./src/SmallsOnline.Web.Lib/ ./src/SmallsOnline.Web.Lib/
+COPY ./src/SmallsOnline.Web.Api/ ./src/SmallsOnline.Web.Api/
+
+RUN dotnet restore ./src/SmallsOnline.Web.Api/
+RUN dotnet publish ./src/SmallsOnline.Web.Api/ --configuration "Release" --runtime "linux-x64" -p:"PublishReadyToRun=true" --output out
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /app
+
+COPY --from=build-env /app/out ./
+ENTRYPOINT ["dotnet", "SmallsOnline.Web.Api.dll"]
+EXPOSE 80
