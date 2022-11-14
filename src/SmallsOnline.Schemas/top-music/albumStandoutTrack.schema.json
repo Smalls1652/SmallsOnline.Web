@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "$id": "https://datacdn.smalls.online/schemas/top-music/albumStandoutTrack.schema.json",
+    "title": "AlbumStandoutTrack",
+    "description": "Standout track for an album.",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "trackName": {
+            "type": "string"
+        },
+        "trackUrl": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "trackName",
+        "trackUrl"
+    ]
+}

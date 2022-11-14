@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "$id": "https://datacdn.smalls.online/schemas/top-music/trackData.schema.json",
+    "title": "TrackData",
+    "description": "Data for a music track.",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "partitionKey": {
+            "type": "string"
+        },
+        "trackTitle": {
+            "type": "string"
+        },
+        "trackArtist": {
+            "type": "string"
+        },
+        "trackArtUrl": {
+            "type": "string"
+        },
+        "trackUrl": {
+            "type": "string"
+        },
+        "trackComments": {
+            "type": "string"
+        },
+        "trackReleaseDate": {
+            "type": "string"
+        },
+        "listYear": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "trackTitle",
+        "trackArtist",
+        "trackArtUrl",
+        "trackUrl",
+        "listYear"
+    ]
+}

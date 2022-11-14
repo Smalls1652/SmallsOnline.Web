@@ -1,0 +1,53 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "$id": "https://datacdn.smalls.online/schemas/top-music/albumData.schema.json",
+    "title": "AlbumData",
+    "description": "Data for a music album.",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "partitionKey": {
+            "type": "string"
+        },
+        "albumTitle": {
+            "type": "string"
+        },
+        "albumArtist": {
+            "type": "string"
+        },
+        "albumStandoutTracks": {
+            "type": "array",
+            "items": {
+                "$ref": "https://datacdn.smalls.online/schemas/top-music/albumStandoutTrack.schema.json"
+            }
+        },
+        "albumArtUrl": {
+            "type": "string"
+        },
+        "albumUrl": {
+            "type": "string"
+        },
+        "albumIsBest": {
+            "type": "boolean"
+        },
+        "albumComments": {
+            "type": "string"
+        },
+        "albumReleaseDate": {
+            "type": "string"
+        },
+        "listYear": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "albumTitle",
+        "albumArtist",
+        "albumArtUrl",
+        "albumUrl",
+        "listYear"
+    ]
+}
