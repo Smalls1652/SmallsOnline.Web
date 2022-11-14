@@ -9,5 +9,5 @@ global using Microsoft.Extensions.Logging;
 global using SmallsOnline.Web.Services.CosmosDB;
 global using SmallsOnline.Web.Lib.Models.Blog;
 global using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
-global using SmallsOnline.Web.Lib.Models.FavoritesOf.Tracks;
+global using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 global using SmallsOnline.Web.Lib.Models.Json;

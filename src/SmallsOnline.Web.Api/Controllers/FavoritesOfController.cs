@@ -58,12 +58,12 @@ public class FavoriteOfController : ControllerBase
     /// <param name="year">The year to pull data for.</param>
     /// <returns>A collection of favorite tracks for the year.</returns>
     [HttpGet("tracks/{year}", Name = "GetFavoriteTracks")]
-    public async Task<IEnumerable<TrackData>> GetFavoriteTracks(string year)
+    public async Task<IEnumerable<SongData>> GetFavoriteTracks(string year)
     {
         _logger.LogInformation("Getting favorite tracks for {year}.", year);
 
         // Get the favorite tracks for the supplied year from the database.
-        List<TrackData> retrievedTracks = await _cosmosDbService.GetFavoriteTracksOfYearAsync(
+        List<SongData> retrievedTracks = await _cosmosDbService.GetFavoriteSongsOfYearAsync(
             listYear: year
         );
 
@@ -72,7 +72,7 @@ public class FavoriteOfController : ControllerBase
         if (retrievedTracks.Count > 1)
         {
             retrievedTracks.Sort(
-                comparer: new TrackReleaseDateComparer()
+                comparer: new SongReleaseDateComparer()
             );
         }
 
