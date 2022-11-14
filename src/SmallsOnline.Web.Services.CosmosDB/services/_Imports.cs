@@ -1,0 +1,10 @@
+global using System;
+global using System.Collections.Generic;
+global using System.Net;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using System.Threading.Tasks;
+global using SmallsOnline.Web.Lib.Models.Blog;
+global using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
+global using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
+global using SmallsOnline.Web.Lib.Models.Json;
