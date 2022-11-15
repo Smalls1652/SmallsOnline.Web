@@ -32,7 +32,7 @@ public class BlogController : ControllerBase
         int totalPages = await _cosmosDbService.GetBlogTotalPagesAsync();
 
         // Get the blog entries for the supplied page number.
-        List<BlogEntry> retrievedBlogEntries = await _cosmosDbService.GetBlogEntriesAsync(pageNumber);
+        IEnumerable<BlogEntry> retrievedBlogEntries = await _cosmosDbService.GetBlogEntriesAsync(pageNumber);
 
         return new()
         {

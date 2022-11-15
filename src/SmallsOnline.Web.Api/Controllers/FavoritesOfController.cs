@@ -29,27 +29,29 @@ public class FavoriteOfController : ControllerBase
         _logger.LogInformation("Getting favorite albums for {year}.", year);
 
         // Get the favorite albums for the supplied year from the database.
-        List<AlbumData> retrievedAlbums = await _cosmosDbService.GetFavoriteAlbumsOfYearAsync(
+        IEnumerable<AlbumData> retrievedAlbums = await _cosmosDbService.GetFavoriteAlbumsOfYearAsync(
             listYear: year
         );
 
+        List<AlbumData> retrievedAlbumsList = retrievedAlbums.ToList();
+
         // Sort the albums, so that the "best" album is at the top.
-        retrievedAlbums.Sort(
+        retrievedAlbumsList.Sort(
             (AlbumData album1, AlbumData album2) => album2.IsBest.CompareTo(album1.IsBest)
         );
 
         // If there retrieved albums is greater than 1 and not 0,
         // then sort the albums by release date.
-        if (retrievedAlbums.Count > 1 && retrievedAlbums.Count != 0)
+        if (retrievedAlbumsList.Count > 1 && retrievedAlbumsList.Count != 0)
         {
-            retrievedAlbums.Sort(
+            retrievedAlbumsList.Sort(
                 index: 1,
-                count: retrievedAlbums.Count - 1,
+                count: retrievedAlbumsList.Count - 1,
                 comparer: new AlbumReleaseDateComparer()
             );
         }
 
-        return retrievedAlbums.ToArray();
+        return retrievedAlbumsList.ToArray();
     }
 
     /// <summary>
@@ -63,19 +65,20 @@ public class FavoriteOfController : ControllerBase
         _logger.LogInformation("Getting favorite tracks for {year}.", year);
 
         // Get the favorite tracks for the supplied year from the database.
-        List<SongData> retrievedTracks = await _cosmosDbService.GetFavoriteSongsOfYearAsync(
+        IEnumerable<SongData> retrievedTracks = await _cosmosDbService.GetFavoriteSongsOfYearAsync(
             listYear: year
         );
 
+        List<SongData> retrievedTracksList = retrievedTracks.ToList();
         // If the retrieved tracks are not empty,
         // sort them by release date.
-        if (retrievedTracks.Count > 1)
+        if (retrievedTracksList.Count > 1)
         {
-            retrievedTracks.Sort(
+            retrievedTracksList.Sort(
                 comparer: new SongReleaseDateComparer()
             );
         }
 
-        return retrievedTracks.ToArray();
+        return retrievedTracksList.ToArray();
     }
 }
