@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>SmallsOnline.Web.PublicSite.Server</RootNamespace>
+    <AssemblyName>SmallsOnline.Web.PublicSite.Server</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup>
