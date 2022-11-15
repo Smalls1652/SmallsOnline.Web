@@ -12,5 +12,5 @@ public class BlogEntries : IBlogEntries
     public int TotalPages { get; set; }
 
     [JsonPropertyName("blogEntries")]
-    public List<BlogEntry>? Entries { get; set; }
+    public IEnumerable<BlogEntry>? Entries { get; set; }
 }

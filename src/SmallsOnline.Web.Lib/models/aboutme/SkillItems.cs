@@ -9,8 +9,8 @@ public class SkillItems : DatabaseItem, ISkillItems
     {}
 
     [JsonPropertyName("itSkills")]
-    public List<SkillValue>? ITSkills { get; set; }
+    public IEnumerable<SkillValue>? ITSkills { get; set; }
 
     [JsonPropertyName("programmingLanguages")]
-    public List<SkillValue>? ProgrammingLanguages { get; set; }
+    public IEnumerable<SkillValue>? ProgrammingLanguages { get; set; }
 }

@@ -17,13 +17,13 @@ public class AlbumData : DatabaseItem, IAlbumData
     public string? Artist { get; set; }
 
     [JsonPropertyName("albumStandoutSongs")]
-    public List<AlbumStandoutSongItem>? StandoutSongs { get; set; }
+    public IEnumerable<AlbumStandoutSongItem>? StandoutSongs { get; set; }
 
     [JsonIgnore]
-    public List<AlbumStandoutSongItem>? OnlyStandoutSongs => GetOnlyStandoutSongs();
+    public IEnumerable<AlbumStandoutSongItem>? OnlyStandoutSongs => GetOnlyStandoutSongs();
 
     [JsonPropertyName("albumStandoutTracks")]
-    public List<AlbumStandoutSong> StandoutTracks { get; set; } = new();
+    public IEnumerable<AlbumStandoutSong>? StandoutTracks { get; set; }
 
     [JsonPropertyName("albumArtUrl")]
     public string? AlbumArtUrl { get; set; }
@@ -69,7 +69,7 @@ public class AlbumData : DatabaseItem, IAlbumData
     {
         return (StandoutSongs is not null) switch
         {
-            true => StandoutSongs.FindAll(item => item.IsStandout),
+            true => StandoutSongs.ToList().FindAll(item => item.IsStandout),
             _ => null
         };
     }

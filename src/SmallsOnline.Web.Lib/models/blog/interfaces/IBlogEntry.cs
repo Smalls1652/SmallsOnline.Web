@@ -7,7 +7,7 @@ public interface IBlogEntry
     string? Title { get; set; }
     DateTimeOffset? PostedDate { get; set; }
     string? Content { get; set; }
-    List<string>? Tags { get; set; }
+    IEnumerable<string>? Tags { get; set; }
     bool IsPublished { get; set; }
     string? ContentHtml { get; }
 }
