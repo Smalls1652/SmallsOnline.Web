@@ -12,7 +12,7 @@ public partial class CosmosDbService : ICosmosDbService
     /// <param name="pageNumber">The page number to get.</param>
     /// <returns>A collection of blog entries.</returns>
     /// <exception cref="Exception"></exception>
-    public async Task<List<BlogEntry>> GetBlogEntriesAsync(int pageNumber = 1)
+    public async Task<IEnumerable<BlogEntry>> GetBlogEntriesAsync(int pageNumber = 1)
     {
         // Initialize a list to hold the blog entries.
         List<BlogEntry> blogEntries = new();

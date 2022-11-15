@@ -10,7 +10,7 @@ public partial class CosmosDbService : ICosmosDbService
     /// </summary>
     /// <param name="listYear">The list year to get the data for.</param>
     /// <returns>A collection of favorite tracks for a year</returns>
-    public async Task<List<SongData>> GetFavoriteSongsOfYearAsync(string listYear)
+    public async Task<IEnumerable<SongData>> GetFavoriteSongsOfYearAsync(string listYear)
     {
         // Create a list to hold the track items.
         List<SongData> trackItems = new();
