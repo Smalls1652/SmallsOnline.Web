@@ -10,6 +10,10 @@
     .bi-github-color {
         color: #333333;
     }
+
+    .bi-mastodon-color {
+        color: #5d51ea;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +23,10 @@
 
     .bi-github-color {
         color: #bebfc1;
+    }
+
+    .bi-mastodon-color {
+        color: #6364ff;
     }
 }
 
