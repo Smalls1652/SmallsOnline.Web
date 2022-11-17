@@ -3,33 +3,33 @@ using Microsoft.AspNetCore.Components;
 namespace SmallsOnline.Web.PublicSite.Client.Shared.Sidebar;
 
 /// <summary>
-/// Component for handling the sidebar "profile pic" image.
+///     Component for handling the sidebar "profile pic" image.
 /// </summary>
 public partial class SidebarProfileImg : ComponentBase
 {
     /// <summary>
-    /// Logger for the component.
+    ///     Logger for the component.
     /// </summary>
     [Inject]
     protected ILogger<SidebarProfileImg> ComponentLogger { get; set; } = null!;
 
     /// <summary>
-    /// What the current animation class is set to.
+    ///     What the current animation class is set to.
     /// </summary>
     private string? _currentAnimationClass = "";
 
     /// <summary>
-    /// Has the image been set to "Dumb mode"
+    ///     Has the image been set to "Dumb mode"
     /// </summary>
     private bool _isSetToDumb = false;
 
     /// <summary>
-    /// The current count of clicks.
+    ///     The current count of clicks.
     /// </summary>
     private int _clickCounter = 0;
 
     /// <summary>
-    /// Handles clicks on the image.
+    ///     Handles clicks on the image.
     /// </summary>
     private async Task HandleImageClick()
     {
@@ -52,8 +52,8 @@ public partial class SidebarProfileImg : ComponentBase
     }
 
     /// <summary>
-    /// Changes the image from the normal image to the dumb image.
-    /// Also handles the spin in and spin out animations during the process.
+    ///     Changes the image from the normal image to the dumb image.
+    ///     Also handles the spin in and spin out animations during the process.
     /// </summary>
     private async Task InvokeImageChange()
     {

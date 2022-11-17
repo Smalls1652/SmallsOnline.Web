@@ -6,7 +6,7 @@ using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 namespace SmallsOnline.Web.PublicSite.Client;
 
 /// <summary>
-/// The page for displaying the favorite music of a given year.
+///     The page for displaying the favorite music of a given year.
 /// </summary>
 public partial class FavoritesOf : ComponentBase, IDisposable
 {
@@ -80,7 +80,7 @@ public partial class FavoritesOf : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Get the favorite music items from the API.
+    ///     Get the favorite music items from the API.
     /// </summary>
     private async Task GetFavorites()
     {

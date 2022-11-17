@@ -5,15 +5,20 @@ namespace SmallsOnline.Web.PublicSite.Client;
 
 public partial class BlogListPage : ComponentBase, IDisposable
 {
-    [Inject] protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
+    [Inject]
+    protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
 
-    [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; } = null!;
 
-    [Inject] protected PersistentComponentState AppState { get; set; } = null!;
+    [Inject]
+    protected PersistentComponentState AppState { get; set; } = null!;
 
-    [Inject] protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
+    [Inject]
+    protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
 
-    [Parameter] public int PageNumber { get; set; } = 1;
+    [Parameter]
+    public int PageNumber { get; set; } = 1;
 
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }

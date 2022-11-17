@@ -3,27 +3,27 @@
 
 <ul class="navbar-nav ms-auto px-2 pt-0">
     <li class="nav-item">
-        <a class="nav-link" id="navitem_home" href="/" @onclick="ToggleNavbarCollapsed">
+        <a class="nav-link" href="/" id="navitem_home" @onclick="ToggleNavbarCollapsed">
             <i class="bi bi-house-fill"></i> Home
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="navitem_about-me" href="/about-me" @onclick="ToggleNavbarCollapsed">
+        <a class="nav-link" href="/about-me" id="navitem_about-me" @onclick="ToggleNavbarCollapsed">
             <i class="bi bi-person-lines-fill"></i> About Me
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="navitem_blog" href="/blog/list/1" @onclick="ToggleNavbarCollapsed">
+        <a class="nav-link" href="/blog/list/1" id="navitem_blog" @onclick="ToggleNavbarCollapsed">
             <i class="bi bi-journal-text"></i> Blog
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="navitem_projects" href="/projects" @onclick="ToggleNavbarCollapsed">
+        <a class="nav-link" href="/projects" id="navitem_projects" @onclick="ToggleNavbarCollapsed">
             <i class="bi bi-collection-fill"></i> Projects
         </a>
     </li>
     <li class="nav-item dropdown">
-        <a role="button" class="dropdown-toggle nav-link" id="navitem_top-music" @onclick="ToggleTopMusicDropdown">
+        <a class="dropdown-toggle nav-link" id="navitem_top-music" @onclick="ToggleTopMusicDropdown" role="button">
             <i class="bi bi-headphones"></i> Top Music
         </a>
         <ul class="dropdown-menu dropdown-menu-dark bg-dark @(_topMusicDropDownOpened ? "show" : "")">

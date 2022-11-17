@@ -6,11 +6,14 @@ namespace SmallsOnline.Web.PublicSite.Client.Shared;
 
 public partial class MainLayout : LayoutComponentBase, IDisposable
 {
-    [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; } = null!;
 
-    [Inject] protected ILogger<MainLayout> Logger { get; set; } = null!;
+    [Inject]
+    protected ILogger<MainLayout> Logger { get; set; } = null!;
 
-    [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = null!;
 
     private IJSObjectReference? _mainLayoutJSModule;
     private ShouldFadeIn _shouldFadeSlideIn = new();
@@ -49,7 +52,7 @@ public partial class MainLayout : LayoutComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Handles scrolling to an element on location change events.
+    ///     Handles scrolling to an element on location change events.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="eventArgs"></param>
@@ -59,7 +62,7 @@ public partial class MainLayout : LayoutComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Initiate a scroll to an element.
+    ///     Initiate a scroll to an element.
     /// </summary>
     /// <param name="inputLocation">The current Uri.</param>
     private async Task ScrollToAnchorAsync(string? inputLocation)

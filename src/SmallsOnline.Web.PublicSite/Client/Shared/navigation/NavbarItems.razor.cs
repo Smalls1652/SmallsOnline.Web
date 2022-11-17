@@ -5,15 +5,18 @@ using SmallsOnline.Web.PublicSite.Client.Models;
 namespace SmallsOnline.Web.PublicSite.Client.Shared.Navigation;
 
 /// <summary>
-/// Items (links) to display in the navigation bar.
+///     Items (links) to display in the navigation bar.
 /// </summary>
 public partial class NavbarItems : ComponentBase, IDisposable
 {
-    [Inject] protected NavigationManager NavManager { get; set; } = null!;
+    [Inject]
+    protected NavigationManager NavManager { get; set; } = null!;
 
-    [Inject] protected ILogger<NavbarItems> Logger { get; set; } = null!;
+    [Inject]
+    protected ILogger<NavbarItems> Logger { get; set; } = null!;
 
-    [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = null!;
 
     [CascadingParameter(Name = "ToggleChildCollapse")]
     public Action? ToggleChildCollapse { get; set; }
@@ -55,7 +58,7 @@ public partial class NavbarItems : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Parse what the current page is from a URI.
+    ///     Parse what the current page is from a URI.
     /// </summary>
     /// <param name="uri">The input URI.</param>
     /// <returns>The current page.</returns>
@@ -90,7 +93,7 @@ public partial class NavbarItems : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Set the current active item in the navigation bar.
+    ///     Set the current active item in the navigation bar.
     /// </summary>
     /// <param name="currentPage">The current page that is active.</param>
     private async Task SetActiveNavItemAsync(string? currentPage)
@@ -119,7 +122,7 @@ public partial class NavbarItems : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Trigger the navigation bar to collapse.
+    ///     Trigger the navigation bar to collapse.
     /// </summary>
     private void ToggleNavbarCollapsed()
     {
@@ -131,7 +134,7 @@ public partial class NavbarItems : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Toggle the top music dropdown menu.
+    ///     Toggle the top music dropdown menu.
     /// </summary>
     private void ToggleTopMusicDropdown()
     {

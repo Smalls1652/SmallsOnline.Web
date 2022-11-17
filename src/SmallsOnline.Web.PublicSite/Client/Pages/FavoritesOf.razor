@@ -12,10 +12,10 @@
         Smalls.Online - Favorites of wait... This is null?
     </PageTitle>
     <HeadContent>
-        <meta name="title" property="og:title" content="Smalls.Online - Favorite Music of a null... Year?" />
-        <meta name="author" content="Tim Small">
-        <meta property="og:url" content="https://smalls.online/top-music/favorites-of" />
-        <meta property="og:description" content="Smalls's favorite music of... Oof. The year is null for some reason." />
+        <meta content="Smalls.Online - Favorite Music of a null... Year?" name="title" property="og:title" />
+        <meta content="Tim Small" name="author">
+        <meta content="https://smalls.online/top-music/favorites-of" property="og:url" />
+        <meta content="Smalls's favorite music of... Oof. The year is null for some reason." property="og:description" />
     </HeadContent>
 }
 else
@@ -24,10 +24,10 @@ else
         Smalls.Online - Favorites of @ListYear
     </PageTitle>
     <HeadContent>
-        <meta name="title" property="og:title" content="Smalls.Online - Favorite Music of @ListYear" />
-        <meta name="author" content="Tim Small">
-        <meta property="og:url" content="https://smalls.online/top-music/favorites-of/@ListYear" />
-        <meta property="og:description" content="Smalls's favorite music of @ListYear." />
+        <meta content="Smalls.Online - Favorite Music of @ListYear" name="title" property="og:title" />
+        <meta content="Tim Small" name="author">
+        <meta content="https://smalls.online/top-music/favorites-of/@ListYear" property="og:url" />
+        <meta content="Smalls's favorite music of @ListYear." property="og:description" />
     </HeadContent>
 }
 @if (_isFinishedLoading == false)
@@ -72,14 +72,14 @@ else
                                 </h2>
                                 <ul>
                                     <li>
-                                        <a onclick="document.getElementById('favorite-albums').scrollIntoView({behavior:'smooth'})"
-                                           class="fs-5 fw-bold text-decoration-none show-pointer-cursor">
+                                        <a class="fs-5 fw-bold text-decoration-none show-pointer-cursor"
+                                           onclick="document.getElementById('favorite-albums').scrollIntoView({behavior:'smooth'})">
                                             Favorite Albums
                                         </a>
                                     </li>
                                     <li>
-                                        <a onclick="document.getElementById('favorite-songs').scrollIntoView({behavior:'smooth'})"
-                                           class="fs-5 fw-bold text-decoration-none show-pointer-cursor">
+                                        <a class="fs-5 fw-bold text-decoration-none show-pointer-cursor"
+                                           onclick="document.getElementById('favorite-songs').scrollIntoView({behavior:'smooth'})">
                                             Favorite Songs
                                         </a>
                                     </li>

@@ -1,16 +1,18 @@
 namespace SmallsOnline.Web.PublicSite.Client.Shared.Navigation;
 
 /// <summary>
-/// The navigation bar for displaying branding and links to pages.
+///     The navigation bar for displaying branding and links to pages.
 /// </summary>
 public partial class SiteNavbar : ComponentBase
 {
-    [Inject] protected ILogger<SiteNavbar> Logger { get; set; } = null!;
+    [Inject]
+    protected ILogger<SiteNavbar> Logger { get; set; } = null!;
 
-    [CascadingParameter] public bool Collapsed { get; set; } = true;
+    [CascadingParameter]
+    public bool Collapsed { get; set; } = true;
 
     /// <summary>
-    /// Toggle the collapsed section of the navigation bar.
+    ///     Toggle the collapsed section of the navigation bar.
     /// </summary>
     private void ToggleCollapse()
     {
@@ -24,7 +26,7 @@ public partial class SiteNavbar : ComponentBase
     }
 
     /// <summary>
-    /// An action that child components invoke to cause the collapse section to change.
+    ///     An action that child components invoke to cause the collapse section to change.
     /// </summary>
     private void ChildComponentRequestedCollapse()
     {

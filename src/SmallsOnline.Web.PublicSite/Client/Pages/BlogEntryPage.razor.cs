@@ -6,17 +6,23 @@ namespace SmallsOnline.Web.PublicSite.Client;
 
 public partial class BlogEntryPage : ComponentBase, IDisposable
 {
-    [Inject] protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
+    [Inject]
+    protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
 
-    [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; } = null!;
 
-    [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = null!;
 
-    [Inject] protected PersistentComponentState AppState { get; set; } = null!;
+    [Inject]
+    protected PersistentComponentState AppState { get; set; } = null!;
 
-    [Inject] protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
+    [Inject]
+    protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
 
-    [Parameter] public string Id { get; set; } = null!;
+    [Parameter]
+    public string Id { get; set; } = null!;
 
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
