@@ -51,16 +51,6 @@ public class FavoriteOfController : ControllerBase
             listYear: year
         );
 
-        List<SongData> retrievedTracksList = retrievedTracks.ToList();
-        // If the retrieved tracks are not empty,
-        // sort them by release date.
-        if (retrievedTracksList.Count > 1)
-        {
-            retrievedTracksList.Sort(
-                comparer: new SongReleaseDateComparer()
-            );
-        }
-
-        return retrievedTracksList.ToArray();
+        return retrievedTracks;
     }
 }
