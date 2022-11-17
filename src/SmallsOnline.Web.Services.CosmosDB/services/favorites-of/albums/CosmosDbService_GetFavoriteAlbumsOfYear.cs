@@ -16,7 +16,7 @@ public partial class CosmosDbService : ICosmosDbService
         Container container = cosmosDbClient.GetContainer(_containerName, "favorites-of");
 
         // Define the query for getting the favorite albums for a year.
-        string coreQuery = $"WHERE c.partitionKey = \"favorites-of-albums\" AND c.listYear = \"{listYear}\"";
+        string coreQuery = $"WHERE c.partitionKey = \"favorites-of-albums\" AND c.listYear = \"{listYear}\" ORDER BY c.albumReleaseDate ASC";
         QueryDefinition resultsQuery = new($"SELECT * FROM c {coreQuery}");
 
         int resultsCount = await GetResultCount(

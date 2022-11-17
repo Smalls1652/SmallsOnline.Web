@@ -33,25 +33,7 @@ public class FavoriteOfController : ControllerBase
             listYear: year
         );
 
-        List<AlbumData> retrievedAlbumsList = retrievedAlbums.ToList();
-
-        // Sort the albums, so that the "best" album is at the top.
-        retrievedAlbumsList.Sort(
-            (AlbumData album1, AlbumData album2) => album2.IsBest.CompareTo(album1.IsBest)
-        );
-
-        // If there retrieved albums is greater than 1 and not 0,
-        // then sort the albums by release date.
-        if (retrievedAlbumsList.Count > 1 && retrievedAlbumsList.Count != 0)
-        {
-            retrievedAlbumsList.Sort(
-                index: 1,
-                count: retrievedAlbumsList.Count - 1,
-                comparer: new AlbumReleaseDateComparer()
-            );
-        }
-
-        return retrievedAlbumsList.ToArray();
+        return retrievedAlbums;
     }
 
     /// <summary>
