@@ -38,7 +38,7 @@ public class BlogController : ControllerBase
         {
             PageNumber = pageNumber,
             TotalPages = totalPages,
-            Entries = retrievedBlogEntries
+            Entries = retrievedBlogEntries as BlogEntry[]
         };
     }
 
