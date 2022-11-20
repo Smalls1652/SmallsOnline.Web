@@ -4,5 +4,5 @@ public interface IBlogEntries
 {
     int PageNumber { get; set; }
     int TotalPages { get; set; }
-    IEnumerable<BlogEntry>? Entries { get; set; }
+    BlogEntry[]? Entries { get; set; }
 }
