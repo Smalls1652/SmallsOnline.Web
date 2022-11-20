@@ -14,9 +14,6 @@ public partial class CosmosDbService : ICosmosDbService
     /// <exception cref="Exception"></exception>
     public async Task<IEnumerable<BlogEntry>> GetBlogEntriesAsync(int pageNumber = 1)
     {
-        // Initialize a list to hold the blog entries.
-        List<BlogEntry> blogEntries = new();
-
         // Set the offset count for the Cosmos DB SQL query.
         int offsetNum = pageNumber switch
         {
@@ -29,12 +26,22 @@ public partial class CosmosDbService : ICosmosDbService
         Container container = cosmosDbClient.GetContainer(_containerName, "blogs");
 
         // Build the Cosmos DB SQL query.
-        QueryDefinition query = new($"SELECT c.id, c.partitionKey, c.blogUrlId, c.blogTitle, c.blogPostedDate, c.blogContent, c.blogTags, c.blogIsPublished FROM c WHERE c.partitionKey = \"blog-entry\" AND c.blogIsPublished = true ORDER BY c.blogPostedDate DESC OFFSET {offsetNum} LIMIT 5");
+        string coreQuery = $"WHERE c.partitionKey = \"blog-entry\" AND c.blogIsPublished = true ORDER BY c.blogPostedDate DESC OFFSET {offsetNum} LIMIT 5";
+        QueryDefinition resultsQuery = new($"SELECT c.id, c.partitionKey, c.blogUrlId, c.blogTitle, c.blogPostedDate, c.blogContent, c.blogTags, c.blogIsPublished FROM c {coreQuery}");
+
+        int resultsCount = await GetResultCount(
+            container: container,
+            coreQuery: coreQuery
+        );
+
+        // Initialize a list to hold the blog entries.
+        BlogEntry[] blogEntries = new BlogEntry[resultsCount];
 
         // Execute the Cosmos DB SQL query and get the results.
-        FeedIterator<BlogEntry> containerQueryIterator = container.GetItemQueryIterator<BlogEntry>(query);
+        FeedIterator<BlogEntry> containerQueryIterator = container.GetItemQueryIterator<BlogEntry>(resultsQuery);
         while (containerQueryIterator.HasMoreResults)
         {
+            int i = 0;
             // Loop through each database entry retrieved.
             foreach (BlogEntry item in await containerQueryIterator.ReadNextAsync())
             {
@@ -42,7 +49,7 @@ public partial class CosmosDbService : ICosmosDbService
                 // then attempt to shorten the content.
                 if (item.Content is not null)
                 {
-                    // Intialize a StringBuilder to hold the shortened content.
+                    // Initialize a StringBuilder to hold the shortened content.
                     StringBuilder markdownShort = new();
 
                     // Use StringReader to read the content.
@@ -81,7 +88,8 @@ public partial class CosmosDbService : ICosmosDbService
                 }
 
                 // Add the blog entry to the list.
-                blogEntries.Add(item);
+                blogEntries[i] = item;
+                i++;
             }
         }
 
