@@ -58,6 +58,10 @@
         <None Include="package-lock.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>
+        <None Condition="'$(Configuration)'=='Release'" Include="wwwroot\appsettings.Development.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
         <None Remove="node_modules\**" />
     </ItemGroup>
 
