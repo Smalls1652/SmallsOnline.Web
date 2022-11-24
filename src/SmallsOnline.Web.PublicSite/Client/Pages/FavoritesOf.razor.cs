@@ -6,29 +6,35 @@ using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 namespace SmallsOnline.Web.PublicSite.Client;
 
 /// <summary>
-/// The page for displaying the favorite music of a given year.
+///     The page for displaying the favorite music of a given year.
 /// </summary>
 public partial class FavoritesOf : ComponentBase, IDisposable
 {
-    [Inject] protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
+    [Inject]
+    protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
 
-    [Inject] protected PersistentComponentState AppState { get; set; } = null!;
+    [Inject]
+    protected PersistentComponentState AppState { get; set; } = null!;
 
-    [Inject] protected ILogger<FavoritesOf> PageLogger { get; set; } = null!;
+    [Inject]
+    protected ILogger<FavoritesOf> PageLogger { get; set; } = null!;
 
-    [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; } = null!;
 
-    [Inject] protected FavoritesOfStateContainer StateContainer { get; set; } = null!;
+    [Inject]
+    protected FavoritesOfStateContainer StateContainer { get; set; } = null!;
 
-    [Parameter] public string? ListYear { get; set; }
+    [Parameter]
+    public string? ListYear { get; set; }
 
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
 
     private bool _isFinishedLoading = false;
     private PersistingComponentStateSubscription? _persistenceSubscription;
-    private List<AlbumData>? _albumItems;
-    private List<SongData>? _trackItems;
+    private AlbumData[]? _albumItems;
+    private SongData[]? _trackItems;
 
     private ElementReference _favoriteAlbumsRef;
     private ElementReference _favoriteSongsRef;
@@ -59,8 +65,6 @@ public partial class FavoritesOf : ComponentBase, IDisposable
 
             _isFinishedLoading = true;
         }
-
-        base.OnParametersSet();
     }
 
     private void OnLocationChange(object? sender, LocationChangedEventArgs eventArgs)
@@ -76,7 +80,7 @@ public partial class FavoritesOf : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Get the favorite music items from the API.
+    ///     Get the favorite music items from the API.
     /// </summary>
     private async Task GetFavorites()
     {
@@ -84,19 +88,19 @@ public partial class FavoritesOf : ComponentBase, IDisposable
 
         bool isAlbumItemsDataAvailable = AppState.TryTakeFromJson(
             key: $"albumItemsData-{ListYear}",
-            instance: out List<AlbumData>? restoredAlbumItemsData
+            instance: out AlbumData[]? restoredAlbumItemsData
         );
 
         bool isTrackItemsDataAvailable = AppState.TryTakeFromJson(
             key: $"trackItemsData-{ListYear}",
-            instance: out List<SongData>? restoredTrackItemsData
+            instance: out SongData[]? restoredTrackItemsData
         );
 
         using HttpClient httpClient = HttpClientFactory.CreateClient("PublicApi");
         if (!isAlbumItemsDataAvailable)
         {
             // Get the favorite albums from the API.
-            _albumItems = await httpClient.GetFromJsonAsync<List<AlbumData>?>($"api/favoriteAlbums/{ListYear}");
+            _albumItems = await httpClient.GetFromJsonAsync<AlbumData[]?>($"api/favoriteAlbums/{ListYear}");
         }
         else
         {
@@ -108,7 +112,7 @@ public partial class FavoritesOf : ComponentBase, IDisposable
         if (!isTrackItemsDataAvailable)
         {
             // Get the favorite tracks from the API.
-            _trackItems = await httpClient.GetFromJsonAsync<List<SongData>?>($"api/favoriteTracks/{ListYear}");
+            _trackItems = await httpClient.GetFromJsonAsync<SongData[]?>($"api/favoriteTracks/{ListYear}");
         }
         else
         {

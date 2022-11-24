@@ -79,7 +79,7 @@ public class BlogEntry : DatabaseItem, IBlogEntry
     public string? Content { get; set; }
 
     [JsonPropertyName("blogTags")]
-    public List<string>? Tags { get; set; }
+    public IEnumerable<string>? Tags { get; set; }
 
     [JsonPropertyName("blogIsPublished")]
     public bool IsPublished { get; set; }

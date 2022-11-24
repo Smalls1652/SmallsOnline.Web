@@ -33,13 +33,13 @@ else
             Smalls.Online - Blog - @_blogEntry.Title
         </PageTitle>
         <HeadContent>
-            <meta name="title" property="og:title" content="@_blogEntry.Title / Smalls.Online" />
-            <meta property="og:description" content="@_blogExcerpt" />
-            <meta name="author" content="Tim Small">
-            <meta name="publish_date" property="og:publish_date" content="@(_blogEntry.PostedDate!.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"))">
-            <meta property="article:published_time" content="@(_blogEntry.PostedDate!.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"))">
-            <meta name="displaydate" content="@(_blogEntry.PostedDate!.Value.ToString("MMMM dd, yyyy hh:mm tt"))">
-            <meta property="og:url" content="https://smalls.online/blog/entry/@_blogEntry!.UrlId" />
+            <meta content="@_blogEntry.Title / Smalls.Online" name="title" property="og:title" />
+            <meta content="@_blogExcerpt" property="og:description" />
+            <meta content="Tim Small" name="author">
+            <meta content="@(_blogEntry.PostedDate!.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"))" name="publish_date" property="og:publish_date">
+            <meta content="@(_blogEntry.PostedDate!.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"))" property="article:published_time">
+            <meta content="@(_blogEntry.PostedDate!.Value.ToString("MMMM dd, yyyy hh:mm tt"))" name="displaydate">
+            <meta content="https://smalls.online/blog/entry/@_blogEntry!.UrlId" property="og:url" />
         </HeadContent>
     }
     <div class="@(ShouldFadeSlideIn is not null && ShouldFadeSlideIn!.Enabled ? "fade-slide-in" : "")">
@@ -49,8 +49,8 @@ else
                     <div class="card-header">
                         <div class="mb-0">
                             <h1>
-                                <button type="button" class="btn btn-text-hider btn-glaucous"
-                                        @onclick="HandleGoBackButtonClick">
+                                <button class="btn btn-text-hider btn-glaucous" @onclick="HandleGoBackButtonClick"
+                                        type="button">
                                     <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
                                 </button> <i class="bi bi-journal-text"></i> Blog
                             </h1>

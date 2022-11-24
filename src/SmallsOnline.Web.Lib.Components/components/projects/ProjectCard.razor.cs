@@ -23,6 +23,7 @@ public partial class ProjectCard : ComponentBase
     [Parameter]
     public bool UrlIsRepo { get; set; }
 
+    // TODO: Find a way to make this ProjectType[] instead of List<ProjectType>
     [Parameter, EditorRequired]
     public List<ProjectType> ProjectTypes { get; set; } = null!;
 

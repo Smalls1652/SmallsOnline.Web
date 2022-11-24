@@ -18,6 +18,17 @@
     </Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Condition="'$(Configuration)'=='Release'" Include="wwwroot\appsettings.Development.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+    <None Condition="'$(Configuration)'=='Release'" Include="appsettings.Development.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
   <Import Project="../SmallsOnline.Web.PublicSite.version.proj" />
   <Import Project="../SmallsOnline.Web.PublicSite.sharedprops.proj" />
 

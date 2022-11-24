@@ -10,10 +10,10 @@
     Smalls.Online - Blog
 </PageTitle>
 <HeadContent>
-    <meta name="title" property="og:title" content="Smalls.Online Blog" />
-    <meta property="og:description" content="Blogs posted by Tim Small (Smalls)." />
-    <meta name="author" content="Tim Small">
-    <meta property="og:url" content="https://smalls.online/blog/list/@PageNumber" />
+    <meta content="Smalls.Online Blog" name="title" property="og:title" />
+    <meta content="Blogs posted by Tim Small (Smalls)." property="og:description" />
+    <meta content="Tim Small" name="author">
+    <meta content="https://smalls.online/blog/list/@PageNumber" property="og:url" />
 </HeadContent>
 @if (_isFinishedLoading == false)
 {
@@ -55,7 +55,7 @@ else
             </div>
         </div>
     </div>
-    @if (_blogEntries is not null && _blogEntries.Entries is not null && _blogEntries.Entries.Count != 0)
+    @if (_blogEntries is not null && _blogEntries.Entries is not null && _blogEntries.Entries.Count() != 0)
     {
         <div class="@(ShouldFadeSlideIn is not null && ShouldFadeSlideIn!.Enabled ? "fade-slide-in" : "")">
             @foreach (BlogEntry blogEntryItem in _blogEntries.Entries)
@@ -79,7 +79,7 @@ else
                                         @if (blogEntryItem.ContentHtml is not null)
                                         {
                                             @((MarkupString)blogEntryItem.ContentHtml)
-                                            <a class="btn btn-glaucous" role="button" href="/blog/entry/@blogEntryItem.UrlId">
+                                            <a class="btn btn-glaucous" href="/blog/entry/@blogEntryItem.UrlId" role="button">
                                                 Read more
                                             </a>
                                         }

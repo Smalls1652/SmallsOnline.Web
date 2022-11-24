@@ -4,16 +4,17 @@ using SmallsOnline.Web.Lib.Models.Projects;
 namespace SmallsOnline.Web.PublicSite.Client;
 
 /// <summary>
-/// The projects page.
+///     The projects page.
 /// </summary>
 public partial class Projects : ComponentBase
 {
-    [Inject] protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
+    [Inject]
+    protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
 
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
 
-    private List<ProjectItem>? _projectItems;
+    private ProjectItem[]? _projectItems;
     private List<ProjectType>? _projectTypes;
     private bool _isFinishedLoading = false;
 
@@ -24,7 +25,7 @@ public partial class Projects : ComponentBase
         // Get the projects data and the types of projects.
         using (HttpClient httpClient = HttpClientFactory.CreateClient("BaseAppClient"))
         {
-            _projectItems = await httpClient.GetFromJsonAsync<List<ProjectItem>?>("json/projects/projects-data.json");
+            _projectItems = await httpClient.GetFromJsonAsync<ProjectItem[]?>("json/projects/projects-data.json");
             _projectTypes = await httpClient.GetFromJsonAsync<List<ProjectType>?>("json/projects/project-types.json");
         }
 

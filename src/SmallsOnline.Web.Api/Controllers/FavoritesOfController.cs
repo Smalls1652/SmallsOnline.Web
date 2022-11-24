@@ -29,27 +29,11 @@ public class FavoriteOfController : ControllerBase
         _logger.LogInformation("Getting favorite albums for {year}.", year);
 
         // Get the favorite albums for the supplied year from the database.
-        List<AlbumData> retrievedAlbums = await _cosmosDbService.GetFavoriteAlbumsOfYearAsync(
+        IEnumerable<AlbumData> retrievedAlbums = await _cosmosDbService.GetFavoriteAlbumsOfYearAsync(
             listYear: year
         );
 
-        // Sort the albums, so that the "best" album is at the top.
-        retrievedAlbums.Sort(
-            (AlbumData album1, AlbumData album2) => album2.IsBest.CompareTo(album1.IsBest)
-        );
-
-        // If there retrieved albums is greater than 1 and not 0,
-        // then sort the albums by release date.
-        if (retrievedAlbums.Count > 1 && retrievedAlbums.Count != 0)
-        {
-            retrievedAlbums.Sort(
-                index: 1,
-                count: retrievedAlbums.Count - 1,
-                comparer: new AlbumReleaseDateComparer()
-            );
-        }
-
-        return retrievedAlbums.ToArray();
+        return retrievedAlbums;
     }
 
     /// <summary>
@@ -63,19 +47,10 @@ public class FavoriteOfController : ControllerBase
         _logger.LogInformation("Getting favorite tracks for {year}.", year);
 
         // Get the favorite tracks for the supplied year from the database.
-        List<SongData> retrievedTracks = await _cosmosDbService.GetFavoriteSongsOfYearAsync(
+        IEnumerable<SongData> retrievedTracks = await _cosmosDbService.GetFavoriteSongsOfYearAsync(
             listYear: year
         );
 
-        // If the retrieved tracks are not empty,
-        // sort them by release date.
-        if (retrievedTracks.Count > 1)
-        {
-            retrievedTracks.Sort(
-                comparer: new SongReleaseDateComparer()
-            );
-        }
-
-        return retrievedTracks.ToArray();
+        return retrievedTracks;
     }
 }
