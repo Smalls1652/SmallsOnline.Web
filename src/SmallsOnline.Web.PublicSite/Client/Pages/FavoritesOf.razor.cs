@@ -100,7 +100,7 @@ public partial class FavoritesOf : ComponentBase, IDisposable
         if (!isAlbumItemsDataAvailable)
         {
             // Get the favorite albums from the API.
-            _albumItems = await httpClient.GetFromJsonAsync<AlbumData[]?>($"api/favoriteAlbums/{ListYear}");
+            _albumItems = await httpClient.GetFromJsonAsync<AlbumData[]?>($"api/favorites-of/albums/{ListYear}");
         }
         else
         {
@@ -112,7 +112,7 @@ public partial class FavoritesOf : ComponentBase, IDisposable
         if (!isTrackItemsDataAvailable)
         {
             // Get the favorite tracks from the API.
-            _trackItems = await httpClient.GetFromJsonAsync<SongData[]?>($"api/favoriteTracks/{ListYear}");
+            _trackItems = await httpClient.GetFromJsonAsync<SongData[]?>($"api/favorites-of/songs/{ListYear}");
         }
         else
         {
