@@ -5,5 +5,5 @@ namespace SmallsOnline.Web.PublicSite.Client.Shared.Sidebar;
 /// </summary>
 public partial class SidebarItem : ComponentBase
 {
-    private readonly string _mastodonUrl = "https://mastodon.social/@smallsonline";
+    private readonly string _mastodonUrl = "https://ocw.social/@smalls";
 }
