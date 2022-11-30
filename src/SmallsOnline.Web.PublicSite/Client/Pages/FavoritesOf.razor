@@ -8,26 +8,54 @@
 
 @if (ListYear is null)
 {
-    <PageTitle>
-        Smalls.Online - Favorites of wait... This is null?
-    </PageTitle>
     <HeadContent>
+        <!-- Generic meta tags -->
+        <PageTitle>
+            Smalls.Online - Favorites of wait... This is null?
+        </PageTitle>
+        <meta content="Smalls's favorite music of... Oof. The year is null for some reason." name="description" />
+        <meta content="Tim Small" name="author" />
+
+        <!-- OpenGraph/Facebook meta tags -->
         <meta content="Smalls.Online - Favorite Music of a null... Year?" name="title" property="og:title" />
-        <meta content="Tim Small" name="author">
-        <meta content="https://smalls.online/top-music/favorites-of" property="og:url" />
         <meta content="Smalls's favorite music of... Oof. The year is null for some reason." property="og:description" />
+        <meta content="https://smalls.online/top-music/favorites-of" property="og:url" />
+        <meta content="website" property="og:type">
+        <meta content="https://smalls.online/smalls.png" property="og:image">
+
+        <!-- Twitter meta tags -->
+        <meta content="summary_large_image" name="twitter:card">
+        <meta content="Smalls.Online - Favorite Music of a null... Year?" name="twitter:title">
+        <meta content="Smalls's favorite music of... Oof. The year is null for some reason." name="twitter:description">
+        <meta content="smalls.online" property="twitter:domain">
+        <meta content="https://smalls.online/top-music/favorites-of" property="twitter:url">
+        <meta content="https://smalls.online/smalls.png" name="twitter:image">
     </HeadContent>
 }
 else
 {
-    <PageTitle>
-        Smalls.Online - Favorites of @ListYear
-    </PageTitle>
     <HeadContent>
+        <!-- Generic meta tags -->
+        <PageTitle>
+            Smalls.Online - Favorite Music of @ListYear
+        </PageTitle>
+        <meta content="Smalls's favorite music of @ListYear." name="description" />
+        <meta content="Tim Small" name="author" />
+
+        <!-- OpenGraph/Facebook meta tags -->
         <meta content="Smalls.Online - Favorite Music of @ListYear" name="title" property="og:title" />
-        <meta content="Tim Small" name="author">
-        <meta content="https://smalls.online/top-music/favorites-of/@ListYear" property="og:url" />
         <meta content="Smalls's favorite music of @ListYear." property="og:description" />
+        <meta content="https://smalls.online/top-music/favorites-of/@ListYear" property="og:url" />
+        <meta content="website" property="og:type">
+        <meta content="https://smalls.online/smalls.png" property="og:image">
+
+        <!-- Twitter meta tags -->
+        <meta content="summary_large_image" name="twitter:card">
+        <meta content="Smalls.Online - Favorite Music of @ListYear" name="twitter:title">
+        <meta content="Smalls's favorite music of @ListYear." name="twitter:description">
+        <meta content="smalls.online" property="twitter:domain">
+        <meta content="https://smalls.online/top-music/favorites-of/@ListYear" property="twitter:url">
+        <meta content="https://smalls.online/smalls.png" name="twitter:image">
     </HeadContent>
 }
 @if (_isFinishedLoading == false)
