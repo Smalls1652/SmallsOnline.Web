@@ -2,14 +2,28 @@
 
 @page "/about-me"
 
-<PageTitle>
-    Smalls.Online - About me
-</PageTitle>
 <HeadContent>
+    <!-- Generic meta tags -->
+    <PageTitle>
+        Smalls.Online - About Me
+    </PageTitle>
+    <meta content="The personal website of Timothy Small (Smalls)." name="description" />
+    <meta content="Tim Small" name="author" />
+
+    <!-- OpenGraph/Facebook meta tags -->
     <meta content="Smalls.Online - About Me" name="title" property="og:title" />
     <meta content="The personal website of Timothy Small (Smalls)." property="og:description" />
-    <meta content="Tim Small" name="author">
     <meta content="https://smalls.online/about-me" property="og:url" />
+    <meta content="website" property="og:type">
+    <meta content="https://smalls.online/smalls.png" property="og:image">
+
+    <!-- Twitter meta tags -->
+    <meta content="summary_large_image" name="twitter:card">
+    <meta content="Smalls.Online - About Me" name="twitter:title">
+    <meta content="The personal website of Timothy Small (Smalls)." name="twitter:description">
+    <meta content="smalls.online" property="twitter:domain">
+    <meta content="https://smalls.online/about-me" property="twitter:url">
+    <meta content="https://smalls.online/smalls.png" name="twitter:image">
 </HeadContent>
 <div class="@(ShouldFadeSlideIn is not null && ShouldFadeSlideIn!.Enabled ? "fade-slide-in" : "")">
     <div class="card shadow">
