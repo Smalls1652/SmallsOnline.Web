@@ -1,9 +1,5 @@
-using System;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Http;
-using SmallsOnline.Web.PublicSite.Client;
-using SmallsOnline.Web.PublicSite.Client.Models;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 //builder.RootComponents.Add<App>("#app");
