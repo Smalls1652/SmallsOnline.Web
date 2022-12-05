@@ -1,4 +1,4 @@
-name: Website / Publish to Azure AppService
+name: Website / Publish to Azure
 
 on:
   # Automatically trigger it when detected changes in repo
