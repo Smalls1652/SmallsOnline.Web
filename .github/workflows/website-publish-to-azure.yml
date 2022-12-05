@@ -4,7 +4,7 @@ on:
   # Automatically trigger it when detected changes in repo
   # for tagged releases matching 'v*.*.*'
   push:
-    tags: [ 'website-v*.*.*', 'website-v*.*.*-*' ]
+    tags: [ 'v*.*.*', 'v*.*.*-*' ]
   # Push nightly builds
   # Should only pull from the latest tag
   schedule:
@@ -31,7 +31,7 @@ jobs:
         - name: Get latest tag
           if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
           id: get_latest_tag
-          run: echo "latest_tag=$(git describe --abbrev=0 --tags 'main' --match 'website-*')" >> $GITHUB_ENV
+          run: echo "latest_tag=$(git describe --abbrev=0 --tags 'main')" >> $GITHUB_ENV
 
         - name: 'Checkout: Latest tag'
           uses: actions/checkout@v3
@@ -63,25 +63,25 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
 
-        - name: Trim ref name (Latest tag)
+        - name: Set ref name (Latest tag)
           if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
           shell: pwsh
-          id: trim-ref-name-tag
+          id: set-ref-name-tag
           run: |
-            "trimmed_ref_name=$(`"${{ env.latest_tag }}`".Replace('website-', ''))" >> $env:GITHUB_ENV
+            "ref_name=$(`"${{ env.latest_tag }}`")" >> $env:GITHUB_ENV
 
-        - name: Trim ref name (Latest commit)
+        - name: Set ref name (Latest commit)
           if: ${{ inputs.on_latest_tag != true && github.event_name != 'schedule' }}
           shell: pwsh
-          id: trim-ref-name-commit
+          id: set-ref-name-commit
           run: |
-            "trimmed_ref_name=$(`"${{ github.ref_name }}`".Replace('website-', ''))" >> $env:GITHUB_ENV
+            "ref_name=$(`"${{ github.ref_name }}`")" >> $env:GITHUB_ENV
 
         - name: Build and push container image to registry
           uses: docker/build-push-action@v3
           with:
             push: true
-            tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.trimmed_ref_name }}_${{ env.current_datetime_ticks }}
+            tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.ref_name }}_${{ env.current_datetime_ticks }}
             file: ./Dockerfile.publicsite
             context: ./
 
@@ -92,4 +92,4 @@ jobs:
             app-name: 'smallsonline-web'
             slot-name: 'production'
             publish-profile: ${{ secrets.WEBSITE_AZUREAPPSVC_PUBLISHPROFILE }}
-            images: 'smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.trimmed_ref_name }}_${{ env.current_datetime_ticks }}'
+            images: 'smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.ref_name }}_${{ env.current_datetime_ticks }}'
