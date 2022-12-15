@@ -21,6 +21,9 @@ updates:
     labels:
       - "library"
       - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
     assignees:
       - "Smalls1652"
 
@@ -33,6 +36,9 @@ updates:
     labels:
       - "website"
       - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
     assignees:
       - "Smalls1652"
 
@@ -57,6 +63,9 @@ updates:
     labels:
       - "website"
       - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
     assignees:
       - "Smalls1652"
 
@@ -69,6 +78,9 @@ updates:
     labels:
       - "website"
       - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
     assignees:
       - "Smalls1652"
 
@@ -93,6 +105,9 @@ updates:
     labels:
       - "api"
       - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
     assignees:
       - "Smalls1652"
 
@@ -104,5 +119,8 @@ updates:
       interval: "daily"
     labels:
       - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
     assignees:
       - "Smalls1652"
