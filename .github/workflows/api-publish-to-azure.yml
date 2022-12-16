@@ -98,4 +98,4 @@ jobs:
             inlineScript: |
               az config set extension.use_dynamic_install=yes_without_prompt
               az containerapp registry set -n smallsonline-api -g smalls-online-api --server smallsonlinecontainerreg.azurecr.io --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
-              az containerapp update --resource-group smalls-online-api --name smallsonline-api --image smallsonlinecontainerreg.azurecr.io/smallsonline-api:${{ env.ref_name }}_${{ env.current_datetime_ticks }} --revision-suffix "${{ env.current_datetime_ticks }}"
+              az containerapp update --resource-group smalls-online-api --name smallsonline-api --image smallsonlinecontainerreg.azurecr.io/smallsonline-api:${{ env.ref_name }}_${{ env.current_datetime_ticks }} --revision-suffix "api-${{ env.current_datetime_ticks }}"
