@@ -11,7 +11,7 @@
     <Authors>Timothy Small</Authors>
     <Company>Smalls.Online</Company>
     <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web.Api</RepositoryUrl>
-    <VersionPrefix>2022.05.08</VersionPrefix>
+    <VersionPrefix>2022.11.05</VersionPrefix>
     <Description>
       The public facing API for https://smalls.online.
     </Description>
