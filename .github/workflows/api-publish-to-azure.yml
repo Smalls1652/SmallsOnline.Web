@@ -31,7 +31,7 @@ jobs:
         - name: Get latest tag
           if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
           id: get_latest_tag
-          run: echo "latest_tag=$(git describe --abbrev=0 --tags 'main')" >> $GITHUB_ENV
+          run: echo "latest_tag=$(git describe --abbrev=0 --tags 'main')" >> $env:GITHUB_ENV
 
         - name: 'Checkout: Latest tag'
           uses: actions/checkout@v3
