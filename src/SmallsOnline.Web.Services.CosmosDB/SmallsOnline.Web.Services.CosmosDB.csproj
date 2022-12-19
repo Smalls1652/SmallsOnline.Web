@@ -11,11 +11,12 @@
     <Authors>Timothy Small</Authors>
     <Company>Smalls.Online</Company>
     <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web</RepositoryUrl>
-    <VersionPrefix>2022.05.08</VersionPrefix>
     <Description>
       The public facing API for https://smalls.online.
     </Description>
   </PropertyGroup>
+
+  <Import Project="../../../SmallsOnline.Web.version.proj" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.31.2" />

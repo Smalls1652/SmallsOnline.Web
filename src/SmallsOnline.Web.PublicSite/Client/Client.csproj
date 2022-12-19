@@ -18,7 +18,7 @@
         </Description>
     </PropertyGroup>
 
-    <Import Project="../SmallsOnline.Web.PublicSite.version.proj" />
+    <Import Project="../../../SmallsOnline.Web.version.proj" />
     <Import Project="../SmallsOnline.Web.PublicSite.sharedprops.proj" />
 
     <PropertyGroup>

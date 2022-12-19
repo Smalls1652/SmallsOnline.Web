@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <!-- Importing the version that's shared between SmallsOnline.Web.Lib and SmallsOnline.Web.Lib.Components. -->
-  <Import Project="../../SmallsOnline.Web.Lib.version.proj" />
+  <Import Project="../../SmallsOnline.Web.version.proj" />
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.30.4" />
