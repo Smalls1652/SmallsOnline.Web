@@ -1,0 +1,71 @@
+name: CosmosDB Service / Publish package
+
+on:
+  # Automatically trigger it when detected changes in repo
+  # for tagged releases matching 'v*.*.*'
+  push:
+    tags: [ 'v*.*.*', 'v*.*.*-*' ]
+  # Allow manual trigger 
+  workflow_dispatch: 
+    inputs:
+      on_latest_tag:
+        description: 'Run on the latest tag only.'
+        required: false
+        type: boolean
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      permissions:
+        packages: write
+
+      steps:
+        - name: 'Checkout: Fetch all history'
+          uses: actions/checkout@v3
+          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
+          with:
+            fetch-depth: 0
+
+        - name: Get latest tag
+          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
+          id: get_latest_tag
+          shell: pwsh
+          run: |
+            "latest_tag=$(git describe --abbrev=0 --tags 'main')" >> $env:GITHUB_ENV
+
+        - name: 'Checkout: Latest tag'
+          uses: actions/checkout@v3
+          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
+          with:
+            ref: ${{ env.latest_tag }}
+            submodules: true
+
+        - name: 'Checkout: Latest commit'
+          uses: actions/checkout@v3
+          if: ${{ inputs.on_latest_tag != true && github.event_name != 'schedule' }}
+          with:
+            submodules: true
+
+        - name: 'dotnet: Setup SDK'
+          uses: actions/setup-dotnet@v3
+          with:
+            global-json-file: global.json
+            source-url: https://nuget.pkg.github.com/Smalls1652/index.json
+            owner: Smalls1652
+          env:
+            NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+        - name: 'dotnet: Restore'
+          shell: pwsh
+          run: |
+            dotnet restore ./src/SmallsOnline.Web.Services.CosmosDB/
+
+        - name: 'dotnet: Create package'
+          shell: pwsh
+          run: |
+            dotnet pack ./src/SmallsOnline.Web.Services.CosmosDB/ --configuration Release --no-restore --output ./src/SmallsOnline.Web.Services.CosmosDB/
+
+        - name: 'dotnet: Publish package to registry'
+          shell: pwsh
+          run: |
+            dotnet nuget push "./src/SmallsOnline.Web.Services.CosmosDB/*.nupkg"
