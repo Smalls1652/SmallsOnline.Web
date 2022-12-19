@@ -9,7 +9,7 @@ RUN dotnet dotnet workload install wasm-tools; \
     dotnet tool install --global PowerShell
 
 WORKDIR /app
-COPY ./SmallsOnline.Web.Lib.version.proj ./
+COPY ./SmallsOnline.Web.version.proj ./
 COPY ./cleanBuildOutput.ps1 ./
 COPY ./src/SmallsOnline.Web.Lib/ ./src/SmallsOnline.Web.Lib/
 COPY ./src/SmallsOnline.Web.Lib.Components/ ./src/SmallsOnline.Web.Lib.Components/

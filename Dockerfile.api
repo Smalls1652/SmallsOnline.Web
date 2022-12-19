@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 as build-env
 WORKDIR /app
 
-COPY ./SmallsOnline.Web.Lib.version.proj ./
+COPY ./SmallsOnline.Web.version.proj ./
 COPY ./src/SmallsOnline.Web.Services.CosmosDB/ ./src/SmallsOnline.Web.Services.CosmosDB/
 COPY ./src/SmallsOnline.Web.Lib/ ./src/SmallsOnline.Web.Lib/
 COPY ./src/SmallsOnline.Web.Api/ ./src/SmallsOnline.Web.Api/
