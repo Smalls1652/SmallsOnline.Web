@@ -36,6 +36,9 @@ public partial class FavoritesOf : ComponentBase, IDisposable
     private AlbumData[]? _albumItems;
     private SongData[]? _trackItems;
 
+    private AlbumData? _bestAlbum;
+    private AlbumData[]? _favoriteAlbums;
+
     private ElementReference _favoriteAlbumsRef;
     private ElementReference _favoriteSongsRef;
 
@@ -109,6 +112,8 @@ public partial class FavoritesOf : ComponentBase, IDisposable
             _albumItems = restoredAlbumItemsData;
         }
 
+        FilterFavoriteAlbumsOfYear(_albumItems);
+
         if (!isTrackItemsDataAvailable)
         {
             // Get the favorite tracks from the API.
@@ -135,6 +140,22 @@ public partial class FavoritesOf : ComponentBase, IDisposable
         );
 
         return Task.CompletedTask;
+    }
+
+    private void FilterFavoriteAlbumsOfYear(AlbumData[]? inputAlbums)
+    {
+        if (inputAlbums is not null)
+        {
+            _bestAlbum = Array.Find(
+                array: inputAlbums,
+                match: (AlbumData item) => item.IsBest
+            );
+
+            _favoriteAlbums = Array.FindAll(
+                array: inputAlbums,
+                match: (AlbumData item) => !item.IsBest
+            );
+        }
     }
 
     private async Task ScrollToFavoriteAlbums()
