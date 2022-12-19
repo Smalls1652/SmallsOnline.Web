@@ -51,6 +51,7 @@ jobs:
           with:
             global-json-file: global.json
             source-url: https://nuget.pkg.github.com/Smalls1652/index.json
+            owner: Smalls1652
           env:
             NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -62,9 +63,9 @@ jobs:
         - name: 'dotnet: Create package'
           shell: pwsh
           run: |
-            dotnet pack ./src/SmallsOnline.Web.Lib/ --configuration Release --no-restore --output .
+            dotnet pack ./src/SmallsOnline.Web.Lib/ --configuration Release --no-restore --output ./src/SmallsOnline.Web.Lib/
 
         - name: 'dotnet: Publish package to registry'
           shell: pwsh
           run: |
-            dotnet nuget push "*.nupkg"
+            dotnet nuget push "./src/SmallsOnline.Web.Lib/*.nupkg"
