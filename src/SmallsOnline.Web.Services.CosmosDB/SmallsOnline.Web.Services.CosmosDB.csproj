@@ -16,7 +16,7 @@
     </Description>
   </PropertyGroup>
 
-  <Import Project="../../../SmallsOnline.Web.version.proj" />
+  <Import Project="../../SmallsOnline.Web.version.proj" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.31.2" />
