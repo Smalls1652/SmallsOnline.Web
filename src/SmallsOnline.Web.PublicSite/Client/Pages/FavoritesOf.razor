@@ -139,9 +139,18 @@ else
                                 </InfoCard>
                             </div>
                         </div>
+                        @if (_bestAlbum is not null)
+                        {
+
+                            <div class="row pb-3">
+                                <div class="col">
+                                    <AlbumItem ItemData="@_bestAlbum" />
+                                </div>
+                            </div>
+                        }
                         <div class="row">
                             <div class="col">
-                                @foreach (AlbumData albumItem in _albumItems!)
+                                @foreach (AlbumData albumItem in _favoriteAlbums!)
                                 {
                                     <div class="row pb-3" id="@albumItem.AlbumId">
                                         <div class="col">
