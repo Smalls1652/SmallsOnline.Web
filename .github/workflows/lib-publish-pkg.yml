@@ -13,12 +13,11 @@ on:
         required: false
         type: boolean
 
-permissions:
-  packages: write
-
 jobs:
     build:
       runs-on: ubuntu-latest
+      permissions:
+        packages: write
 
       steps:
         - name: 'Checkout: Fetch all history'
