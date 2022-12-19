@@ -7,6 +7,8 @@ $writeInfoSplat = @{
     "InformationAction" = "Continue";
 }
 
+$tempPath = [System.IO.Path]::GetTempPath()
+
 $bootstrapCssPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\bootstrap\dist\css\bootstrap.min.css"
 $bootstrapCssMapPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\bootstrap\dist\css\bootstrap.min.css.map"
 $bootstrapOutPath = Join-Path -Path $scriptRoot -ChildPath "wwwroot\css\bootstrap\"
@@ -16,7 +18,9 @@ $bootstrapIconsFontDirPath = Join-Path -Path $scriptRoot -ChildPath "node_module
 $bootstrapIconsOutPath = Join-Path -Path $scriptRoot -ChildPath "wwwroot\css\bootstrap-icons\"
 
 $highlightJsRepoTag = "11.7.0"
-$highlightJsPath = Join-Path -Path $tempClonePath -ChildPath "build\highlight.min.js"
+$highlightJsSrcPath = Join-Path -Path $tempPath -ChildPath "highlight.js\"
+$highlightJsBuildToolPath = Join-Path -Path $highlightJsSrcPath -ChildPath "tools\build.js"
+$highlightJsPath = Join-Path -Path $highlightJsSrcPath -ChildPath "build\highlight.min.js"
 $highlightJsCssPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\@highlightjs\cdn-assets\styles\github.min.css"
 $highlightJsOutPath = Join-Path -Path $scriptRoot -ChildPath "wwwroot\highlight.js\"
 $highlightJsCssOutPath = Join-Path -Path $scriptRoot -ChildPath "wwwroot\highlight.js\styles\"
@@ -50,10 +54,6 @@ Copy-Item -Path $bootstrapIconsCssPath -Destination $bootstrapIconsOutPath -Erro
 
 Write-Information @writeInfoSplat -MessageData "`t| fonts\-> $($bootstrapIconsOutPath)"
 Copy-Item -Path $bootstrapIconsFontDirPath -Destination $bootstrapIconsOutPath -Recurse -ErrorAction "Stop"
-
-$tempPath = [System.IO.Path]::GetTempPath()
-$highlightJsSrcPath = Join-Path -Path $tempPath -ChildPath "highlight.js\"
-$highlightJsBuildToolPath = Join-Path -Path $highlightJsSrcPath -ChildPath "tools\build.js"
 
 Write-Information @writeInfoSplat -MessageData "`t| Customizing highlight.js"
 Write-Information @writeInfoSplat -MessageData "`t`t| Pulling highlight.js repo"
