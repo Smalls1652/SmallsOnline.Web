@@ -4,6 +4,7 @@ global using System.Net;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using System.Threading.Tasks;
+global using SmallsOnline.Web.Lib.Models.ActivityPub;
 global using SmallsOnline.Web.Lib.Models.Blog;
 global using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 global using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
