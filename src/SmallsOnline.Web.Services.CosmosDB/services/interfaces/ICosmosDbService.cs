@@ -9,4 +9,6 @@ public interface ICosmosDbService
 
     Task<IEnumerable<AlbumData>> GetFavoriteAlbumsOfYearAsync(string listYear);
     Task<IEnumerable<SongData>> GetFavoriteSongsOfYearAsync(string listYear);
+
+    Task<WebFingerResponse> GetWebFingerResponseAsync();
 }
