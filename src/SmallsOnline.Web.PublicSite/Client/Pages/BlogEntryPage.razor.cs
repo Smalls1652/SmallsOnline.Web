@@ -4,6 +4,9 @@ using SmallsOnline.Web.Lib.Models.Blog;
 
 namespace SmallsOnline.Web.PublicSite.Client;
 
+/// <summary>
+/// Page for rendering a specific blog post.
+/// </summary>
 public partial class BlogEntryPage : ComponentBase, IDisposable
 {
     [Inject]
@@ -21,6 +24,9 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
     [Inject]
     protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
 
+    /// <summary>
+    /// The ID of the blog post.
+    /// </summary>
     [Parameter]
     public string Id { get; set; } = null!;
 
@@ -40,10 +46,14 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
 
     protected override async Task OnParametersSetAsync()
     {
+        // Register a persistence subscription to save the data when the page is pre-rendered.
         _persistenceSubscription = AppState.RegisterOnPersisting(PersistBlogEntryData);
 
+        // Get the blog entry data.
         await GetBlogEntry();
 
+        // If the blog entry and the content is not null,
+        // get an excerpt of the blog entry to use for the meta description.
         if (_blogEntry is not null && _blogEntry.Content is not null)
         {
             _blogExcerpt = _blogEntry.GetExcerpt(
@@ -51,6 +61,7 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
             );
         }
 
+        // Set that the page has finished loading.
         _isFinishedLoading = true;
 
         await base.OnParametersSetAsync();
@@ -58,11 +69,15 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        // Run highlight.js on code blocks for syntax highlighting.
         await JSRuntime.InvokeVoidAsync("hljs.highlightAll");
 
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    /// <summary>
+    /// Handle the logic when the back button is clicked.
+    /// </summary>
     private void HandleGoBackButtonClick()
     {
         NavigationManager.NavigateTo(
@@ -71,26 +86,36 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
         );
     }
 
+    /// <summary>
+    /// Get the blog entry data from the API.
+    /// </summary>
     private async Task GetBlogEntry()
     {
+        // Check to see if the blog entry has already been loaded during pre-rendering.
         bool isDataAvailable = AppState.TryTakeFromJson(
             key: "blogEntryData",
             instance: out BlogEntry? restoredData
         );
 
+        // Handle whether the data was available or not.
         if (!isDataAvailable)
         {
+            // If the data was not available, get it from the API.
             using HttpClient httpClient = HttpClientFactory.CreateClient("PublicApi");
             _blogEntry = await httpClient.GetFromJsonAsync<BlogEntry>($"api/blog/entry/{Id}");
         }
         else
         {
+            // Otherwise, use the data that was restored from pre-rendering.
             PageLogger.LogInformation(
                 "Blog entry data was persisted from a prerendered state. Restoring that data instead.");
             _blogEntry = restoredData;
         }
     }
 
+    /// <summary>
+    /// Persist the blog entry data during pre-rendering.
+    /// </summary>
     private Task PersistBlogEntryData()
     {
         AppState.PersistAsJson(

@@ -5,7 +5,7 @@ using SmallsOnline.Web.PublicSite.Client.Models;
 namespace SmallsOnline.Web.PublicSite.Client.Shared.Navigation;
 
 /// <summary>
-///     Items (links) to display in the navigation bar.
+// Items (links) to display in the navigation bar.
 /// </summary>
 public partial class NavbarItems : ComponentBase, IDisposable
 {

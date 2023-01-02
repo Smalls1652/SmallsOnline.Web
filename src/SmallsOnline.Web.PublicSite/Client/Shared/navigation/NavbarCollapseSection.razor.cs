@@ -1,7 +1,7 @@
 namespace SmallsOnline.Web.PublicSite.Client.Shared.Navigation;
 
 /// <summary>
-///     A collapse section in the navigation bar.
+/// A collapse section in the navigation bar.
 /// </summary>
 public partial class NavbarCollapseSection : ComponentBase
 {

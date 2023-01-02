@@ -4,6 +4,9 @@ using Microsoft.JSInterop;
 
 namespace SmallsOnline.Web.PublicSite.Client.Shared;
 
+/// <summary>
+/// The main layout for the site.
+/// </summary>
 public partial class MainLayout : LayoutComponentBase, IDisposable
 {
     [Inject]
@@ -52,7 +55,7 @@ public partial class MainLayout : LayoutComponentBase, IDisposable
     }
 
     /// <summary>
-    ///     Handles scrolling to an element on location change events.
+    /// Handles scrolling to an element on location change events.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="eventArgs"></param>
@@ -62,7 +65,7 @@ public partial class MainLayout : LayoutComponentBase, IDisposable
     }
 
     /// <summary>
-    ///     Initiate a scroll to an element.
+    /// Initiate a scroll to an element.
     /// </summary>
     /// <param name="inputLocation">The current Uri.</param>
     private async Task ScrollToAnchorAsync(string? inputLocation)

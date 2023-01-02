@@ -1,5 +1,8 @@
 namespace SmallsOnline.Web.PublicSite.Client.Shared.Cards;
 
+/// <summary>
+/// Component for rendering a card for displaying information.
+/// </summary>
 public partial class InfoCard : ComponentBase
 {
     [Parameter]

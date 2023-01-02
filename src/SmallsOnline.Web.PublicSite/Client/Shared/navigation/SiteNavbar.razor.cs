@@ -1,7 +1,7 @@
 namespace SmallsOnline.Web.PublicSite.Client.Shared.Navigation;
 
 /// <summary>
-///     The navigation bar for displaying branding and links to pages.
+/// The navigation bar for displaying branding and links to pages.
 /// </summary>
 public partial class SiteNavbar : ComponentBase
 {

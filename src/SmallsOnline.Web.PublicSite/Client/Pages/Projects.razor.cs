@@ -4,7 +4,7 @@ using SmallsOnline.Web.Lib.Models.Projects;
 namespace SmallsOnline.Web.PublicSite.Client;
 
 /// <summary>
-///     The projects page.
+/// The projects page.
 /// </summary>
 public partial class Projects : ComponentBase
 {

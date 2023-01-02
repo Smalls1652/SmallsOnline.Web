@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 namespace SmallsOnline.Web.PublicSite.Client.Shared.Sidebar;
 
 /// <summary>
-///     Component for handling the sidebar "profile pic" image.
+/// Component for handling the sidebar "profile pic" image.
 /// </summary>
 public partial class SidebarProfileImg : ComponentBase
 {
