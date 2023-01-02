@@ -5,15 +5,11 @@
 <div class="card shadow-sm">
     <div class="row">
         <div class="col-12 col-sm-4 col-md-6">
-            <img class="card-img" src="@ItemData.AlbumArtUrl" alt="Album art for @ItemData.Title">
+            <img alt="Album art for @ItemData.Title" class="card-img" src="@ItemData.AlbumArtUrl">
         </div>
         <div class="col">
             <div class="card-body">
                 <h4 class="card-title">
-                    @if (@ItemData.IsBest)
-                    {
-                        <i class="bi bi-star-fill bi-icon-color-gold"></i>
-                    }
                     @ItemData.Title
                 </h4>
                 <div class="card-subtitle text-muted">by @ItemData.Artist</div>
@@ -33,11 +29,23 @@
                             </span>
                         }
                     </div>
-                    <div class="pt-2">
-                        <a href="@ItemData.AlbumUrl" target="_blank" rel="noopener noreferrer" class="btn btn-glaucous"
-                           role="button">
-                            Open Album
-                        </a>
+                    @if (@ItemData.IsBest)
+                    {
+                        <div class="row pt-2 pb-1">
+                            <div class="col">
+                                <div class="badge text-bg-success fs-6">
+                                    <i class="bi bi-star-fill bi-icon-color-gold"></i> Favorite album @(!string.IsNullOrEmpty(ItemData.ListYear) ? $"of {ItemData.ListYear}" : "")
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row pt-2">
+                        <div class="col">
+                            <a class="btn btn-glaucous" href="@ItemData.AlbumUrl" rel="noopener noreferrer" role="button"
+                               target="_blank">
+                                Open Album
+                            </a>
+                        </div>
                     </div>
                     <hr>
                     <div>
@@ -51,8 +59,8 @@
                                         @foreach (AlbumStandoutSong standoutSongItem in ItemData.StandoutTracks)
                                         {
                                             <div class="list-group-item list-group-item-action">
-                                                <a href="@standoutSongItem.TrackUrl" target="_blank" rel="noopener noreferrer"
-                                                   class="text-decoration-none stretched-link">
+                                                <a class="text-decoration-none stretched-link" href="@standoutSongItem.TrackUrl" rel="noopener noreferrer"
+                                                   target="_blank">
                                                     @standoutSongItem.Name
                                                 </a>
                                             </div>
@@ -72,8 +80,8 @@
                                         @foreach (AlbumStandoutSongItem standoutSongItem in ItemData.OnlyStandoutSongs)
                                         {
                                             <div class="list-group-item list-group-item-action">
-                                                <a href="@standoutSongItem.SongUrl" target="_blank" rel="noopener noreferrer"
-                                                   class="text-decoration-none stretched-link">
+                                                <a class="text-decoration-none stretched-link" href="@standoutSongItem.SongUrl" rel="noopener noreferrer"
+                                                   target="_blank">
                                                     @standoutSongItem.GetSongNumberAsString() @standoutSongItem.Name
                                                 </a>
                                             </div>
