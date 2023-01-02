@@ -31,21 +31,21 @@
                     </div>
                     @if (@ItemData.IsBest)
                     {
-                        <div class="pt-2 pb-1">
-                            <div class="card shadow-sm bg-success text-white">
-                                <div class="card-body">
-                                    <p class="fw-bold mb-0">
-                                        <i class="bi bi-star-fill bi-icon-color-gold"></i> Favorite album @(!string.IsNullOrEmpty(ItemData.ListYear) ? $"of {ItemData.ListYear}" : "")
-                                    </p>
+                        <div class="row pt-2 pb-1">
+                            <div class="col">
+                                <div class="badge text-bg-success fs-6">
+                                    <i class="bi bi-star-fill bi-icon-color-gold"></i> Favorite album @(!string.IsNullOrEmpty(ItemData.ListYear) ? $"of {ItemData.ListYear}" : "")
                                 </div>
-                            </div
+                            </div>
                         </div>
                     }
-                    <div class="pt-2">
-                        <a class="btn btn-glaucous" href="@ItemData.AlbumUrl" rel="noopener noreferrer" role="button"
-                           target="_blank">
-                            Open Album
-                        </a>
+                    <div class="row pt-2">
+                        <div class="col">
+                            <a class="btn btn-glaucous" href="@ItemData.AlbumUrl" rel="noopener noreferrer" role="button"
+                               target="_blank">
+                                Open Album
+                            </a>
+                        </div>
                     </div>
                     <hr>
                     <div>
