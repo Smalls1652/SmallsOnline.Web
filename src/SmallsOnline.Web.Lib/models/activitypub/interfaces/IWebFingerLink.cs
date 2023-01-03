@@ -1,5 +1,8 @@
 namespace SmallsOnline.Web.Lib.Models.ActivityPub;
 
+/// <summary>
+/// Interface for ActivityPub WebFinger link.
+/// </summary>
 public interface IWebFingerLink
 {
     string Rel { get; set; }

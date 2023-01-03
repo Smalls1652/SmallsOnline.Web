@@ -1,5 +1,13 @@
 namespace SmallsOnline.Web.Lib.Models.Projects;
 
+/// <summary>
+/// Houses data for a project type.
+/// </summary>
+/// <param name="BaseType"></param>
+/// <param name="Type"></param>
+/// <param name="Icon"></param>
+/// <param name="IconIsBrand"></param>
+/// <param name="IconColor"></param>
 public record ProjectType(
     [property: JsonPropertyName("projectBaseType")]
     string BaseType,
