@@ -96,6 +96,7 @@ public class BlogEntry : DatabaseItem, IBlogEntry
                     pipeline: new MarkdownPipelineBuilder()
                         .UseGenericAttributes()
                         .UsePipeTables()
+                        .UseFootnotes()
                         .UseBootstrap()
                         .UseAutoLinks()
                         .Build()
