@@ -1,6 +1,9 @@
 using System.Net.Http.Json;
 using Microsoft.JSInterop;
 using SmallsOnline.Web.Lib.Models.Blog;
+using Microsoft.AspNetCore.Components.Routing;
+using System.Text.RegularExpressions;
+
 
 namespace SmallsOnline.Web.PublicSite.Client;
 
@@ -13,13 +16,13 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
     protected NavigationManager NavigationManager { get; set; } = null!;
 
     [Inject]
-    protected IJSRuntime JSRuntime { get; set; } = null!;
-
-    [Inject]
     protected PersistentComponentState AppState { get; set; } = null!;
 
     [Inject]
     protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
+
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = null!;
 
     [Parameter]
     public string Id { get; set; } = null!;
@@ -27,10 +30,14 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
 
+    private IJSObjectReference? _blogEntryPageJSModule;
     private bool _isFinishedLoading = false;
     private PersistingComponentStateSubscription? _persistenceSubscription;
     private BlogEntry? _blogEntry;
     private string? _blogExcerpt;
+    private IDisposable? _navigationChangingRegistration;
+
+    private readonly Regex _anchorTagRegex = new("^(?>https|http):\\/\\/.+?\\/.*(?'anchorTag'#(?'anchorTagName'.+))$");
 
     public void Dispose()
     {
@@ -58,6 +65,15 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (firstRender)
+        {
+            _blogEntryPageJSModule =
+                await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Pages/BlogEntryPage.razor.js");
+
+            _navigationChangingRegistration = NavigationManager.RegisterLocationChangingHandler(InterceptAnchorTagNavigation);
+            await ScrollToAnchorAsync(NavigationManager.Uri);
+        }
+
         await JSRuntime.InvokeVoidAsync("hljs.highlightAll");
 
         await base.OnAfterRenderAsync(firstRender);
@@ -101,6 +117,61 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
         return Task.CompletedTask;
     }
 
+    private async ValueTask InterceptAnchorTagNavigation(LocationChangingContext context)
+    {
+        if (context.TargetLocation.StartsWith(NavigationManager.Uri))
+        {
+            Regex footnoteAnchorTagRegex = new("^(?:https|http):\\/\\/.+?\\/.*(?'footnoteAnchorTag'#(?'footnoteAnchorTagName'(?:fn|fnref):.+))$");
+
+            PageLogger.LogInformation("Target location: {Location}", context.TargetLocation);
+
+            Match footnoteAnchorTagMatch = footnoteAnchorTagRegex.Match(context.TargetLocation);
+
+            if (footnoteAnchorTagMatch.Success && footnoteAnchorTagMatch.Groups["footnoteAnchorTagName"].Value is not null)
+            {
+                PageLogger.LogInformation("Intercepting footnote anchor tag navigation: '{FootnoteAnchorTag}'",
+                    footnoteAnchorTagMatch.Groups["footnoteAnchorTagName"].Value);
+
+                await ScrollToAnchorAsync(footnoteAnchorTagMatch.Groups["footnoteAnchorTagName"].Value);
+
+                context.PreventNavigation();
+            }
+        }
+    }
+
+    private async Task ScrollToAnchorAsync(string? anchorTag)
+    {
+        /*
+            Loop for a max of 4 times while attempting to scroll.
+            We don't want to have this go on infinitely, so we're going to cap it at 4 times.
+            The reason for doing this is because of a limitation of where we're handling the logic.
+            If the logic was handled on the pages, we would have to define the logic on each page.
+            Doing it on the main layout that handles the routing between pages, allows us to define it
+            once; however, the main layout has no idea if the page has finished loading. This causes the
+            initial attempt to potentially fail because the specified element doesn't exist at that point in time.
+        */
+
+        bool scrollWasSuccessful = false;
+        for (int i = 1; i < 5 && scrollWasSuccessful == false; i++)
+        {
+            try
+            {
+                // Attempt to scroll to the element specified in the anchor using JavaScript interop.
+                await _blogEntryPageJSModule!.InvokeVoidAsync("scrollToFootnoteAnchorId",
+                    anchorTag);
+
+                // If no exception was thrown, then set 'scrollWasSuccessful' to true to end the loop early.
+                scrollWasSuccessful = true;
+            }
+            catch (JSException)
+            {
+                // If an exception was thrown while executing the JS, then attemp to log a warning message
+                // and wait 1000ms (1s) to try again.
+                await Task.Delay(1000);
+            }
+        }
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)
@@ -108,6 +179,11 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
             if (_persistenceSubscription.HasValue)
             {
                 _persistenceSubscription.Value.Dispose();
+            }
+
+            if (_navigationChangingRegistration is not null)
+            {
+                _navigationChangingRegistration.Dispose();
             }
 
             _blogEntry = null;
