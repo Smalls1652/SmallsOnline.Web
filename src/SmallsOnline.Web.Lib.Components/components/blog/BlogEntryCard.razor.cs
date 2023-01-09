@@ -85,7 +85,7 @@ public partial class BlogEntryCard : ComponentBase
                     modifiedEntryContent = modifiedEntryContent.Replace(
                         oldValue: footnoteLinkMatch.Value,
                         newValue:
-                        $"<a id=\"{footnoteLinkMatch.Groups["id"].Value}\" href=\"{InputNavigationManager.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
+                        $"<a id=\"{footnoteLinkMatch.Groups["id"].Value}\" href=\"{InputNavigationManager!.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
                     );
                 }
                 else
@@ -96,7 +96,7 @@ public partial class BlogEntryCard : ComponentBase
                     modifiedEntryContent = modifiedEntryContent.Replace(
                         oldValue: footnoteLinkMatch.Value,
                         newValue:
-                        $"<a href=\"{InputNavigationManager.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
+                        $"<a href=\"{InputNavigationManager!.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
                     );
                 }
 
