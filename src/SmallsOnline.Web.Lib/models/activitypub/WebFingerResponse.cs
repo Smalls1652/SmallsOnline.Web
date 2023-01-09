@@ -1,5 +1,8 @@
 namespace SmallsOnline.Web.Lib.Models.ActivityPub;
 
+/// <summary>
+/// Contains the data for a WebFinger response.
+/// </summary>
 public class WebFingerResponse : IWebFingerResponse
 {
     [JsonPropertyName("subject")]

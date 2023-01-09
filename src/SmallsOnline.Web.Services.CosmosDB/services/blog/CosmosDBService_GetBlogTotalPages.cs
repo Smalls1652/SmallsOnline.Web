@@ -32,7 +32,7 @@ public partial class CosmosDbService : ICosmosDbService
             }
         }
 
-        // Reurn the total number of pages by,
+        // Return the total number of pages by,
         // dividing the total number of blog entries by the number of items per page
         // and rounding up to the nearest whole number.
         return (int)Math.Round((decimal)totalPagesCount[0] / 5, 0, MidpointRounding.ToPositiveInfinity);

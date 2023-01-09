@@ -1,5 +1,8 @@
 namespace SmallsOnline.Web.Lib.Models.ActivityPub;
 
+/// <summary>
+/// Contains data for a WebFinger link.
+/// </summary>
 public class WebFingerLink : IWebFingerLink
 {
     [JsonPropertyName("rel")]

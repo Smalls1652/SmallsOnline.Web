@@ -17,6 +17,7 @@ public partial class CosmosDbService : ICosmosDbService
 
         BlogEntry? retrievedItem = null;
 
+        // Create the query to use to get the blog entry based off the URL ID.
         QueryDefinition query = new($"SELECT * FROM c WHERE c.partitionKey = \"blog-entry\" AND c.blogUrlId =\"{id}\"");
 
         // Execute the Cosmos DB SQL query and get the results.
@@ -30,6 +31,8 @@ public partial class CosmosDbService : ICosmosDbService
             }
         }
 
+        // If the blog entry wasn't found,
+        // then attempt to get the blog entry with it's unique ID.
         if (retrievedItem is null)
         {
             // Get the blog entry for the supplied ID.

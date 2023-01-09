@@ -3,15 +3,23 @@ using Microsoft.Azure.Cosmos;
 
 namespace SmallsOnline.Web.Services.CosmosDB.Helpers;
 
+/// <summary>
+/// Custom serializer for the CosmosDB client.
+/// </summary>
 public class CosmosDbSerializer : CosmosSerializer
 {
     private readonly JsonObjectSerializer systemTextJsonSerializer;
 
+    /// <summary>
+    /// Instantiate with custom JSON serializer options.
+    /// </summary>
+    /// <param name="jsonSerializerOptions">Options for JSON serialization.</param>
     public CosmosDbSerializer(JsonSerializerOptions jsonSerializerOptions)
     {
         systemTextJsonSerializer = new JsonObjectSerializer(jsonSerializerOptions);
     }
 
+    /// <inheritdoc />
     public override T FromStream<T>(Stream stream)
     {
         using (stream)
@@ -32,6 +40,7 @@ public class CosmosDbSerializer : CosmosSerializer
         }
     }
 
+    /// <inheritdoc />
     public override Stream ToStream<T>(T input)
     {
         MemoryStream streamPayload = new();

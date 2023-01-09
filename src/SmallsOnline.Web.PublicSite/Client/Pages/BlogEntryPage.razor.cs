@@ -78,10 +78,15 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
     {
         if (firstRender)
         {
+            // Import the JavaScript module for 'BlogEntryPage'.
             _blogEntryPageJSModule =
                 await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Pages/BlogEntryPage.razor.js");
 
+            // Register the location changing handler for intercepting navigation changes to
+            // footnote anchor tags on the current page.
             _navigationChangingRegistration = NavigationManager.RegisterLocationChangingHandler(InterceptAnchorTagNavigation);
+
+            // Scroll to the anchor tag currently in the URL.
             await ScrollToAnchorAsync(NavigationManager.Uri);
         }
 
@@ -142,16 +147,26 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Handles logic for whenever a location change is made to a footnote tag on the current page.
+    /// </summary>
+    /// <param name="context">Context for a change to the browser's current location.</param>
     private async ValueTask InterceptAnchorTagNavigation(LocationChangingContext context)
     {
+        // If the target location starts with the current page URL,
+        // then stop navigation and attempt to scroll to the footnote anchor tag.
         if (context.TargetLocation.StartsWith(NavigationManager.Uri))
         {
+            // Regex pattern for getting the footnote tag in the URL.
             Regex footnoteAnchorTagRegex = new("^(?:https|http):\\/\\/.+?\\/.*(?'footnoteAnchorTag'#(?'footnoteAnchorTagName'(?:fn|fnref):.+))$");
 
             PageLogger.LogInformation("Target location: {Location}", context.TargetLocation);
 
+            // Get the footnote tag.
             Match footnoteAnchorTagMatch = footnoteAnchorTagRegex.Match(context.TargetLocation);
 
+            // If the match was a success and the value for 'footnoteAnchorTagName' is not null,
+            // then scroll to the element and prevent navigation.
             if (footnoteAnchorTagMatch.Success && footnoteAnchorTagMatch.Groups["footnoteAnchorTagName"].Value is not null)
             {
                 PageLogger.LogInformation("Intercepting footnote anchor tag navigation: '{FootnoteAnchorTag}'",
@@ -164,6 +179,10 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
         }
     }
 
+    /// <summary>
+    /// Attempt to scroll to an anchor tag on the page.
+    /// </summary>
+    /// <param name="anchorTag">The anchor tag to scroll to.</param>
     private async Task ScrollToAnchorAsync(string? anchorTag)
     {
         /*
@@ -203,11 +222,13 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
         {
             if (_persistenceSubscription.HasValue)
             {
+                // Dispose the persistence subscription, if it exists.
                 _persistenceSubscription.Value.Dispose();
             }
 
             if (_navigationChangingRegistration is not null)
             {
+                // Dispose the navigation changing registration, if it exists.
                 _navigationChangingRegistration.Dispose();
             }
 

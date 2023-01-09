@@ -19,11 +19,13 @@ public partial class CosmosDbService : ICosmosDbService
         string coreQuery = $"WHERE c.partitionKey = \"favorites-of-tracks\" AND c.listYear = \"{listYear}\" ORDER BY c.trackReleaseDate ASC";
         QueryDefinition resultsQuery = new($"SELECT * FROM c {coreQuery}");
 
+        // Get the count of the results that will be returned from the query.
         int resultsCount = await GetResultCount(
             container: container,
             coreQuery: coreQuery
         );
 
+        // Instantiate an array of songs based on the count of results that will return.
         SongData[] trackItems = new SongData[resultsCount];
 
         // Execute the query.
@@ -33,7 +35,7 @@ public partial class CosmosDbService : ICosmosDbService
             int i = 0;
             foreach (SongData item in await containerQueryIterator.ReadNextAsync())
             {
-                // Add the track to the list.
+                // Add the song to the list.
                 trackItems[i] = item;
                 i++;
             }

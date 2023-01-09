@@ -3,11 +3,11 @@ namespace SmallsOnline.Web.Lib.Models.Projects;
 /// <summary>
 /// Houses data for a project type.
 /// </summary>
-/// <param name="BaseType"></param>
-/// <param name="Type"></param>
-/// <param name="Icon"></param>
-/// <param name="IconIsBrand"></param>
-/// <param name="IconColor"></param>
+/// <param name="BaseType">The base type of the project.</param>
+/// <param name="Type">The type of the project.</param>
+/// <param name="Icon">The icon to use for the project.</param>
+/// <param name="IconIsBrand">Whether the icon is a brand or not.</param>
+/// <param name="IconColor">The color the icon should be.</param>
 public record ProjectType(
     [property: JsonPropertyName("projectBaseType")]
     string BaseType,
