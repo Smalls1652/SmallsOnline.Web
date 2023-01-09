@@ -23,14 +23,14 @@ public partial class BlogEntryCard : ComponentBase
     /// Optional <see cref="NavigationManager"/> to use for modifying links in the blog entry.
     /// </summary>
     [Parameter]
-    public NavigationManager? NavigationManager { get; set; }
+    public NavigationManager? InputNavigationManager { get; set; }
 
     private string? _contentHtml;
 
     protected override void OnParametersSet()
     {
         // Handle whether or not the NavigationManager parameter was set.
-        if (NavigationManager is not null)
+        if (InputNavigationManager is not null)
         {
             // If NavigationManager was set,
             // then we need to modify the footnote links in the blog entry and set '_contentHtml' to the modified value.
@@ -85,7 +85,7 @@ public partial class BlogEntryCard : ComponentBase
                     modifiedEntryContent = modifiedEntryContent.Replace(
                         oldValue: footnoteLinkMatch.Value,
                         newValue:
-                        $"<a id=\"{footnoteLinkMatch.Groups["id"].Value}\" href=\"{NavigationManager.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
+                        $"<a id=\"{footnoteLinkMatch.Groups["id"].Value}\" href=\"{InputNavigationManager.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
                     );
                 }
                 else
@@ -96,7 +96,7 @@ public partial class BlogEntryCard : ComponentBase
                     modifiedEntryContent = modifiedEntryContent.Replace(
                         oldValue: footnoteLinkMatch.Value,
                         newValue:
-                        $"<a href=\"{NavigationManager.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
+                        $"<a href=\"{InputNavigationManager.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
                     );
                 }
 
