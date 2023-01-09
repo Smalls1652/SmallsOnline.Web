@@ -52,7 +52,7 @@ public class BlogEntry : DatabaseItem, IBlogEntry
     }
 
     [JsonPropertyName("blogUrlId")]
-    public string? UrlId 
+    public string? UrlId
     {
         get
         {
@@ -89,10 +89,10 @@ public class BlogEntry : DatabaseItem, IBlogEntry
     {
         get
         {
-            if (Content is not null)
+            return (Content is not null) switch
             {
-                return Markdown.ToHtml(
-                    markdown: Content,
+                true => Markdown.ToHtml(
+                    markdown: Content!,
                     pipeline: new MarkdownPipelineBuilder()
                         .UseGenericAttributes()
                         .UsePipeTables()
@@ -100,12 +100,9 @@ public class BlogEntry : DatabaseItem, IBlogEntry
                         .UseBootstrap()
                         .UseAutoLinks()
                         .Build()
-                );
-            }
-            else
-            {
-                return null;
-            }
+                ),
+                _ => null
+            };
         }
     }
 
@@ -117,7 +114,8 @@ public class BlogEntry : DatabaseItem, IBlogEntry
 
     public static BlogEntry ConvertFromMarkdown(string content)
     {
-        Regex contentRegex = new(@"(?:-{3}|\.{3})\r\n(?'metadata'.+?)\r\n(?:-{3}|\.{3})\r\n(?'content'.+)", RegexOptions.Singleline);
+        Regex contentRegex = new(@"(?:-{3}|\.{3})\r\n(?'metadata'.+?)\r\n(?:-{3}|\.{3})\r\n(?'content'.+)",
+            RegexOptions.Singleline);
         Match contentMatch = contentRegex.Match(content);
 
         if (!contentMatch.Success)
