@@ -3,6 +3,9 @@ using SmallsOnline.Web.Lib.Models.ActivityPub;
 
 namespace SmallsOnline.Web.Api.Controllers;
 
+/// <summary>
+/// API controller for ActivityPub related endpoints.
+/// </summary>
 [ApiController]
 [Route("/api/activitypub")]
 public class ActivityPubController : ControllerBase
@@ -16,6 +19,10 @@ public class ActivityPubController : ControllerBase
         _cosmosDbService = cosmosDbService;
     }
 
+    /// <summary>
+    /// Get the WebFinger information.
+    /// </summary>
+    /// <returns>The <see cref="WebFingerResponse" /> from the database.</returns>
     [HttpGet("webfinger", Name = "GetWebFingerResponse")]
     public async Task<string> GetWebFingerResponse()
     {
