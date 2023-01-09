@@ -19,11 +19,13 @@ public partial class CosmosDbService : ICosmosDbService
         string coreQuery = $"WHERE c.partitionKey = \"favorites-of-albums\" AND c.listYear = \"{listYear}\" ORDER BY c.albumReleaseDate ASC";
         QueryDefinition resultsQuery = new($"SELECT * FROM c {coreQuery}");
 
+        // Get the count of the results that will be returned from the query.
         int resultsCount = await GetResultCount(
             container: container,
             coreQuery: coreQuery
         );
 
+        // Instantiate an array of albums based on the count of results that will return.
         AlbumData[] albumItems = new AlbumData[resultsCount];
 
         // Execute the query.

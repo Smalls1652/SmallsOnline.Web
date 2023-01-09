@@ -8,6 +8,11 @@ namespace SmallsOnline.Web.Services.CosmosDB;
 /// </summary>
 public partial class CosmosDbService : ICosmosDbService
 {
+    /// <summary>
+    /// Instantiate the service with service with a connection string and the database name.
+    /// </summary>
+    /// <param name="connectionString">The connection string for authenticating the service.</param>
+    /// <param name="containerName">The database name to connect to.</param>
     public CosmosDbService(string connectionString, string containerName)
     {
         _containerName = containerName;

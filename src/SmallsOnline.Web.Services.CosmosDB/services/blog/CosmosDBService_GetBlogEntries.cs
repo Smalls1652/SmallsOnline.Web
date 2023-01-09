@@ -29,6 +29,7 @@ public partial class CosmosDbService : ICosmosDbService
         string coreQuery = $"WHERE c.partitionKey = \"blog-entry\" AND c.blogIsPublished = true ORDER BY c.blogPostedDate DESC OFFSET {offsetNum} LIMIT 5";
         QueryDefinition resultsQuery = new($"SELECT c.id, c.partitionKey, c.blogUrlId, c.blogTitle, c.blogPostedDate, c.blogContent, c.blogTags, c.blogIsPublished FROM c {coreQuery}");
 
+        // Get the count of the results that will be returned from the query.
         int resultsCount = await GetResultCount(
             container: container,
             coreQuery: coreQuery
