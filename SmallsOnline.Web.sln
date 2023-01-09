@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.Services.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.Api", "src\SmallsOnline.Web.Api\SmallsOnline.Web.Api.csproj", "{7C8D92DC-F5CB-468E-89F6-EB497C0C5ACD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallsOnline.Web.version", "SmallsOnline.Web.version.proj", "{668E40A0-110B-4741-BEBF-7636FB347217}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
