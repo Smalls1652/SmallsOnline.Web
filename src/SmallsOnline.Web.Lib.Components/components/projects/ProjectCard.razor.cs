@@ -56,7 +56,10 @@ public partial class ProjectCard : ComponentBase
     {
         _finishedLoading = false;
 
+        // Set the button text based on whether the URL is to a repository or not.
         SetButtonText();
+
+        // Evaluate the type of the project.
         EvaluateProjectType();
 
         _finishedLoading = true;
@@ -67,12 +70,17 @@ public partial class ProjectCard : ComponentBase
     /// </summary>
     private void SetButtonText()
     {
+        // Handle whether the URL is to a repository or not.
         if (UrlIsRepo == true)
         {
+            // If it is a repository,
+            // set the button text to "Visit repo".
             _buttonText = "Visit repo";
         }
         else
         {
+            // If it is not a repository,
+            // set the button text to "Visit site".
             _buttonText = "Visit site";
         }
     }
