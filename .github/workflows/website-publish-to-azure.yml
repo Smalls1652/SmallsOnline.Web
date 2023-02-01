@@ -80,7 +80,7 @@ jobs:
             "ref_name=$(`"${{ github.ref_name }}`")" >> $env:GITHUB_ENV
 
         - name: Build and push container image to registry
-          uses: docker/build-push-action@v3
+          uses: docker/build-push-action@v4
           with:
             push: true
             tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.ref_name }}_${{ env.current_datetime_ticks }}
