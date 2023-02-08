@@ -14,6 +14,8 @@ public partial class Projects : ComponentBase
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
 
+    private static readonly JsonSourceGenerationContext _jsonSourceGenerationContext = new();
+
     private ProjectItem[]? _projectItems;
     private List<ProjectType>? _projectTypes;
     private bool _isFinishedLoading = false;
@@ -25,8 +27,14 @@ public partial class Projects : ComponentBase
         // Get the projects data and the types of projects.
         using (HttpClient httpClient = HttpClientFactory.CreateClient("BaseAppClient"))
         {
-            _projectItems = await httpClient.GetFromJsonAsync<ProjectItem[]?>("json/projects/projects-data.json");
-            _projectTypes = await httpClient.GetFromJsonAsync<List<ProjectType>?>("json/projects/project-types.json");
+            _projectItems = await httpClient.GetFromJsonAsync(
+                requestUri: "json/projects/projects-data.json",
+                jsonTypeInfo: _jsonSourceGenerationContext.ProjectItemArray
+            );
+            _projectTypes = await httpClient.GetFromJsonAsync(
+                requestUri: "json/projects/project-types.json",
+                jsonTypeInfo: _jsonSourceGenerationContext.ListProjectType
+            );
         }
 
         _isFinishedLoading = true;

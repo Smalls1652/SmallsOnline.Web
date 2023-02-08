@@ -17,10 +17,15 @@ public class WebFinger : PageModel
     public WebFingerResponse? WebFingerResponse { get; set; }
     public string? WebFingerJsonString { get; set; }
 
+    private static readonly JsonSourceGenerationContext _jsonSourceGenerationContext = new();
+
     public async Task OnGet()
     {
         using HttpClient httpClient = _httpClientFactory.CreateClient("PublicApi");
-        WebFingerResponse = await httpClient.GetFromJsonAsync<WebFingerResponse?>("api/activitypub/webfinger");
+        WebFingerResponse = await httpClient.GetFromJsonAsync(
+            requestUri: "api/activitypub/webfinger",
+            jsonTypeInfo: _jsonSourceGenerationContext.WebFingerResponse
+        );
 
         if (WebFingerResponse is not null)
         {
