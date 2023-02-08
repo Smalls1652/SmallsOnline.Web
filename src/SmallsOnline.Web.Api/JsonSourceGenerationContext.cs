@@ -7,7 +7,7 @@ using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 using SmallsOnline.Web.Lib.Models.Projects;
 
-namespace SmallsOnline.Web.Lib;
+namespace SmallsOnline.Web.Api;
 
 [JsonSourceGenerationOptions(
     WriteIndented = false,
