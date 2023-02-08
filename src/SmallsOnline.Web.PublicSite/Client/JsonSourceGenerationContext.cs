@@ -23,11 +23,15 @@ namespace SmallsOnline.Web.PublicSite.Client;
 [JsonSerializable(typeof(BlogEntry))]
 [JsonSerializable(typeof(DatabaseItem))]
 [JsonSerializable(typeof(AlbumData))]
+[JsonSerializable(typeof(AlbumData[]))]
 [JsonSerializable(typeof(AlbumStandoutSong))]
 [JsonSerializable(typeof(AlbumStandoutSongItem))]
 [JsonSerializable(typeof(SongData))]
+[JsonSerializable(typeof(SongData[]))]
 [JsonSerializable(typeof(ProjectItem))]
+[JsonSerializable(typeof(ProjectItem[]))]
 [JsonSerializable(typeof(ProjectType))]
+[JsonSerializable(typeof(List<ProjectType>))]
 internal partial class JsonSourceGenerationContext : JsonSerializerContext
 {
 
