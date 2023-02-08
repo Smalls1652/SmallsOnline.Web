@@ -29,6 +29,8 @@ public partial class BlogListPage : ComponentBase, IDisposable
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
 
+    private static readonly JsonSourceGenerationContext _jsonSourceGenerationContext = new();
+
     private bool _isFinishedLoading = false;
     private PersistingComponentStateSubscription? _persistenceSubscription;
     private BlogEntries? _blogEntries;
@@ -115,7 +117,10 @@ public partial class BlogListPage : ComponentBase, IDisposable
             // If the data is not available, get the data from the server.
             using HttpClient httpClient = HttpClientFactory.CreateClient("PublicApi");
 
-            _blogEntries = await httpClient.GetFromJsonAsync<BlogEntries>($"api/blog/entries/{PageNumber}");
+            _blogEntries = await httpClient.GetFromJsonAsync(
+                requestUri: $"api/blog/entries/{PageNumber}",
+                jsonTypeInfo: _jsonSourceGenerationContext.BlogEntries
+            );
         }
         else
         {

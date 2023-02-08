@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text.Json.Serialization.Metadata;
 using Microsoft.AspNetCore.Components.Routing;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
@@ -33,6 +34,8 @@ public partial class FavoritesOf : ComponentBase, IDisposable
 
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
+
+    private static readonly JsonSourceGenerationContext _jsonSourceGenerationContext = new();
 
     private bool _isFinishedLoading = false;
     private PersistingComponentStateSubscription? _persistenceSubscription;
@@ -106,7 +109,10 @@ public partial class FavoritesOf : ComponentBase, IDisposable
         if (!isAlbumItemsDataAvailable)
         {
             // Get the favorite albums from the API.
-            _albumItems = await httpClient.GetFromJsonAsync<AlbumData[]?>($"api/favorites-of/albums/{ListYear}");
+            _albumItems = await httpClient.GetFromJsonAsync(
+                requestUri: $"api/favorites-of/albums/{ListYear}",
+                jsonTypeInfo: _jsonSourceGenerationContext.AlbumDataArray
+            );
         }
         else
         {
@@ -120,7 +126,10 @@ public partial class FavoritesOf : ComponentBase, IDisposable
         if (!isTrackItemsDataAvailable)
         {
             // Get the favorite tracks from the API.
-            _trackItems = await httpClient.GetFromJsonAsync<SongData[]?>($"api/favorites-of/songs/{ListYear}");
+            _trackItems = await httpClient.GetFromJsonAsync(
+                requestUri: $"api/favorites-of/songs/{ListYear}",
+                jsonTypeInfo: _jsonSourceGenerationContext.SongDataArray
+            );
         }
         else
         {

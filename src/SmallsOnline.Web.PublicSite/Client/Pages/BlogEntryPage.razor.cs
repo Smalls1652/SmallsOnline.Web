@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text.Json;
 using Microsoft.JSInterop;
 using SmallsOnline.Web.Lib.Models.Blog;
 using Microsoft.AspNetCore.Components.Routing;
@@ -35,6 +36,8 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
 
     [CascadingParameter(Name = "ShouldFadeSlideIn")]
     protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
+
+    private static readonly JsonSourceGenerationContext _jsonSourceGenerationContext = new();
 
     private IJSObjectReference? _blogEntryPageJSModule;
     private bool _isFinishedLoading = false;
@@ -123,7 +126,10 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
         {
             // If the data was not available, get it from the API.
             using HttpClient httpClient = HttpClientFactory.CreateClient("PublicApi");
-            _blogEntry = await httpClient.GetFromJsonAsync<BlogEntry>($"api/blog/entry/{Id}");
+            _blogEntry = await httpClient.GetFromJsonAsync(
+                requestUri: $"api/blog/entry/{Id}",
+                jsonTypeInfo: _jsonSourceGenerationContext.BlogEntry
+            );
         }
         else
         {
