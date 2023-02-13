@@ -24,7 +24,7 @@ public class AlbumData : DatabaseItem, IAlbumData
 
     /// <inheritdoc />
     [JsonPropertyName("albumStandoutSongs")]
-    public IEnumerable<AlbumStandoutSongItem>? StandoutSongs { get; set; }
+    public AlbumStandoutSongItem[]? StandoutSongs { get; set; }
 
     /// <inheritdoc />
     /// <remarks>Does not return when converted to JSON.</remarks>
@@ -93,11 +93,11 @@ public class AlbumData : DatabaseItem, IAlbumData
     /// Gets only the standout songs for the album.
     /// </summary>
     /// <returns>A collection of <see cref="AlbumStandoutSongItem" /> objects.</returns>
-    private List<AlbumStandoutSongItem>? GetOnlyStandoutSongs()
+    private AlbumStandoutSongItem[]? GetOnlyStandoutSongs()
     {
         return (StandoutSongs is not null) switch
         {
-            true => StandoutSongs.ToList().FindAll(item => item.IsStandout),
+            true => Array.FindAll(StandoutSongs, item => item.IsStandout),
             _ => null
         };
     }

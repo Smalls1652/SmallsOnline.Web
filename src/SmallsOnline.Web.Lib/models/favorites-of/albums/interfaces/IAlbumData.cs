@@ -28,7 +28,7 @@ public interface IAlbumData
     /// <summary>
     /// A collection of <see cref="AlbumStandoutSongItem">standout songs</see> for the album.
     /// </summary>
-    IEnumerable<AlbumStandoutSongItem>? StandoutSongs { get; set; }
+    AlbumStandoutSongItem[]? StandoutSongs { get; set; }
 
     /// <summary>
     /// A collection of only the <see cref="AlbumStandoutSongItem">standout songs</see> for the album.
