@@ -7,7 +7,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@highlightjs/cdn-assets": "^11.7.0",
+    "@highlightjs/cdn-assets": "^11.8.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.4"
   }
