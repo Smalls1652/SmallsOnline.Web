@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 as build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0-preview as build-env
 WORKDIR /app
 
 COPY ./SmallsOnline.Web.version.proj ./
@@ -9,7 +9,7 @@ COPY ./src/SmallsOnline.Web.Api/ ./src/SmallsOnline.Web.Api/
 RUN dotnet restore ./src/SmallsOnline.Web.Api/
 RUN dotnet publish ./src/SmallsOnline.Web.Api/ --configuration "Release" --runtime "linux-x64" -p:"PublishReadyToRun=true" --output out
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-preview
 WORKDIR /app
 
 COPY --from=build-env /app/out ./

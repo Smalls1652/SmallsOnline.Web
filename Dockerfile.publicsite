@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 as build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0-preview as build-env
 
 RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -; \
     apt update; \
@@ -19,7 +19,7 @@ RUN dotnet msbuild ./src/SmallsOnline.Web.PublicSite/Client/ -t:"InitProject_Com
 RUN dotnet restore ./src/SmallsOnline.Web.PublicSite/Server/
 RUN dotnet publish ./src/SmallsOnline.Web.PublicSite/Server/ --configuration Release --output out
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/8.0-preview
 WORKDIR /app
 
 COPY --from=build-env /app/out .
