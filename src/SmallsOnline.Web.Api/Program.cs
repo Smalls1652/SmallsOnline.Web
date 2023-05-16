@@ -12,7 +12,7 @@ public class Program
 
         builder.Services
             .AddControllers()
-            .AddJsonOptions(options => options.JsonSerializerOptions.AddContext<JsonSourceGenerationContext>());
+            .AddJsonOptions(options => options.JsonSerializerOptions.TypeInfoResolver = new JsonSourceGenerationContext());
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
