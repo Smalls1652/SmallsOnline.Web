@@ -1,11 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>SmallsOnline.Web.PublicSite.Client</RootNamespace>
         <AssemblyName>SmallsOnline.Web.PublicSite.Client</AssemblyName>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <WasmEnableWebcil>true</WasmEnableWebcil>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -36,10 +40,10 @@
 
     <ItemGroup>
         <PackageReference Include="Markdig" Version="0.30.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(CoreDependenciesVersion)" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(CoreDependenciesVersion)" PrivateAssets="all" />
-        <PackageReference Include="System.Net.Http.Json" Version="$(CoreDependenciesVersion)" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="$(CoreDependenciesVersion)" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-preview.4.23260.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-preview.4.23260.4" PrivateAssets="all" />
+        <PackageReference Include="System.Net.Http.Json" Version="8.0.0-preview.4.23259.5" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0-preview.4.23259.5" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
         <ProjectReference Include="..\..\SmallsOnline.Web.Lib\SmallsOnline.Web.Lib.csproj" />
         <ProjectReference Include="..\..\SmallsOnline.Web.Lib.Components\SmallsOnline.Web.Lib.Components.csproj" />
