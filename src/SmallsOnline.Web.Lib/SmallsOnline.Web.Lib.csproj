@@ -22,7 +22,7 @@
   <Import Project="../../SmallsOnline.Web.version.proj" />
 
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.30.4" />
+    <PackageReference Include="Markdig" Version="0.31.0" />
     <PackageReference Include="YamlDotNet" Version="13.1.0" />
   </ItemGroup>
 
