@@ -39,7 +39,7 @@ builder.Services.AddHttpClient(
 builder.Services.Remove(builder.Services.First(s => s.ServiceType == typeof(IHttpMessageHandlerBuilderFilter)));
 
 // Build the host.
-WebAssemblyHost app = builder.Build();
+var app = builder.Build();
 
 // Run the app.
 await app.RunAsync();
