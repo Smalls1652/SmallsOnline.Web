@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.JSInterop;
@@ -17,6 +18,11 @@ public partial class MainLayout : LayoutComponentBase, IDisposable
 
     private ShouldFadeIn _shouldFadeSlideIn = new();
     private bool _isEnableFadeSlideInOnLocationChangeEventMethod;
+
+    protected override void OnInitialized()
+    {
+        Logger.LogInformation("Website version: {Version}", Assembly.GetExecutingAssembly().GetName().Version!.ToString());
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
