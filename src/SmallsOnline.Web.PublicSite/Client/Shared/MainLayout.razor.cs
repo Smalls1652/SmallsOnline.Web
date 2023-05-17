@@ -17,7 +17,6 @@ public partial class MainLayout : LayoutComponentBase, IDisposable
 
     private ShouldFadeIn _shouldFadeSlideIn = new();
     private bool _isEnableFadeSlideInOnLocationChangeEventMethod;
-    private readonly Regex _anchorTagRegex = new("^(?>https|http):\\/\\/.+?\\/.*(?'anchorTag'#(?'anchorTagName'.+))$");
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
