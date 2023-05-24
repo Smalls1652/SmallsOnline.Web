@@ -83,6 +83,7 @@
     <PropertyGroup>
         <BlazorEnableTimeZoneSupport>true</BlazorEnableTimeZoneSupport>
         <InvariantGlobalization>true</InvariantGlobalization>
+        <CompressionIncludePatterns>$(CompressionIncludePatterns);appsettings*.json</CompressionIncludePatterns>
     </PropertyGroup>
 
     <Target Name="InitProject_Combined">

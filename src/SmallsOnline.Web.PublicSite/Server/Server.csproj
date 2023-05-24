@@ -18,6 +18,10 @@
     </Description>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <CompressionIncludePatterns>$(CompressionIncludePatterns);appsettings*.json</CompressionIncludePatterns>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Condition="'$(Configuration)'=='Release'" Include="wwwroot\appsettings.Development.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
