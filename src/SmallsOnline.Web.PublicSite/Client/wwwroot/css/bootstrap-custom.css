@@ -10,10 +10,21 @@
     --bs-list-group-item-border: #f2f2f2;
 }
 
+.blockquote {
+    font-size: 1rem!important;
+    padding-left: 1em!important;
+    color: #656d76;
+    border-left: 0.25em solid #d0d7de;
+}
+
 @media (prefers-color-scheme: dark) {
     .card {
         background-color: var(--bs-dark-bg);
         color: var(--bs-dark-text);
+    }
+
+    .blockquote {
+        color: var(--bs-dark-text-muted)!important;
     }
 
     .card-header {
