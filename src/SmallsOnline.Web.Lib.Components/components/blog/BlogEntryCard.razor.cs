@@ -56,7 +56,7 @@ public partial class BlogEntryCard : ComponentBase
     {
         // If the content and the HTML content of the blog entry is not null,
         // then modify the footnote links in the HTML content.
-        if (BlogEntry is not null && BlogEntry.ContentHtml is not null)
+        if (BlogEntry.ContentHtml is not null)
         {
             // Regex pattern for finding footnote links in the HTML content.
             Regex footnoteLinkRegex =
@@ -76,8 +76,8 @@ public partial class BlogEntryCard : ComponentBase
                 ComponentLogger.LogInformation("Fixing footnote link: '{text}'", footnoteLinkMatch.Value);
 
                 // Logic for handling the different types of footnote links.
-                if (footnoteLinkMatch.Groups["idProperty"] is not null &&
-                    footnoteLinkMatch.Groups["footnoteAnchorTag"] is not null)
+                if (!string.IsNullOrEmpty(footnoteLinkMatch.Groups["idProperty"].Value) &&
+                    !string.IsNullOrEmpty(footnoteLinkMatch.Groups["footnoteAnchorTag"].Value))
                 {
                     // If the match has the 'idProperty' group,
                     // then replace the found match with an updated value that uses the current page's URL
