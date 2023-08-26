@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmallsOnline.Web.Lib\SmallsOnline.Web.Lib.csproj">
+    <ProjectReference Include="..\Lib\Lib.csproj">
       <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
