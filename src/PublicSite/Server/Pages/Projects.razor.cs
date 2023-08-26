@@ -1,21 +1,15 @@
 using System.Net.Http.Json;
+using System.Text.Json;
 using SmallsOnline.Web.Lib.Models.Projects;
 
-namespace SmallsOnline.Web.PublicSite.Server;
+namespace SmallsOnline.Web.PublicSite.Server.Pages;
 
 /// <summary>
 /// The projects page.
 /// </summary>
+[StreamRendering(false)]
 public partial class Projects : ComponentBase
 {
-    [Inject]
-    protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
-
-    [CascadingParameter(Name = "ShouldFadeSlideIn")]
-    protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
-
-    private static readonly JsonSourceGenerationContext _jsonSourceGenerationContext = new();
-
     private ProjectItem[]? _projectItems;
     private List<ProjectType>? _projectTypes;
     private bool _isFinishedLoading = false;
@@ -24,18 +18,18 @@ public partial class Projects : ComponentBase
     {
         _isFinishedLoading = false;
 
-        // Get the projects data and the types of projects.
-        using (HttpClient httpClient = HttpClientFactory.CreateClient("BaseAppClient"))
-        {
-            _projectItems = await httpClient.GetFromJsonAsync(
-                requestUri: "json/projects/projects-data.json",
-                jsonTypeInfo: _jsonSourceGenerationContext.ProjectItemArray
-            );
-            _projectTypes = await httpClient.GetFromJsonAsync(
-                requestUri: "json/projects/project-types.json",
-                jsonTypeInfo: _jsonSourceGenerationContext.ListProjectType
-            );
-        }
+        await using var projectItemStream = File.Open(Path.Combine(Environment.CurrentDirectory, "Data/projects/projects-data.json"), FileMode.Open);
+        await using var projectTypeStream = File.Open(Path.Combine(Environment.CurrentDirectory, "Data/projects/project-types.json"), FileMode.Open);
+
+        _projectItems = await JsonSerializer.DeserializeAsync(
+            utf8Json: projectItemStream,
+            jsonTypeInfo: JsonSourceGenerationContext.Default.ProjectItemArray
+        );
+
+        _projectTypes = await JsonSerializer.DeserializeAsync(
+            utf8Json: projectTypeStream,
+            jsonTypeInfo: JsonSourceGenerationContext.Default.ListProjectType
+        );
 
         _isFinishedLoading = true;
     }
