@@ -1,21 +1,21 @@
 using System.Net.Http.Json;
+using System.Runtime.InteropServices;
 using SmallsOnline.Web.Lib.Models.Blog;
+using SmallsOnline.Web.Lib.Services;
 
-namespace SmallsOnline.Web.PublicSite.Server;
+namespace SmallsOnline.Web.PublicSite.Server.Pages;
 
 /// <summary>
 /// Page for listing blog posts.
 /// </summary>
-public partial class BlogListPage : ComponentBase, IDisposable
+[StreamRendering(true)]
+public partial class BlogListPage : ComponentBase
 {
-    [Inject]
-    protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
-
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = null!;
 
     [Inject]
-    protected PersistentComponentState AppState { get; set; } = null!;
+    protected ICosmosDbService CosmosDbService { get; set; } = null!;
 
     [Inject]
     protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
@@ -27,7 +27,6 @@ public partial class BlogListPage : ComponentBase, IDisposable
     public int PageNumber { get; set; } = 1;
 
     private bool _isFinishedLoading = false;
-    private PersistingComponentStateSubscription? _persistenceSubscription;
     private BlogEntries? _blogEntries;
 
     private int _previousPageNumber = 1;
@@ -35,17 +34,8 @@ public partial class BlogListPage : ComponentBase, IDisposable
     private int _nextPageNumber = 1;
     private bool _nextPageBtnDisabled = false;
 
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
     protected override async Task OnParametersSetAsync()
     {
-        // Register a persistence subscription to save the data when the page is pre-rendered.
-        _persistenceSubscription = AppState.RegisterOnPersisting(PersistBlogListData);
-
         // If the current path is not set properly, redirect to '/blog/list/1'.
         Uri pageUri = new(NavigationManager.Uri);
         if (pageUri.AbsolutePath == "/blog" || pageUri.AbsolutePath == "/blog/" ||
@@ -100,56 +90,14 @@ public partial class BlogListPage : ComponentBase, IDisposable
     /// </summary>
     private async Task GetBlogEntries()
     {
-        // Check to see if the blog entries have already been loaded during pre-rendering.
-        bool isDataAvailable = AppState.TryTakeFromJson(
-            key: "blogListData",
-            instance: out BlogEntries? restoredData
-        );
+        int totalPages = await CosmosDbService.GetBlogTotalPagesAsync();
+        BlogEntry[] retrievedBlogEntries = await CosmosDbService.GetBlogEntriesAsync(PageNumber);
 
-        // Handle if the data is available.
-        if (!isDataAvailable)
+        _blogEntries = new()
         {
-            // If the data is not available, get the data from the server.
-            using HttpClient httpClient = HttpClientFactory.CreateClient("PublicApi");
-
-            _blogEntries = await httpClient.GetFromJsonAsync(
-                requestUri: $"api/blog/entries/{PageNumber}",
-                jsonTypeInfo: _jsonSourceGenerationContext.BlogEntries
-            );
-        }
-        else
-        {
-            // Otherwise, use the data that was persisted from pre-rendering.
-            PageLogger.LogInformation(
-                "Blog list data was persisted from a prerendered state. Restoring that data instead.");
-            _blogEntries = restoredData;
-        }
-    }
-
-    /// <summary>
-    /// Persist the blog list data during pre-rendering.
-    /// </summary>
-    private Task PersistBlogListData()
-    {
-        // Persist the blog list data.
-        AppState.PersistAsJson(
-            key: "blogListData",
-            instance: _blogEntries
-        );
-
-        return Task.CompletedTask;
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (_persistenceSubscription.HasValue)
-            {
-                _persistenceSubscription.Value.Dispose();
-            }
-
-            _blogEntries = null;
-        }
+            Entries = retrievedBlogEntries,
+            PageNumber = PageNumber,
+            TotalPages = totalPages
+        };
     }
 }

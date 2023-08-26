@@ -1,4 +1,4 @@
-@namespace SmallsOnline.Web.PublicSite.Server
+@namespace SmallsOnline.Web.PublicSite.Server.Pages
 
 @page "/blog/entry/{Id}"
 
@@ -63,10 +63,9 @@ else
                     <div class="card-header">
                         <div class="mb-0">
                             <h1>
-                                <button class="btn btn-text-hider btn-glaucous" @onclick="HandleGoBackButtonClick"
-                                        type="button">
+                                <a class="btn btn-text-hider btn-glaucous" href="/blog/list/1" type="button">
                                     <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
-                                </button> <i class="bi bi-journal-text"></i> Blog
+                                </a> <i class="bi bi-journal-text"></i> Blog
                             </h1>
                         </div>
                     </div>
