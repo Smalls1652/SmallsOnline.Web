@@ -4,7 +4,7 @@
 
 @if (_isFinishedLoading == false)
 {
-    <div class="@(ShouldFadeSlideIn is not null && ShouldFadeSlideIn!.Enabled ? "fade-slide-in" : "")">
+    <div class="fade-slide-in">
         <div class="row">
             <div class="col">
                 <div class="card shadow">
@@ -56,7 +56,7 @@ else
             <meta content="https://smalls.online/smalls.png" name="twitter:image">
         </HeadContent>
     }
-    <div class="@(ShouldFadeSlideIn is not null && ShouldFadeSlideIn!.Enabled ? "fade-slide-in" : "")">
+    <div class="fade-slide-in">
         <div class="row pb-2">
             <div class="col">
                 <div class="card shadow">
@@ -74,7 +74,7 @@ else
             </div>
         </div>
     </div>
-    <div class="@(ShouldFadeSlideIn is not null && ShouldFadeSlideIn!.Enabled ? "fade-slide-in" : "")">
+    <div class="fade-slide-in">
         <div class="row">
             <div class="col">
                 @if (_blogEntry is not null)

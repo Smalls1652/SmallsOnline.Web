@@ -1,6 +1,6 @@
 @using SmallsOnline.Web.PublicSite.Server.Shared.AboutMe
 
-@namespace SmallsOnline.Web.PublicSite.Server
+@namespace SmallsOnline.Web.PublicSite.Server.Pages
 
 @page "/about-me"
 
@@ -28,7 +28,7 @@
     <meta content="https://smalls.online/smalls.png" name="twitter:image">
 </HeadContent>
 
-<div class="@(ShouldFadeSlideIn is not null && ShouldFadeSlideIn!.Enabled ? "fade-slide-in" : "")">
+<div class="fade-slide-in">
     <div class="card shadow">
         <div class="card-header">
             <h1 class="mb-0">

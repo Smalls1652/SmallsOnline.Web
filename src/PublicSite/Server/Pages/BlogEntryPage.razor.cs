@@ -34,11 +34,6 @@ public partial class BlogEntryPage : ComponentBase, IDisposable
     [Parameter]
     public string Id { get; set; } = null!;
 
-    [CascadingParameter(Name = "ShouldFadeSlideIn")]
-    protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
-
-    private static readonly JsonSourceGenerationContext _jsonSourceGenerationContext = new();
-
     private bool _isFinishedLoading = false;
     private PersistingComponentStateSubscription? _persistenceSubscription;
     private BlogEntry? _blogEntry;

@@ -1,10 +1,8 @@
-namespace SmallsOnline.Web.PublicSite.Server;
+namespace SmallsOnline.Web.PublicSite.Server.Pages;
 
 /// <summary>
 /// The about me page.
 /// </summary>
 public partial class AboutMe : ComponentBase
 {
-    [CascadingParameter(Name = "ShouldFadeSlideIn")]
-    protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
 }

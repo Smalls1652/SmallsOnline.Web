@@ -32,11 +32,6 @@ public partial class FavoritesOf : ComponentBase, IDisposable
     [Parameter]
     public string? ListYear { get; set; }
 
-    [CascadingParameter(Name = "ShouldFadeSlideIn")]
-    protected ShouldFadeIn? ShouldFadeSlideIn { get; set; }
-
-    private static readonly JsonSourceGenerationContext _jsonSourceGenerationContext = new();
-
     private bool _isFinishedLoading = false;
     private PersistingComponentStateSubscription? _persistenceSubscription;
     private AlbumData[]? _albumItems;
