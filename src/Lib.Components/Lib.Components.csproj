@@ -17,9 +17,6 @@
     </Description>
   </PropertyGroup>
 
-  <!-- Importing the version that's shared between SmallsOnline.Web.Lib and SmallsOnline.Web.Lib.Components. -->
-  <Import Project="../../SmallsOnline.Web.version.proj" />
-
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
