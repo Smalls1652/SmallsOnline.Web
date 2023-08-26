@@ -36,19 +36,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Data\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    
     <None Include="node_modules\**">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    
     <None Include="installWebDependencies.ps1">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    
     <None Include="package.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    
     <None Condition="'$(Configuration)'=='Release'" Include="wwwroot\appsettings.Development.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
+    
     <None Remove="node_modules\**" />
   </ItemGroup>
 
@@ -56,6 +64,7 @@
     <_ContentIncludedByDefault Remove="Shared_bak\MainLayout2.razor" />
     <_ContentIncludedByDefault Remove="Shared_bak\NavMenu.razor" />
   </ItemGroup>
+
 
   <Target Name="InitProject_Combined">
     <Message Importance="high" Text="-------------------------------------------------" />
