@@ -7,7 +7,6 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// The projects page.
 /// </summary>
-[StreamRendering(false)]
 public partial class Projects : ComponentBase
 {
     private ProjectItem[]? _projectItems;

@@ -4,6 +4,7 @@ using Microsoft.JSInterop;
 using SmallsOnline.Web.Lib.Models.Blog;
 using Microsoft.AspNetCore.Components.Routing;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Components.Web;
 using SmallsOnline.Web.Lib.Services;
 
 
@@ -12,7 +13,6 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// Page for rendering a specific blog post.
 /// </summary>
-[StreamRendering(true)]
 public partial class BlogEntryPage : ComponentBase
 {
     [Inject]
@@ -22,7 +22,7 @@ public partial class BlogEntryPage : ComponentBase
     protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
 
     [Inject]
-    protected IJSRuntime JSRuntime { get; set; } = null!;
+    protected IJSRuntime JsRuntime { get; set; } = null!;
 
     /// <summary>
     /// The ID of the blog post.
@@ -36,7 +36,7 @@ public partial class BlogEntryPage : ComponentBase
 
     private readonly Regex _anchorTagRegex = new("^(?>https|http):\\/\\/.+?\\/.*(?'anchorTag'#(?'anchorTagName'.+))$");
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
         // Get the blog entry data.
         await GetBlogEntry();
@@ -52,14 +52,12 @@ public partial class BlogEntryPage : ComponentBase
 
         // Set that the page has finished loading.
         _isFinishedLoading = true;
-
-        await base.OnParametersSetAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         // Run highlight.js on code blocks for syntax highlighting.
-        await JSRuntime.InvokeVoidAsync("hljs.highlightAll");
+        await JsRuntime.InvokeVoidAsync("hljs.highlightAll");
 
         await base.OnAfterRenderAsync(firstRender);
     }

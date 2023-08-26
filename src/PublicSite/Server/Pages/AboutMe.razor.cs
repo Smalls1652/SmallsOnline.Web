@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Components.Web;
+
 namespace SmallsOnline.Web.PublicSite.Server.Pages;
 
 /// <summary>
@@ -5,4 +7,8 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// </summary>
 public partial class AboutMe : ComponentBase
 {
+    protected override bool ShouldRender()
+    {
+        return true;
+    }
 }

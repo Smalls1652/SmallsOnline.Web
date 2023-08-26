@@ -2,7 +2,37 @@
 
 @page "/blog/entry/{Id}"
 
-@if (_isFinishedLoading == false)
+@if (_isFinishedLoading)
+{
+    <HeadContent>
+        <!-- Generic meta tags -->
+        <PageTitle>
+            Smalls.Online - Blog - @(_blogEntry.Title ?? "Blog has no title")
+        </PageTitle>
+        <meta content="@_blogExcerpt" name="description" />
+        <meta content="Tim Small" name="author" />
+        <meta content="@(_blogEntry.PostedDate!.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"))" name="publish_date" property="og:publish_date">
+        <meta content="@(_blogEntry.PostedDate!.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"))" property="article:published_time">
+        <meta content="@(_blogEntry.PostedDate!.Value.ToString("MMMM dd, yyyy hh:mm tt"))" name="displaydate">
+
+        <!-- OpenGraph/Facebook meta tags -->
+        <meta content="@_blogEntry.Title / Smalls.Online" name="title" property="og:title" />
+        <meta content="@_blogExcerpt" property="og:description" />
+        <meta content="https://smalls.online/blog/entry/@_blogEntry!.UrlId" property="og:url" />
+        <meta content="website" property="og:type">
+        <meta content="https://smalls.online/smalls.png" property="og:image">
+
+        <!-- Twitter meta tags -->
+        <meta content="summary_large_image" name="twitter:card">
+        <meta content="@_blogEntry.Title / Smalls.Online" name="twitter:title">
+        <meta content="@_blogExcerpt" name="twitter:description">
+        <meta content="smalls.online" property="twitter:domain">
+        <meta content="https://smalls.online/blog/entry/@_blogEntry!.UrlId" property="twitter:url">
+        <meta content="https://smalls.online/smalls.png" name="twitter:image">
+    </HeadContent>
+}
+
+@if (!_isFinishedLoading)
 {
     <div class="fade-slide-in">
         <div class="row">
@@ -27,60 +57,27 @@
 }
 else
 {
-    @if (_blogEntry is not null && _blogEntry.Title is not null)
-    {
-        <HeadContent>
-            <!-- Generic meta tags -->
-            <PageTitle>
-                Smalls.Online - Blog - @_blogEntry.Title
-            </PageTitle>
-            <meta content="@_blogExcerpt" name="description" />
-            <meta content="Tim Small" name="author" />
-            <meta content="@(_blogEntry.PostedDate!.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"))" name="publish_date" property="og:publish_date">
-            <meta content="@(_blogEntry.PostedDate!.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"))" property="article:published_time">
-            <meta content="@(_blogEntry.PostedDate!.Value.ToString("MMMM dd, yyyy hh:mm tt"))" name="displaydate">
-
-            <!-- OpenGraph/Facebook meta tags -->
-            <meta content="@_blogEntry.Title / Smalls.Online" name="title" property="og:title" />
-            <meta content="@_blogExcerpt" property="og:description" />
-            <meta content="https://smalls.online/blog/entry/@_blogEntry!.UrlId" property="og:url" />
-            <meta content="website" property="og:type">
-            <meta content="https://smalls.online/smalls.png" property="og:image">
-
-            <!-- Twitter meta tags -->
-            <meta content="summary_large_image" name="twitter:card">
-            <meta content="@_blogEntry.Title / Smalls.Online" name="twitter:title">
-            <meta content="@_blogExcerpt" name="twitter:description">
-            <meta content="smalls.online" property="twitter:domain">
-            <meta content="https://smalls.online/blog/entry/@_blogEntry!.UrlId" property="twitter:url">
-            <meta content="https://smalls.online/smalls.png" name="twitter:image">
-        </HeadContent>
-    }
-    <div class="fade-slide-in">
-        <div class="row pb-2">
-            <div class="col">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <div class="mb-0">
-                            <h1>
-                                <a class="btn btn-text-hider btn-glaucous" href="/blog/list/1" type="button">
-                                    <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
-                                </a> <i class="bi bi-journal-text"></i> Blog
-                            </h1>
-                        </div>
+    <div class="row pb-2">
+        <div class="col">
+            <div class="card shadow fade-slide-in">
+                <div class="card-header">
+                    <div class="mb-0">
+                        <h1>
+                            <a class="btn btn-text-hider btn-glaucous" href="/blog/list/1" type="button">
+                                <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
+                            </a> <i class="bi bi-journal-text"></i> Blog
+                        </h1>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="fade-slide-in">
-        <div class="row">
-            <div class="col">
-                @if (_blogEntry is not null)
-                {
-                    <BlogEntryCard BlogEntry=@_blogEntry />
-                }
-            </div>
+    <div class="row">
+        <div class="col">
+            @if (_blogEntry is not null)
+            {
+                <BlogEntryCard BlogEntry=@_blogEntry />
+            }
         </div>
     </div>
 }
