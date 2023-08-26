@@ -16,6 +16,11 @@
     </Description>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RootNamespace>SmallsOnline.Web.Api</RootNamespace>
+    <AssemblyName>SmallsOnline.Web.Api</AssemblyName>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>

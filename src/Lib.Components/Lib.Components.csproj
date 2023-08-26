@@ -17,6 +17,11 @@
     </Description>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RootNamespace>SmallsOnline.Web.Lib</RootNamespace>
+    <AssemblyName>SmallsOnline.Web.Lib.Components</AssemblyName>
+  </PropertyGroup>
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>

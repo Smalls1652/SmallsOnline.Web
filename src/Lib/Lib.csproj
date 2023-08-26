@@ -18,6 +18,11 @@
     </Description>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RootNamespace>SmallsOnline.Web.Lib</RootNamespace>
+    <AssemblyName>SmallsOnline.Web.Lib</AssemblyName>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.32.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.3" />
