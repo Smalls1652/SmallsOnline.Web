@@ -8,15 +8,15 @@
                     <NavbarLogo />
                 </div>
                 <div class="align-self-center">
-                    <button class="navbar-toggler" @onclick="ToggleCollapse" type="button">
+                    <button aria-controls="navbar-collapse-container" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar-collapse-container" data-bs-toggle="collapse" type="button">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
             </div>
             <div class="w-100">
-                <CascadingValue Name="Collapsed" Value="@Collapsed">
-                    <NavbarCollapseSection ToggleChildCollapse="@ChildComponentRequestedCollapse" />
-                </CascadingValue>
+                <div id="navbar-collapse-container" class="navbar-collapse">
+                    <NavbarItems />
+                </div>
             </div>
         </div>
     </div>
