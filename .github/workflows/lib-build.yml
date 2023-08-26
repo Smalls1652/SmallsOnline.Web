@@ -23,8 +23,8 @@ jobs:
 
       - name: Build library
         shell: pwsh
-        run: dotnet restore ./src/SmallsOnline.Web.Lib/ ; dotnet build ./src/SmallsOnline.Web.Lib/
+        run: dotnet restore ./src/Lib/ ; dotnet build ./src/Lib/
 
       - name: Build component library
         shell: pwsh
-        run: dotnet restore ./src/SmallsOnline.Web.Lib.Components/ ; dotnet build ./src/SmallsOnline.Web.Lib.Components/
+        run: dotnet restore ./src/Lib.Components/ ; dotnet build ./src/Lib.Components/
