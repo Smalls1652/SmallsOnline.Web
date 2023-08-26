@@ -1,4 +1,4 @@
-namespace SmallsOnline.Web.Services.CosmosDB;
+namespace SmallsOnline.Web.Lib.Services;
 
 public interface ICosmosDbService
 {

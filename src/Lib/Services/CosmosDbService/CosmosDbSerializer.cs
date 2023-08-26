@@ -1,7 +1,7 @@
 using Azure.Core.Serialization;
 using Microsoft.Azure.Cosmos;
 
-namespace SmallsOnline.Web.Services.CosmosDB.Helpers;
+namespace SmallsOnline.Web.Lib.Services;
 
 /// <summary>
 /// Custom serializer for the CosmosDB client.

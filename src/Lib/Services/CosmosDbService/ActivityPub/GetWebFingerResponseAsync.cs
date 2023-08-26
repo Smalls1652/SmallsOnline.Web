@@ -1,6 +1,6 @@
 using Microsoft.Azure.Cosmos;
 
-namespace SmallsOnline.Web.Services.CosmosDB;
+namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService : ICosmosDbService
 {

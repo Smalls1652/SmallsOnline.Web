@@ -2,7 +2,7 @@ using System.Text;
 using Microsoft.Azure.Cosmos;
 using SmallsOnline.Web.Services.CosmosDB.Helpers;
 
-namespace SmallsOnline.Web.Services.CosmosDB;
+namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService : ICosmosDbService
 {
