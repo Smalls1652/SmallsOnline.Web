@@ -1,0 +1,8 @@
+@namespace SmallsOnline.Web.PublicSite.Server.Shared.Sidebar
+
+@inherits ComponentBase
+
+<div class="profile-img border border-primary rounded-circle @_currentAnimationClass">
+    <img alt="Timothy Small"
+         class="rounded-circle img-fluid" @onclick="HandleImageClick" src="@(!_isSetToDumb ? "https://cdn.smalls.online/images/site/me.jpg" : "https://cdn.smalls.online/images/site/me_dumb.jpg")" />
+</div>

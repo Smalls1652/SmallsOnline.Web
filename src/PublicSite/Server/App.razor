@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+
+    <!-- Theme color attribute. Primarily for theming supported web browsers. -->
+    <meta content="#496e9c" name="theme-color" />
+
+    <!-- Twitter Posting Format -->
+    <meta content="summary" name="twitter:card" />
+    <meta content="@@thetimmysmalls" name="twitter:creator" />
+
+    <!-- OpenGraph Data -->
+    <meta content="https://smalls.online/smalls.png" property="og:image" />
+
+    <link href="favicon.ico" rel="icon" type="image/ico" />
+
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="css/bootstrap-icons-custom.css" rel="stylesheet" />
+    <link href="css/bootstrap-custom.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/animation/animation.css" rel="stylesheet" />
+    <link href="SmallsOnline.Web.PublicSite.Server.styles.css" rel="stylesheet" />
+    <HeadOutlet />
+</head>
+
+<body>
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView DefaultLayout="@typeof(MainLayout)" RouteData="@routeData" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+
+</Router>
+
+<script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
+</body>
+</html>
