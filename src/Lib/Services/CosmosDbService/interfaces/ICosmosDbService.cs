@@ -1,3 +1,8 @@
+using SmallsOnline.Web.Lib.Models.ActivityPub;
+using SmallsOnline.Web.Lib.Models.Blog;
+using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
+using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
+
 namespace SmallsOnline.Web.Lib.Services;
 
 public interface ICosmosDbService

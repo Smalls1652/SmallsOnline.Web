@@ -1,6 +1,6 @@
 using System.Text;
 using Microsoft.Azure.Cosmos;
-using SmallsOnline.Web.Services.CosmosDB.Helpers;
+using SmallsOnline.Web.Lib.Models.Blog;
 
 namespace SmallsOnline.Web.Lib.Services;
 

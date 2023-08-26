@@ -1,4 +1,6 @@
+using System.Net;
 using Microsoft.Azure.Cosmos;
+using SmallsOnline.Web.Lib.Models.Blog;
 
 namespace SmallsOnline.Web.Lib.Services;
 

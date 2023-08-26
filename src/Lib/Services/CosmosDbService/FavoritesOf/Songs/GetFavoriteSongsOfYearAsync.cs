@@ -1,5 +1,5 @@
 using Microsoft.Azure.Cosmos;
-using SmallsOnline.Web.Services.CosmosDB.Helpers;
+using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 
 namespace SmallsOnline.Web.Lib.Services;
 
