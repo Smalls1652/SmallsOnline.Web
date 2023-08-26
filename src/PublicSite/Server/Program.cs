@@ -1,40 +1,31 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Http;
+using SmallsOnline.Web.Lib.Services;
 using SmallsOnline.Web.PublicSite.Server;
 using SmallsOnline.Web.PublicSite.Server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration
+    .AddEnvironmentVariables()
+    .AddJsonFile(builder.Environment.IsDevelopment() ? "appsettings.Development.json" : "appsettings.json");
+
 // Add services to the container.
 builder.Services.AddRazorComponents();
-builder.Services.AddSingleton<FavoritesOfStateContainer>();
 
-// Add scoped HTTP client.
-builder.Services.AddScoped(
-    sp => new HttpClient { BaseAddress = new Uri(builder.Environment.WebRootPath) }
+builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
+    provider => new CosmosDbService(
+        connectionString: builder.Configuration.GetValue<string>("CosmosDbConnectionString")!,
+        containerName: builder.Configuration.GetValue<string>("CosmosDbContainerName")!
+    )
 );
 
-// Add HTTP client service for accessing the base website.
-builder.Services.AddHttpClient(
-    name: "BaseAppClient",
-    configureClient: (client) => { client.BaseAddress = new(builder.Environment.WebRootPath); }
-);
-
-// Attempt to get the API URL from the config.
-string? apiUri = builder.Configuration.GetValue<string>("ApiUri");
-
-// If the API URL is null, throw and exception..
-if (apiUri is null)
-{
-    throw new InvalidOperationException("The API URI was not found in the configuration.");
-}
-
-// Add HTTP client service for accessing the API.
-builder.Services.AddHttpClient(
-    name: "PublicApi",
-    configureClient: (client) => { client.BaseAddress = new(apiUri); }
-);
-
-builder.Services.Remove(builder.Services.First(s => s.ServiceType == typeof(IHttpMessageHandlerBuilderFilter)));
+// Temporarily enable SynchronousIO to fix issues with certain DB calls.
+builder.Services
+    .Configure<KestrelServerOptions>(options =>
+    {
+        options.AllowSynchronousIO = true;
+    });
 
 var app = builder.Build();
 
