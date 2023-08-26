@@ -23,8 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmallsOnline.Web.Lib\SmallsOnline.Web.Lib.csproj" />
-    <ProjectReference Include="..\SmallsOnline.Web.Services.CosmosDB\SmallsOnline.Web.Services.CosmosDB.csproj" />
+    <ProjectReference Include="..\Lib\Lib.csproj" />
   </ItemGroup>
 
 </Project>
