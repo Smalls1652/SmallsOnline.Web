@@ -18,11 +18,9 @@
     </Description>
   </PropertyGroup>
 
-  <!-- Importing the version that's shared between SmallsOnline.Web.Lib and SmallsOnline.Web.Lib.Components. -->
-  <Import Project="../../SmallsOnline.Web.version.proj" />
-
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.32.0" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.3" />
     <PackageReference Include="YamlDotNet" Version="13.2.0" />
   </ItemGroup>
 
