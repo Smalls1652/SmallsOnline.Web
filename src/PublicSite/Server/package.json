@@ -8,6 +8,7 @@
   "license": "ISC",
   "dependencies": {
     "@highlightjs/cdn-assets": "^11.8.0",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5"
   }

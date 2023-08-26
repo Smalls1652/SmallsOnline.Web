@@ -55,6 +55,26 @@ Copy-Item -Path $bootstrapIconsCssPath -Destination $bootstrapIconsOutPath -Erro
 Write-Information @writeInfoSplat -MessageData "`t| fonts\-> $($bootstrapIconsOutPath)"
 Copy-Item -Path $bootstrapIconsFontDirPath -Destination $bootstrapIconsOutPath -Recurse -ErrorAction "Stop"
 
+# ---- popper.js ----
+
+$popperJsPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\@popperjs\core\dist\cjs\popper.js"
+$popperJsOutPath = Join-Path -Path $scriptRoot -ChildPath "wwwroot\js\popper\"
+
+# Create output directory if it doesn't exist
+if (!(Test-Path -Path $popperJsOutPath)) {
+    $null = New-Item -Path $popperJsOutPath -ItemType "Directory" -Force
+}
+
+# Remove any existing item in the directory
+foreach ($fileItem in (Get-ChildItem -Path $popperJsOutPath)) {
+    Write-Information @writeInfoSplat -MessageData "`t| Removing '$($fileItem.Name)'"
+    Remove-Item -Path $fileItem.FullName -Force
+}
+
+# Copy the files
+Write-Information @writeInfoSplat -MessageData "`t| popper.js-> $($popperJsOutPath)"
+Copy-Item -Path $popperJsPath -Destination $popperJsOutPath -ErrorAction "Stop"
+
 # ---- Bootstrap JS ----
 
 # Bootstrap JS file paths
