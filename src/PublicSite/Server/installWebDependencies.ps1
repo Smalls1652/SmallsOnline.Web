@@ -55,6 +55,31 @@ Copy-Item -Path $bootstrapIconsCssPath -Destination $bootstrapIconsOutPath -Erro
 Write-Information @writeInfoSplat -MessageData "`t| fonts\-> $($bootstrapIconsOutPath)"
 Copy-Item -Path $bootstrapIconsFontDirPath -Destination $bootstrapIconsOutPath -Recurse -ErrorAction "Stop"
 
+# ---- Bootstrap JS ----
+
+# Bootstrap JS file paths
+$bootstrapJsPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\bootstrap\dist\js\bootstrap.bundle.min.js"
+$bootstrapJsMapPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\bootstrap\dist\js\bootstrap.bundle.min.js.map"
+$bootstrapJsOutPath = Join-Path -Path $scriptRoot -ChildPath "wwwroot\js\bootstrap\"
+
+# Create output directory if it doesn't exist
+if (!(Test-Path -Path $bootstrapJsOutPath)) {
+    $null = New-Item -Path $bootstrapJsOutPath -ItemType "Directory" -Force
+}
+
+# Remove any existing item in the directory
+foreach ($fileItem in (Get-ChildItem -Path $bootstrapJsOutPath)) {
+    Write-Information @writeInfoSplat -MessageData "`t| Removing '$($fileItem.Name)'"
+    Remove-Item -Path $fileItem.FullName -Force
+}
+
+# Copy the files
+Write-Information @writeInfoSplat -MessageData "`t| bootstrap.bundle.min.js-> $($bootstrapJsOutPath)"
+Copy-Item -Path $bootstrapJsPath -Destination $bootstrapJsOutPath -ErrorAction "Stop"
+
+Write-Information @writeInfoSplat -MessageData "`t| bootstrap.bundle.min.js.map-> $($bootstrapJsOutPath)"
+Copy-Item -Path $bootstrapJsMapPath -Destination $bootstrapJsOutPath -ErrorAction "Stop"
+
 Write-Information @writeInfoSplat -MessageData "`t| Customizing highlight.js"
 Write-Information @writeInfoSplat -MessageData "`t`t| Pulling highlight.js repo"
 Start-Process -FilePath "git" -Wait -WorkingDirectory $tempPath -ArgumentList @(
