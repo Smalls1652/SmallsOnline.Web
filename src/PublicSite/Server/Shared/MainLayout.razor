@@ -1,9 +1,6 @@
 ﻿@namespace SmallsOnline.Web.PublicSite.Server.Shared
 @inherits LayoutComponentBase
 
-@using SmallsOnline.Web.PublicSite.Server.Shared.Navigation
-@using SmallsOnline.Web.PublicSite.Server.Shared.Sidebar
-
 <div>
     <header>
         <SiteNavbar />
@@ -12,9 +9,7 @@
         <div class="container-fluid">
             <div class="row py-3 justify-content-center">
                 <div class="col-md-12 col-lg-9 col-xl-7 col-xxl-6">
-                    <CascadingValue Name="ShouldFadeSlideIn" Value="@_shouldFadeSlideIn">
-                        @Body
-                    </CascadingValue>
+                    @Body
                 </div>
                 <SidebarItem />
             </div>

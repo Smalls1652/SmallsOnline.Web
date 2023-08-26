@@ -8,7 +8,7 @@ namespace SmallsOnline.Web.PublicSite.Server.Shared;
 /// <summary>
 /// The main layout for the site.
 /// </summary>
-public partial class MainLayout : LayoutComponentBase, IDisposable
+public partial class MainLayout : LayoutComponentBase
 {
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = null!;
@@ -16,47 +16,9 @@ public partial class MainLayout : LayoutComponentBase, IDisposable
     [Inject]
     protected ILogger<MainLayout> Logger { get; set; } = null!;
 
-    private ShouldFadeIn _shouldFadeSlideIn = new();
-    private bool _isEnableFadeSlideInOnLocationChangeEventMethod;
-
     protected override void OnInitialized()
     {
         Logger.LogInformation("Website version: {Version}", Assembly.GetExecutingAssembly().GetName().Version!.ToString());
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            NavigationManager.LocationChanged += EnableFadeSlideInOnPageChange;
-            _isEnableFadeSlideInOnLocationChangeEventMethod = true;
-        }
-
-        await base.OnAfterRenderAsync(firstRender);
-    }
-
-    private void EnableFadeSlideInOnPageChange(object? sender, LocationChangedEventArgs eventArgs)
-    {
-        _shouldFadeSlideIn.Enabled = true;
-        StateHasChanged();
-        NavigationManager.LocationChanged -= EnableFadeSlideInOnPageChange;
-        _isEnableFadeSlideInOnLocationChangeEventMethod = false;
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (_isEnableFadeSlideInOnLocationChangeEventMethod)
-            {
-                NavigationManager.LocationChanged -= EnableFadeSlideInOnPageChange;
-            }
-        }
-    }
 }
