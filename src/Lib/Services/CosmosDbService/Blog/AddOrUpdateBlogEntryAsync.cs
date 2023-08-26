@@ -13,7 +13,7 @@ public partial class CosmosDbService : ICosmosDbService
     public async Task AddOrUpdateBlogEntryAsync(BlogEntry blogEntry)
     {
         // Get the container for the blog entries.
-        Container container = cosmosDbClient.GetContainer(_containerName, "blogs");
+        Container container = _cosmosDbClient.GetContainer(_containerName, "blogs");
 
         try
         {

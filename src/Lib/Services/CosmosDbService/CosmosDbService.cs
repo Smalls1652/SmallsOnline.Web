@@ -9,6 +9,11 @@ namespace SmallsOnline.Web.Lib.Services;
 public partial class CosmosDbService : ICosmosDbService
 {
     /// <summary>
+    /// The CosmosDB client.
+    /// </summary>
+    private readonly CosmosClient _cosmosDbClient;
+    
+    /// <summary>
     /// Instantiate the service with service with a connection string and the database name.
     /// </summary>
     /// <param name="connectionString">The connection string for authenticating the service.</param>
@@ -16,13 +21,8 @@ public partial class CosmosDbService : ICosmosDbService
     public CosmosDbService(string connectionString, string containerName)
     {
         _containerName = containerName;
-        cosmosDbClient = InitService(connectionString, jsonSerializer);
+        _cosmosDbClient = InitService(connectionString, jsonSerializer);
     }
-
-    /// <summary>
-    /// The CosmosDB client.
-    /// </summary>
-    private CosmosClient cosmosDbClient;
 
     private readonly string _containerName;
 

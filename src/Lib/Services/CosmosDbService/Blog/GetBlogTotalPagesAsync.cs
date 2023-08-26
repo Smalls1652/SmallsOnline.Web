@@ -14,7 +14,7 @@ public partial class CosmosDbService : ICosmosDbService
         List<int> totalPagesCount = new();
 
         // Get the container where the blog entries are stored.
-        Container container = cosmosDbClient.GetContainer(_containerName, "blogs");
+        Container container = _cosmosDbClient.GetContainer(_containerName, "blogs");
 
         // Define the query for getting the total number of blog entries.
         // The query creates a column for the total number of distinct blog entries.

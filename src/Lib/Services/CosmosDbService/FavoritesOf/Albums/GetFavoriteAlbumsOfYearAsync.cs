@@ -10,10 +10,10 @@ public partial class CosmosDbService : ICosmosDbService
     /// </summary>
     /// <param name="listYear">The list year to get the data for.</param>
     /// <returns>A collection of favorite albums for a year.</returns>
-    public async Task<IEnumerable<AlbumData>> GetFavoriteAlbumsOfYearAsync(string listYear)
+    public async Task<AlbumData[]> GetFavoriteAlbumsOfYearAsync(string listYear)
     {
         // Get the container where the favorite music entries are stored.
-        Container container = cosmosDbClient.GetContainer(_containerName, "favorites-of");
+        Container container = _cosmosDbClient.GetContainer(_containerName, "favorites-of");
 
         // Define the query for getting the favorite albums for a year.
         string coreQuery = $"WHERE c.partitionKey = \"favorites-of-albums\" AND c.listYear = \"{listYear}\" ORDER BY c.albumReleaseDate ASC";

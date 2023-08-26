@@ -13,7 +13,7 @@ public partial class CosmosDbService : ICosmosDbService
     public async Task<BlogEntry> GetBlogEntryAsync(string id)
     {
         // Get the container where the blog entries are stored.
-        Container container = cosmosDbClient.GetContainer(_containerName, "blogs");
+        Container container = _cosmosDbClient.GetContainer(_containerName, "blogs");
 
         BlogEntry? retrievedItem = null;
 

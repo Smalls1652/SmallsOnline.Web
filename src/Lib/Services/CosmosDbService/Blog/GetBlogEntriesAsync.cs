@@ -12,7 +12,7 @@ public partial class CosmosDbService : ICosmosDbService
     /// <param name="pageNumber">The page number to get.</param>
     /// <returns>A collection of blog entries.</returns>
     /// <exception cref="Exception"></exception>
-    public async Task<IEnumerable<BlogEntry>> GetBlogEntriesAsync(int pageNumber = 1)
+    public async Task<BlogEntry[]> GetBlogEntriesAsync(int pageNumber = 1)
     {
         // Set the offset count for the Cosmos DB SQL query.
         int offsetNum = pageNumber switch
@@ -23,7 +23,7 @@ public partial class CosmosDbService : ICosmosDbService
         };
 
         // Get the container where the blog entries are stored.
-        Container container = cosmosDbClient.GetContainer(_containerName, "blogs");
+        Container container = _cosmosDbClient.GetContainer(_containerName, "blogs");
 
         // Build the Cosmos DB SQL query.
         string coreQuery = $"WHERE c.partitionKey = \"blog-entry\" AND c.blogIsPublished = true ORDER BY c.blogPostedDate DESC OFFSET {offsetNum} LIMIT 5";
