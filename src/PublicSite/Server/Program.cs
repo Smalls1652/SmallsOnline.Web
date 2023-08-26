@@ -11,7 +11,8 @@ builder.Configuration
     .AddJsonFile(builder.Environment.IsDevelopment() ? "appsettings.Development.json" : "appsettings.json");
 
 // Add services to the container.
-builder.Services.AddRazorComponents();
+builder.Services
+    .AddRazorComponents();
 
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
     provider => new CosmosDbService(
@@ -41,6 +42,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.MapRazorComponents<App>();
+app
+    .MapRazorComponents<App>();
 
 app.Run();
