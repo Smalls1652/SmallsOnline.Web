@@ -10,15 +10,4 @@ namespace SmallsOnline.Web.PublicSite.Server.Shared;
 /// </summary>
 public partial class MainLayout : LayoutComponentBase
 {
-    [Inject]
-    protected NavigationManager NavigationManager { get; set; } = null!;
-
-    [Inject]
-    protected ILogger<MainLayout> Logger { get; set; } = null!;
-
-    protected override void OnInitialized()
-    {
-        Logger.LogInformation("Website version: {Version}", Assembly.GetExecutingAssembly().GetName().Version!.ToString());
-    }
-
 }
