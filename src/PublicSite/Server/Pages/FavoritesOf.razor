@@ -1,5 +1,4 @@
-@namespace SmallsOnline.Web.PublicSite.Server
-@inherits ComponentBase
+@namespace SmallsOnline.Web.PublicSite.Server.Pages
 
 @using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums
 @using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs
@@ -100,14 +99,12 @@ else
                                 </h2>
                                 <ul>
                                     <li>
-                                        <a class="fs-5 fw-bold text-decoration-none show-pointer-cursor"
-                                           onclick="document.getElementById('favorite-albums').scrollIntoView({behavior:'smooth'})">
+                                        <a class="fs-5 fw-bold text-decoration-none show-pointer-cursor" href="#favorite-albums">
                                             Favorite Albums
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="fs-5 fw-bold text-decoration-none show-pointer-cursor"
-                                           onclick="document.getElementById('favorite-songs').scrollIntoView({behavior:'smooth'})">
+                                        <a class="fs-5 fw-bold text-decoration-none show-pointer-cursor" href="#favorite-songs">
                                             Favorite Songs
                                         </a>
                                     </li>
@@ -156,7 +153,7 @@ else
 
         <div class="row pt-3">
             <div class="col">
-                <div class="card shadow" id="favorite-songs" @ref="_favoriteSongsRef">
+                <div class="card shadow" id="favorite-songs">
                     <div class="card-header">
                         <h1 class="mb-0">
                             Favorite Songs
