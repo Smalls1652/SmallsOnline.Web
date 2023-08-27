@@ -5,6 +5,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -; \
     apt install -y nodejs python3
 
 RUN curl -qL https://www.npmjs.com/install.sh | sh
+
 RUN dotnet dotnet workload install wasm-tools; \
     dotnet tool install --global PowerShell
 
@@ -12,6 +13,7 @@ WORKDIR /app
 COPY ./cleanBuildOutput.ps1 ./
 COPY ./src/Lib/ ./src/Lib/
 COPY ./src/Lib.Components/ ./src/Lib.Components/
+COPY ./src/Lib.Services/ ./src/Lib.Services/
 COPY ./src/PublicSite/ ./src/PublicSite/
 
 RUN dotnet msbuild ./src/PublicSite/Server/ -t:"InitProject_Combined"

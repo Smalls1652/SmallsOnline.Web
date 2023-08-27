@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0-preview as build-env
 WORKDIR /app
 
 COPY ./src/Lib/ ./src/Lib/
+COPY ./src/Lib.Services/ ./src/Lib.Services/
 COPY ./src/Api/ ./src/Api/
 
 RUN dotnet restore ./src/Api/
