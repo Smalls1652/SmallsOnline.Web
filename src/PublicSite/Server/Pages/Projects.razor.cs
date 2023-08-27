@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.AspNetCore.Components.Web;
 using SmallsOnline.Web.Lib.Models.Projects;
 
 namespace SmallsOnline.Web.PublicSite.Server.Pages;
@@ -7,6 +8,7 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// The projects page.
 /// </summary>
+[RenderModeServer(true)]
 public partial class Projects : ComponentBase
 {
     private ProjectItem[]? _projectItems;

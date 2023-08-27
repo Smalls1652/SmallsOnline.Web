@@ -11,6 +11,7 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// The page for displaying the favorite music of a given year.
 /// </summary>
+[RenderModeServer(false)]
 public partial class FavoritesOf : ComponentBase
 {
     [Inject]
@@ -25,7 +26,7 @@ public partial class FavoritesOf : ComponentBase
     [Parameter]
     public string? ListYear { get; set; }
 
-    private bool _isFinishedLoading = false;
+    private bool _isLoading = true;
 
     private AlbumData[]? _albumItems;
     private SongData[]? _trackItems;
@@ -35,16 +36,18 @@ public partial class FavoritesOf : ComponentBase
 
     protected override async Task OnParametersSetAsync()
     {
+        _isLoading = true;
+
         if (ListYear is not null)
         {
-            _isFinishedLoading = false;
-
             await GetFavorites();
-
-            _isFinishedLoading = true;
 
             PageLogger.LogInformation("Finished loading favorites of {ListYear}", ListYear);
         }
+
+        _isLoading = false;
+
+        await base.OnParametersSetAsync();
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Http;
 using SmallsOnline.Web.Lib.Services;
 using SmallsOnline.Web.PublicSite.Server;
@@ -12,7 +13,8 @@ builder.Configuration
 
 // Add services to the container.
 builder.Services
-    .AddRazorComponents();
+    .AddRazorComponents()
+    .AddServerComponents();
 
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
     provider => new CosmosDbService(
@@ -44,6 +46,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app
-    .MapRazorComponents<App>();
+    .MapRazorComponents<App>()
+    .AddServerRenderMode();
 
 app.Run();

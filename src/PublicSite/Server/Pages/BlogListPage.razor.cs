@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Components.Web;
 using SmallsOnline.Web.Lib.Models.Blog;
 using SmallsOnline.Web.Lib.Services;
 
@@ -8,6 +9,7 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// Page for listing blog posts.
 /// </summary>
+[RenderModeServer(true)]
 public partial class BlogListPage : ComponentBase
 {
     [Inject]
