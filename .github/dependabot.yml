@@ -27,6 +27,21 @@ updates:
     assignees:
       - "Smalls1652"
 
+  # NuGet config for SmallsOnline.Web.PublicSite.Client
+  - package-ecosystem: "nuget"
+    directory: "/src/PublicSite/Client"
+    target-branch: "dev"
+    schedule:
+      interval: "daily"
+    labels:
+      - "website"
+      - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
+    assignees:
+      - "Smalls1652"
+
   # NuGet config for SmallsOnline.Web.PublicSite.Server
   - package-ecosystem: "nuget"
     directory: "/src/PublicSite/Server"
