@@ -5,6 +5,4 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// </summary>
 public partial class Home : ComponentBase
 {
-    [Inject]
-    protected ILogger<Home> PageLogger { get; set; } = null!;
 }

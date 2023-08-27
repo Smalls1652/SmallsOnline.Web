@@ -8,7 +8,6 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// Page for listing blog posts.
 /// </summary>
-[StreamRendering(true)]
 public partial class BlogListPage : ComponentBase
 {
     [Inject]

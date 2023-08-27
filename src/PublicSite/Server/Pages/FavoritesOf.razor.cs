@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 using System.Text.Json.Serialization.Metadata;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Web;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 using SmallsOnline.Web.Lib.Services;
@@ -10,7 +11,6 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// The page for displaying the favorite music of a given year.
 /// </summary>
-[StreamRendering(true)]
 public partial class FavoritesOf : ComponentBase
 {
     [Inject]
@@ -33,7 +33,7 @@ public partial class FavoritesOf : ComponentBase
     private AlbumData? _bestAlbum;
     private AlbumData[]? _favoriteAlbums;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         if (ListYear is not null)
         {

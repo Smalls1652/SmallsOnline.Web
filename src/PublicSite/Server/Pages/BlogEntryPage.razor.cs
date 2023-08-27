@@ -13,7 +13,6 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// Page for rendering a specific blog post.
 /// </summary>
-[StreamRendering(true)]
 public partial class BlogEntryPage : ComponentBase
 {
     [Inject]
@@ -37,7 +36,7 @@ public partial class BlogEntryPage : ComponentBase
 
     private readonly Regex _anchorTagRegex = new("^(?>https|http):\\/\\/.+?\\/.*(?'anchorTag'#(?'anchorTagName'.+))$");
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         // Get the blog entry data.
         await GetBlogEntry();
