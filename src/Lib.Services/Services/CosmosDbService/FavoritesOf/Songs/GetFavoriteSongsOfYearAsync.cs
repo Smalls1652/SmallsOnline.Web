@@ -1,0 +1,49 @@
+using Microsoft.Azure.Cosmos;
+using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
+
+namespace SmallsOnline.Web.Lib.Services;
+
+public partial class CosmosDbService : ICosmosDbService
+{
+    /// <summary>
+    /// Get the favorite tracks for a specific year.
+    /// </summary>
+    /// <param name="listYear">The list year to get the data for.</param>
+    /// <returns>A collection of favorite tracks for a year</returns>
+    public async Task<SongData[]> GetFavoriteSongsOfYearAsync(string listYear)
+    {
+        // Get the container where the favorite music entries are stored.
+        Container container = _cosmosDbClient.GetContainer(_containerName, "favorites-of");
+
+        // Define the query for getting the favorite tracks for a year.
+        string coreQuery = $"WHERE c.partitionKey = \"favorites-of-tracks\" AND c.listYear = \"{listYear}\" ORDER BY c.trackReleaseDate ASC";
+        QueryDefinition resultsQuery = new($"SELECT * FROM c {coreQuery}");
+
+        // Get the count of the results that will be returned from the query.
+        int resultsCount = await GetResultCount(
+            container: container,
+            coreQuery: coreQuery
+        );
+
+        // Instantiate an array of songs based on the count of results that will return.
+        SongData[] trackItems = new SongData[resultsCount];
+
+        // Execute the query.
+        FeedIterator<SongData> containerQueryIterator = container.GetItemQueryIterator<SongData>(resultsQuery);
+        while (containerQueryIterator.HasMoreResults)
+        {
+            int i = 0;
+            foreach (SongData item in await containerQueryIterator.ReadNextAsync())
+            {
+                // Add the song to the list.
+                trackItems[i] = item;
+                i++;
+            }
+        }
+
+        // Dispose of the query iterator.
+        containerQueryIterator.Dispose();
+
+        return trackItems;
+    }
+}

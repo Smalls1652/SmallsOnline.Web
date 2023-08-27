@@ -8,6 +8,7 @@ bootstrap/
 bootstrap-icons/
 [Bb]uild/
 highlight.js/
+popper/
 .idea/
 *.env
 

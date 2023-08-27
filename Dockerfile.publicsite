@@ -5,19 +5,20 @@ RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -; \
     apt install -y nodejs python3
 
 RUN curl -qL https://www.npmjs.com/install.sh | sh
+
 RUN dotnet dotnet workload install wasm-tools; \
     dotnet tool install --global PowerShell
 
 WORKDIR /app
-COPY ./SmallsOnline.Web.version.proj ./
 COPY ./cleanBuildOutput.ps1 ./
-COPY ./src/SmallsOnline.Web.Lib/ ./src/SmallsOnline.Web.Lib/
-COPY ./src/SmallsOnline.Web.Lib.Components/ ./src/SmallsOnline.Web.Lib.Components/
-COPY ./src/SmallsOnline.Web.PublicSite/ ./src/SmallsOnline.Web.PublicSite/
+COPY ./src/Lib/ ./src/Lib/
+COPY ./src/Lib.Components/ ./src/Lib.Components/
+COPY ./src/Lib.Services/ ./src/Lib.Services/
+COPY ./src/PublicSite/ ./src/PublicSite/
 
-RUN dotnet msbuild ./src/SmallsOnline.Web.PublicSite/Client/ -t:"InitProject_Combined"
-RUN dotnet restore ./src/SmallsOnline.Web.PublicSite/Server/
-RUN dotnet publish ./src/SmallsOnline.Web.PublicSite/Server/ --configuration Release --output out
+RUN dotnet msbuild ./src/PublicSite/Server/ -t:"InitProject_Combined"
+RUN dotnet restore ./src/PublicSite/Server/
+RUN dotnet publish ./src/PublicSite/Server/ --configuration Release --output out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-preview
 WORKDIR /app

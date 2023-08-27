@@ -3,10 +3,10 @@ name: API / Build
 on:
   push:
     paths-ignore:
-      - 'src/SmallsOnline.Web.PublicSite/**'
+      - 'src/PublicSite/**'
   pull_request:
     paths-ignore:
-      - 'src/SmallsOnline.Web.PublicSite/**'
+      - 'src/PublicSite/**'
   workflow_dispatch:
 jobs:
   build:
@@ -26,8 +26,8 @@ jobs:
           global-json-file: global.json
 
       - name: Run 'dotnet restore'
-        run: dotnet restore ./src/SmallsOnline.Web.Api/
+        run: dotnet restore ./src/Api/
 
       - name: Run 'dotnet build'
-        run: dotnet build ./src/SmallsOnline.Web.Api/
+        run: dotnet build ./src/Api/
         

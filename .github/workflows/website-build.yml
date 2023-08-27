@@ -3,12 +3,10 @@ name: Website / Build
 on:
   push:
     paths-ignore:
-      - 'src/SmallsOnline.Web.Services.CosmosDB/**'
-      - 'src/SmallsOnline.Web.Api/**'
+      - 'src/Api/**'
   pull_request:
     paths-ignore:
-      - 'src/SmallsOnline.Web.Services.CosmosDB/**'
-      - 'src/SmallsOnline.Web.Api/**'
+      - 'src/Api/**'
   workflow_dispatch:
 
 jobs:
@@ -29,10 +27,7 @@ jobs:
         with:
           global-json-file: global.json
 
-      - name: Install wasm-tools
-        run: dotnet workload install wasm-tools
-
       - name: Build web app
         shell: pwsh
         run: dotnet restore ; dotnet build
-        working-directory: "src/SmallsOnline.Web.PublicSite/Server/"
+        working-directory: "src/PublicSite/Server/"

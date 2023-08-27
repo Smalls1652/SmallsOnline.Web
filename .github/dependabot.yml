@@ -2,7 +2,7 @@ version: 2
 updates:
   # NuGet config for SmallsOnline.Web.Lib
   - package-ecosystem: "nuget"
-    directory: "/src/SmallsOnline.Web.Lib/"
+    directory: "/src/Lib/"
     target-branch: "dev"
     schedule:
       interval: "daily"
@@ -14,7 +14,7 @@ updates:
   
   # NuGet config for SmallsOnline.Web.Lib.Components
   - package-ecosystem: "nuget"
-    directory: "/src/SmallsOnline.Web.Lib.Components/"
+    directory: "/src/Lib.Components/"
     target-branch: "dev"
     schedule:
       interval: "daily"
@@ -27,36 +27,9 @@ updates:
     assignees:
       - "Smalls1652"
 
-  # NuGet config for SmallsOnline.Web.PublicSite.Client
-  - package-ecosystem: "nuget"
-    directory: "/src/SmallsOnline.Web.PublicSite/Client"
-    target-branch: "dev"
-    schedule:
-      interval: "daily"
-    labels:
-      - "website"
-      - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
-    assignees:
-      - "Smalls1652"
-
-  # NPM config for SmallsOnline.Web.PublicSite.Client
-  - package-ecosystem: "npm"
-    directory: "/src/SmallsOnline.Web.PublicSite/Client"
-    target-branch: "dev"
-    schedule:
-      interval: "daily"
-    labels:
-      - "website"
-      - "dependency update"
-    assignees:
-      - "Smalls1652"
-
   # NuGet config for SmallsOnline.Web.PublicSite.Server
   - package-ecosystem: "nuget"
-    directory: "/src/SmallsOnline.Web.PublicSite/Server"
+    directory: "/src/PublicSite/Server"
     target-branch: "dev"
     schedule:
       interval: "daily"
@@ -69,18 +42,15 @@ updates:
     assignees:
       - "Smalls1652"
 
-  # NuGet config for SmallsOnline.Web.PublicSite.Shared
-  - package-ecosystem: "nuget"
-    directory: "/src/SmallsOnline.Web.PublicSite/Shared"
+  # NPM config for SmallsOnline.Web.PublicSite.Server
+  - package-ecosystem: "npm"
+    directory: "/src/PublicSite/Server"
     target-branch: "dev"
     schedule:
       interval: "daily"
     labels:
       - "website"
       - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
     assignees:
       - "Smalls1652"
 
@@ -98,7 +68,7 @@ updates:
 
   # NuGet config for SmallsOnline.Web.Api
   - package-ecosystem: "nuget"
-    directory: "/src/SmallsOnline.Web.Api"
+    directory: "/src/Api"
     target-branch: "dev"
     schedule:
       interval: "daily"

@@ -63,9 +63,9 @@ jobs:
         - name: 'dotnet: Create package'
           shell: pwsh
           run: |
-            dotnet pack ./src/SmallsOnline.Web.Lib/ --configuration Release --no-restore --output ./src/SmallsOnline.Web.Lib/
+            dotnet pack ./src/Lib/ --configuration Release --no-restore --output ./src/Lib/
 
         - name: 'dotnet: Publish package to registry'
           shell: pwsh
           run: |
-            dotnet nuget push "./src/SmallsOnline.Web.Lib/*.nupkg"
+            dotnet nuget push "./src/Lib/*.nupkg"

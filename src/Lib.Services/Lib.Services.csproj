@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>SmallsOnline.Web.Lib.Services</PackageId>
+    <Authors>Timothy Small</Authors>
+    <Company>Smalls.Online</Company>
+    <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web</RepositoryUrl>
+    <Description>
+      Class library that defines classes used across multiple projects for https://smalls.online.
+    </Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>SmallsOnline.Web.Lib</RootNamespace>
+    <AssemblyName>SmallsOnline.Web.Lib.Services</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lib\Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.3" />
+  </ItemGroup>
+
+</Project>
