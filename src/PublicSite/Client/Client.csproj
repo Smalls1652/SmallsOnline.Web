@@ -31,5 +31,8 @@
     <_ContentIncludedByDefault Remove="wwwroot\index.html" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj" PrivateAssets="All" />
+  </ItemGroup>
 
 </Project>

@@ -13,7 +13,9 @@ builder.Configuration
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
+    .AddServerComponents()
     .AddWebAssemblyComponents();
+
 
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
     provider => new CosmosDbService(
@@ -45,6 +47,7 @@ app.UseStaticFiles();
 
 app
     .MapRazorComponents<App>()
+    .AddServerRenderMode()
     .AddWebAssemblyRenderMode();
 
 app.Run();
