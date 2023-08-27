@@ -16,7 +16,6 @@ builder.Services
     .AddServerComponents()
     .AddWebAssemblyComponents();
 
-
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
     provider => new CosmosDbService(
         connectionString: builder.Configuration.GetValue<string>("CosmosDbConnectionString")!,
