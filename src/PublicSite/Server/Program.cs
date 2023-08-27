@@ -25,6 +25,7 @@ builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
 );
 
 // Temporarily enable SynchronousIO to fix issues with certain DB calls.
+// TODO: Should be fixed in a future .NET 8 release.
 builder.Services
     .Configure<KestrelServerOptions>(options =>
     {
