@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.Azure.Cosmos;
 using SmallsOnline.Web.Lib.Models.Json;
 
@@ -12,7 +13,7 @@ public partial class CosmosDbService : ICosmosDbService
     /// The CosmosDB client.
     /// </summary>
     private readonly CosmosClient _cosmosDbClient;
-    
+
     /// <summary>
     /// Instantiate the service with service with a connection string and the database name.
     /// </summary>
