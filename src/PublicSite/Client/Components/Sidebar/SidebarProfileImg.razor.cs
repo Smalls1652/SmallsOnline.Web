@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace SmallsOnline.Web.PublicSite.Server.Shared.Sidebar;
+namespace SmallsOnline.Web.PublicSite.Client.Components.Sidebar;
 
 /// <summary>
 /// Component for handling the sidebar "profile pic" image.
