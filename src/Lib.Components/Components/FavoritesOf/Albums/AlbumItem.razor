@@ -52,7 +52,7 @@
                         <h4>Standout Songs</h4>
                         <div>
                             <div class="list-group">
-                                @if (ItemData.SchemaVersion is null && ItemData.StandoutTracks is not null)
+                                @if (ItemData.StandoutTracks is not null)
                                 {
                                     @foreach (AlbumStandoutSong standoutSongItem in ItemData.StandoutTracks)
                                     {
@@ -60,18 +60,6 @@
                                             <a class="text-decoration-none stretched-link" href="@standoutSongItem.TrackUrl" rel="noopener noreferrer"
                                                target="_blank">
                                                 @standoutSongItem.Name
-                                            </a>
-                                        </div>
-                                    }
-                                }
-                                else if (ItemData.SchemaVersion == "2.0" && ItemData.OnlyStandoutSongs is not null)
-                                {
-                                    @foreach (AlbumStandoutSongItem standoutSongItem in ItemData.OnlyStandoutSongs)
-                                    {
-                                        <div class="list-group-item list-group-item-action">
-                                            <a class="text-decoration-none stretched-link" href="@standoutSongItem.SongUrl" rel="noopener noreferrer"
-                                               target="_blank">
-                                                @standoutSongItem.GetSongNumberAsString() @standoutSongItem.Name
                                             </a>
                                         </div>
                                     }
