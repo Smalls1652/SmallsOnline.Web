@@ -22,31 +22,10 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - name: 'Checkout: Fetch all history'
+        - name: "Checkout GitHub Action"
           uses: actions/checkout@v3
-          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
           with:
             fetch-depth: 0
-
-        - name: Get latest tag
-          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
-          id: get_latest_tag
-          shell: pwsh
-          run: |
-            "latest_tag=$(git describe --abbrev=0 --tags 'main')" >> $env:GITHUB_ENV
-
-        - name: 'Checkout: Latest tag'
-          uses: actions/checkout@v3
-          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
-          with:
-            ref: ${{ env.latest_tag }}
-            submodules: true
-
-        - name: 'Checkout: Latest commit'
-          uses: actions/checkout@v3
-          if: ${{ inputs.on_latest_tag != true && github.event_name != 'schedule' }}
-          with:
-            submodules: true
 
         - name: Get current ticks
           id: get_current_ticks
@@ -76,27 +55,34 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
 
-        - name: Set ref name (Latest tag)
-          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
-          shell: pwsh
-          id: set-ref-name-tag
-          run: |
-            "ref_name=$(`"${{ env.latest_tag }}`")" >> $env:GITHUB_ENV
+        - name: Generate Docker metadata
+          id: meta
+          uses: docker/metadata-action@v4
+          with:
+            images: smallsonlinecontainerreg.azurecr.io/smallsonline-api
+            tags: |
+              type=ref,event=tag
+              type=ref,event=branch
+              type=sha
+              type=semver,pattern={{version}}
+              type=semver,pattern={{major}}.{{minor}}
 
-        - name: Set ref name (Latest commit)
-          if: ${{ inputs.on_latest_tag != true && github.event_name != 'schedule' }}
+        - name: Get image tag
+          id: imagetag
           shell: pwsh
-          id: set-ref-name-commit
           run: |
-            "ref_name=$(`"${{ github.ref_name }}`")" >> $env:GITHUB_ENV
+            $metaData = "$(`"${{ steps.meta.outputs.json }}`")" | ConvertFrom-Json
+            $imageTag = $metaData.tags | Where-Object { $PSItem -like "*:v*" }
+            "IMAGETAG=$($imageTag)" >> $env:GITHUB_ENV
 
         - name: Build and push container image to registry
           uses: docker/build-push-action@v4
           with:
             push: true
-            tags: smallsonlinecontainerreg.azurecr.io/smallsonline-api:${{ env.ref_name }}_${{ env.current_datetime_ticks }}
             file: ./Dockerfile.api
             context: ./
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
 
         - name: Azure Login
           uses: azure/login@v1
@@ -109,4 +95,4 @@ jobs:
             inlineScript: |
               az config set extension.use_dynamic_install=yes_without_prompt
               az containerapp registry set -n smallsonline-api -g smalls-online-api --server smallsonlinecontainerreg.azurecr.io --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
-              az containerapp update --resource-group smalls-online-api --name smallsonline-api --image smallsonlinecontainerreg.azurecr.io/smallsonline-api:${{ env.ref_name }}_${{ env.current_datetime_ticks }} --revision-suffix "api-${{ env.current_datetime_ticks }}"
+              az containerapp update --resource-group smalls-online-api --name smallsonline-api --image ${{ env.IMAGETAG }} --revision-suffix "api-${{ env.current_datetime_ticks }}"

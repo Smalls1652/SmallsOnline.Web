@@ -5,48 +5,18 @@ on:
   # for tagged releases matching 'v*.*.*'
   push:
     tags: [ 'v*.*.*', 'v*.*.*-*' ]
-  # Push nightly builds
-  # Should only pull from the latest tag
-  schedule:
-    - cron: '0 0 * * *'
   # Allow manual trigger 
-  workflow_dispatch: 
-    inputs:
-      on_latest_tag:
-        description: 'Run on the latest tag only.'
-        required: false
-        type: boolean
+  workflow_dispatch:
 
 jobs:
     build:
       runs-on: ubuntu-latest
 
       steps:
-        - name: 'Checkout: Fetch all history'
+        - name: "Checkout GitHub Action"
           uses: actions/checkout@v3
-          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
           with:
             fetch-depth: 0
-
-        - name: Get latest tag
-          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
-          id: get_latest_tag
-          shell: pwsh
-          run: |
-            "latest_tag=$(git describe --abbrev=0 --tags 'main')" >> $env:GITHUB_ENV
-
-        - name: 'Checkout: Latest tag'
-          uses: actions/checkout@v3
-          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
-          with:
-            ref: ${{ env.latest_tag }}
-            submodules: true
-
-        - name: 'Checkout: Latest commit'
-          uses: actions/checkout@v3
-          if: ${{ inputs.on_latest_tag != true && github.event_name != 'schedule' }}
-          with:
-            submodules: true
 
         - name: Get current ticks
           id: get_current_ticks
@@ -76,27 +46,34 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
 
-        - name: Set ref name (Latest tag)
-          if: ${{ github.event_name == 'schedule' || inputs.on_latest_tag == true }}
-          shell: pwsh
-          id: set-ref-name-tag
-          run: |
-            "ref_name=$(`"${{ env.latest_tag }}`")" >> $env:GITHUB_ENV
+        - name: Generate Docker metadata
+          id: meta
+          uses: docker/metadata-action@v4
+          with:
+            images: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite
+            tags: |
+              type=ref,event=tag
+              type=ref,event=branch
+              type=sha
+              type=semver,pattern={{version}}
+              type=semver,pattern={{major}}.{{minor}}
 
-        - name: Set ref name (Latest commit)
-          if: ${{ inputs.on_latest_tag != true && github.event_name != 'schedule' }}
+        - name: Get image tag
+          id: imagetag
           shell: pwsh
-          id: set-ref-name-commit
           run: |
-            "ref_name=$(`"${{ github.ref_name }}`")" >> $env:GITHUB_ENV
+            $metaData = "$(`"${{ steps.meta.outputs.json }}`")" | ConvertFrom-Json
+            $imageTag = $metaData.tags | Where-Object { $PSItem -like "*:v*" }
+            "IMAGETAG=$($imageTag)" >> $env:GITHUB_ENV
 
         - name: Build and push container image to registry
           uses: docker/build-push-action@v4
           with:
             push: true
-            tags: smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.ref_name }}_${{ env.current_datetime_ticks }}
             file: ./Dockerfile.publicsite
             context: ./
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
 
         - name: Deploy to Azure Web App
           id: deploy-to-webapp
@@ -105,4 +82,4 @@ jobs:
             app-name: 'smallsonline-web'
             slot-name: 'production'
             publish-profile: ${{ secrets.WEBSITE_AZUREAPPSVC_PUBLISHPROFILE }}
-            images: 'smallsonlinecontainerreg.azurecr.io/smallsonline-web-publicsite:${{ env.ref_name }}_${{ env.current_datetime_ticks }}'
+            images: ${{ env.IMAGETAG }}
