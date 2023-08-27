@@ -31,7 +31,8 @@
         <meta content="https://smalls.online/smalls.png" name="twitter:image">
     </HeadContent>
 }
-else
+
+@if (_isFinishedLoading && ListYear is not null)
 {
     <HeadContent>
         <!-- Generic meta tags -->
@@ -56,30 +57,6 @@ else
         <meta content="https://smalls.online/top-music/favorites-of/@ListYear" property="twitter:url">
         <meta content="https://smalls.online/smalls.png" name="twitter:image">
     </HeadContent>
-}
-@if (_isFinishedLoading == false)
-{
-    <div class="row">
-        <div class="col">
-            <div class="card shadow fade-slide-in">
-                <div class="card-header">
-                    <h1 class="mb-0">
-                        <i class="bi bi-headphones"></i> Favorite Music of @ListYear
-                    </h1>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <LoadingBar />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-else
-{
     <div class="row">
         <div class="col">
             <div class="card shadow fade-slide-in">
