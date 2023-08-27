@@ -29,7 +29,7 @@ public partial class CosmosDbService : ICosmosDbService
         SongData[] trackItems = new SongData[resultsCount];
 
         // Execute the query.
-        FeedIterator<SongData> containerQueryIterator = container.GetItemQueryIterator<SongData>(resultsQuery);
+        using FeedIterator<SongData> containerQueryIterator = container.GetItemQueryIterator<SongData>(resultsQuery);
         while (containerQueryIterator.HasMoreResults)
         {
             int i = 0;
@@ -40,9 +40,6 @@ public partial class CosmosDbService : ICosmosDbService
                 i++;
             }
         }
-
-        // Dispose of the query iterator.
-        containerQueryIterator.Dispose();
 
         return trackItems;
     }
