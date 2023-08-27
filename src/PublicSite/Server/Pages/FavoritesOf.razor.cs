@@ -10,6 +10,7 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// The page for displaying the favorite music of a given year.
 /// </summary>
+[StreamRendering(true)]
 public partial class FavoritesOf : ComponentBase
 {
     [Inject]
