@@ -57,27 +57,31 @@
 }
 else
 {
-    <div class="row pb-2">
-        <div class="col">
-            <div class="card shadow fade-slide-in">
-                <div class="card-header">
-                    <div class="mb-0">
-                        <h1>
-                            <a class="btn btn-text-hider btn-glaucous" href="/blog/list/1" type="button">
-                                <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
-                            </a> <i class="bi bi-journal-text"></i> Blog
-                        </h1>
+    <div class="fade-slide-in">
+        <div class="row pb-2">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <div class="mb-0">
+                            <h1>
+                                <a class="btn btn-text-hider btn-glaucous" href="/blog/list/1" type="button">
+                                    <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
+                                </a> <i class="bi bi-journal-text"></i> Blog
+                            </h1>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            @if (_blogEntry is not null)
-            {
-                <BlogEntryCard BlogEntry=@_blogEntry />
-            }
+        <div class="row">
+            <div class="col">
+                @if (_blogEntry is not null)
+                {
+                    <BlogEntryCard BlogEntry=@_blogEntry />
+                }
+            </div>
+            <script src="highlight.js/highlight.min.js"></script>
+            <script>hljs.highlightAll();</script>
         </div>
     </div>
 }
