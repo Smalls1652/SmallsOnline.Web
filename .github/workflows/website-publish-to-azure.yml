@@ -62,7 +62,7 @@ jobs:
           id: imagetag
           shell: pwsh
           run: |
-            $metaData = "$(`"${{ steps.meta.outputs.json }}`")" | ConvertFrom-Json
+            $metaData = "$('${{ steps.meta.outputs.json }}')" | ConvertFrom-Json
             $imageTag = $metaData.tags | Where-Object { $PSItem -like "*:v*" }
             "IMAGETAG=$($imageTag)" >> $env:GITHUB_ENV
 
