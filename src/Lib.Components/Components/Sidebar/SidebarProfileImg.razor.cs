@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace SmallsOnline.Web.Lib.Components.Sidebar;
 
@@ -10,6 +11,9 @@ public partial class SidebarProfileImg : ComponentBase
 {
     [Inject]
     protected ILogger<SidebarProfileImg> ComponentLogger { get; set; } = null!;
+
+    [Inject]
+    protected IConfiguration Configuration { get; set; } = null!;
 
     /// <summary>
     /// What the current animation class is set to.
@@ -35,13 +39,20 @@ public partial class SidebarProfileImg : ComponentBase
         _clickCounter++;
         if (_clickCounter < 15)
         {
-            // If _clickCounter is less than 15, then only log a message to the console with the amount of current clicks.
-            ComponentLogger.LogInformation("Times clicked: {_clickCounter}", _clickCounter);
+            if (Configuration["ASPNETCORE_ENVIRONMENT"] == "Development")
+            {
+                // If _clickCounter is less than 15, then only log a message to the console with the amount of current clicks.
+                ComponentLogger.LogInformation("Times clicked: {_clickCounter}", _clickCounter);
+            }
         }
         else
         {
             // If _clickCounter is 15 or higher, then invoke the image change process.
-            ComponentLogger.LogInformation("I can't believe you've done this.");
+            if (Configuration["ASPNETCORE_ENVIRONMENT"] == "Development")
+            {
+                ComponentLogger.LogInformation("I can't believe you've done this.");
+            }
+
             await InvokeImageChange();
 
             // Reset _clickCounter back to 0.
