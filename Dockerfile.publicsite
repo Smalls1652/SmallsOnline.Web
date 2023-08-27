@@ -6,8 +6,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -; \
 
 RUN curl -qL https://www.npmjs.com/install.sh | sh
 
-RUN dotnet dotnet workload install wasm-tools; \
-    dotnet tool install --global PowerShell
+RUN dotnet tool install --global PowerShell
 
 WORKDIR /app
 COPY ./cleanBuildOutput.ps1 ./
