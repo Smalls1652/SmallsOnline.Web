@@ -13,8 +13,7 @@ builder.Configuration
 
 // Add services to the container.
 builder.Services
-    .AddRazorComponents()
-    .AddServerComponents();
+    .AddRazorComponents();
 
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
     provider => new CosmosDbService(
@@ -22,14 +21,6 @@ builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
         containerName: builder.Configuration.GetValue<string>("CosmosDbContainerName")!
     )
 );
-
-// Temporarily enable SynchronousIO to fix issues with certain DB calls.
-// TODO: Should be fixed in a future .NET 8 release.
-builder.Services
-    .Configure<KestrelServerOptions>(options =>
-    {
-        options.AllowSynchronousIO = true;
-    });
 
 var app = builder.Build();
 
@@ -46,7 +37,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app
-    .MapRazorComponents<App>()
-    .AddServerRenderMode();
+    .MapRazorComponents<App>();
 
 app.Run();
