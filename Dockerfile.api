@@ -1,6 +1,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0-preview as build-env
+
+# Temporary workaround for installing the bleeding edge release of .NET 8
+RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 8.0 --quality daily --no-cdn --install-dir /usr/share/dotnet/; \
+    dotnet --version
+
 WORKDIR /app
 
+COPY ./nuget.config /
 COPY ./src/Lib/ ./src/Lib/
 COPY ./src/Lib.Services/ ./src/Lib.Services/
 COPY ./src/Api/ ./src/Api/
@@ -9,6 +15,13 @@ RUN dotnet restore ./src/Api/
 RUN dotnet publish ./src/Api/ --configuration "Release" --runtime "linux-x64" -p:"PublishReadyToRun=true" --output out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-preview
+
+# Temporary workaround for installing the bleeding edge release of .NET 8
+RUN apt-get update; \
+    apt-get install -y curl
+RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 8.0 --quality daily --no-cdn --install-dir /usr/share/dotnet/; \
+    dotnet --version
+
 WORKDIR /app
 
 COPY --from=build-env /app/out ./

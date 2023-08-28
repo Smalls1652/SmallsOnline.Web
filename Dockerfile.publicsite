@@ -4,12 +4,17 @@ RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -; \
     apt update; \
     apt install -y nodejs python3
 
+# Temporary workaround for installing the bleeding edge release of .NET 8
+RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 8.0 --quality daily --no-cdn --install-dir /usr/share/dotnet/; \
+    dotnet --version
+
 RUN curl -qL https://www.npmjs.com/install.sh | sh
 
 RUN dotnet tool install --global PowerShell
 
 WORKDIR /app
 COPY ./cleanBuildOutput.ps1 ./
+COPY ./nuget.config /
 COPY ./src/Lib/ ./src/Lib/
 COPY ./src/Lib.Components/ ./src/Lib.Components/
 COPY ./src/Lib.Services/ ./src/Lib.Services/
@@ -20,6 +25,13 @@ RUN dotnet restore ./src/PublicSite/Server/
 RUN dotnet publish ./src/PublicSite/Server/ --configuration Release --output out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-preview
+
+# Temporary workaround for installing the bleeding edge release of .NET 8
+RUN apt-get update; \
+    apt-get install -y curl
+RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 8.0 --quality daily --no-cdn --install-dir /usr/share/dotnet/; \
+    dotnet --version
+
 WORKDIR /app
 
 COPY --from=build-env /app/out .
