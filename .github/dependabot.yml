@@ -4,6 +4,8 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/src/Lib/"
     target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
     schedule:
       interval: "daily"
     labels:
@@ -16,6 +18,8 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/src/Lib.Components/"
     target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
     schedule:
       interval: "daily"
     labels:
@@ -31,6 +35,8 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/src/Lib.Services"
     target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
     schedule:
       interval: "daily"
     labels:
@@ -47,6 +53,8 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/src/PublicSite/Client"
     target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
     schedule:
       interval: "daily"
     labels:
@@ -62,6 +70,8 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/src/PublicSite/Server"
     target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
     schedule:
       interval: "daily"
     labels:
@@ -77,6 +87,8 @@ updates:
   - package-ecosystem: "npm"
     directory: "/src/PublicSite/Server"
     target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
     schedule:
       interval: "daily"
     labels:
@@ -89,6 +101,8 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/src/Api"
     target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
     schedule:
       interval: "daily"
     labels:
@@ -104,6 +118,8 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
     schedule:
       interval: "daily"
     labels:
