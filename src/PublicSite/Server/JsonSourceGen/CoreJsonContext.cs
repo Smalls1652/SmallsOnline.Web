@@ -1,4 +1,6 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using SmallsOnline.Web.Lib.Models.AboutMe;
 using SmallsOnline.Web.Lib.Models.ActivityPub;
 using SmallsOnline.Web.Lib.Models.Blog;
@@ -7,7 +9,7 @@ using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 using SmallsOnline.Web.Lib.Models.Projects;
 
-namespace SmallsOnline.Web.PublicSite.Server;
+namespace SmallsOnline.Web.PublicSite.Server.JsonSourceGen;
 
 [JsonSourceGenerationOptions(
     WriteIndented = false,
@@ -32,7 +34,6 @@ namespace SmallsOnline.Web.PublicSite.Server;
 [JsonSerializable(typeof(ProjectItem[]))]
 [JsonSerializable(typeof(ProjectType))]
 [JsonSerializable(typeof(List<ProjectType>))]
-internal partial class JsonSourceGenerationContext : JsonSerializerContext
+internal partial class CoreJsonContext : JsonSerializerContext
 {
-
 }

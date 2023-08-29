@@ -2,6 +2,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components.Web;
 using SmallsOnline.Web.Lib.Models.Projects;
+using SmallsOnline.Web.PublicSite.Server.JsonSourceGen;
 
 namespace SmallsOnline.Web.PublicSite.Server.Pages;
 
@@ -23,12 +24,12 @@ public partial class Projects : ComponentBase
 
         _projectItems = await JsonSerializer.DeserializeAsync(
             utf8Json: projectItemStream,
-            jsonTypeInfo: JsonSourceGenerationContext.Default.ProjectItemArray
+            jsonTypeInfo: CoreJsonContext.Default.ProjectItemArray
         );
 
         _projectTypes = await JsonSerializer.DeserializeAsync(
             utf8Json: projectTypeStream,
-            jsonTypeInfo: JsonSourceGenerationContext.Default.ListProjectType
+            jsonTypeInfo: CoreJsonContext.Default.ListProjectType
         );
 
         _isFinishedLoading = true;
