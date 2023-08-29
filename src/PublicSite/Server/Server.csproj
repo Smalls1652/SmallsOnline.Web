@@ -27,6 +27,7 @@
     <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj" />
     <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
     <ProjectReference Include="..\..\Lib\Lib.csproj" />
+    <ProjectReference Include="..\Client\Client.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -63,7 +64,9 @@
     <None Remove="node_modules\**" />
   </ItemGroup>
 
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0-*" />
+  </ItemGroup>
 
   <Target Name="InitProject_Combined">
     <Message Importance="high" Text="-------------------------------------------------" />
