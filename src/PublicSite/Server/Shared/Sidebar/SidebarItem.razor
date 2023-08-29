@@ -1,3 +1,5 @@
+@using SmallsOnline.Web.PublicSite.Client.Components.Sidebar
+
 @namespace SmallsOnline.Web.PublicSite.Server.Shared.Sidebar
 
 @inherits ComponentBase
@@ -7,7 +9,7 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col">
-                    <SidebarProfileImg />
+                    <SidebarProfileImgWasm LoggingEnabled="@_isDevelopmentMode" />
                 </div>
             </div>
             <div class="row pt-4 justify-content-center row-cols-auto">
