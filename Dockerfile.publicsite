@@ -1,8 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0-preview as build-env
 
 RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -; \
-    apt update; \
-    apt install -y nodejs python3
+    apt-get update; \
+    apt-get install -y nodejs python3 libc++1 libatomic1
 
 # Temporary workaround for installing the bleeding edge release of .NET 8
 RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 8.0 --quality daily --no-cdn --install-dir /usr/share/dotnet/; \
@@ -19,6 +19,8 @@ COPY ./src/Lib/ ./src/Lib/
 COPY ./src/Lib.Components/ ./src/Lib.Components/
 COPY ./src/Lib.Services/ ./src/Lib.Services/
 COPY ./src/PublicSite/ ./src/PublicSite/
+
+RUN dotnet workload install wasm-tools
 
 RUN dotnet msbuild ./src/PublicSite/Server/ -t:"InitProject_Combined"
 RUN dotnet restore ./src/PublicSite/Server/
