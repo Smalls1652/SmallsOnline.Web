@@ -35,6 +35,7 @@ updates:
       interval: "daily"
     labels:
       - "middleware"
+      - "library"
       - "dependency update"
     ignore:
       - dependency-name: "Markdig"
