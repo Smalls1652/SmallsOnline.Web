@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
 
 namespace SmallsOnline.Web.Lib.Components.Sidebar;
 
@@ -12,8 +10,9 @@ public partial class SidebarProfileImg : ComponentBase
     [Inject]
     protected ILogger<SidebarProfileImg> ComponentLogger { get; set; } = null!;
 
-    [Inject]
-    protected IConfiguration Configuration { get; set; } = null!;
+    [Parameter]
+    [EditorRequired]
+    public bool LoggingEnabled { get; set; }
 
     /// <summary>
     /// What the current animation class is set to.
@@ -30,33 +29,38 @@ public partial class SidebarProfileImg : ComponentBase
     /// </summary>
     private int _clickCounter = 0;
 
+    private bool _isSwitching = false;
+
     /// <summary>
     /// Handles clicks on the image.
     /// </summary>
     private async Task HandleImageClick()
     {
-        // Increment _clickCounter by 1.
-        _clickCounter++;
-        if (_clickCounter < 15)
+        if (!_isSwitching)
         {
-            if (Configuration["ASPNETCORE_ENVIRONMENT"] == "Development")
+            // Increment _clickCounter by 1.
+            _clickCounter++;
+            if (_clickCounter < 15)
             {
-                // If _clickCounter is less than 15, then only log a message to the console with the amount of current clicks.
-                ComponentLogger.LogInformation("Times clicked: {_clickCounter}", _clickCounter);
+                if (LoggingEnabled)
+                {
+                    // If _clickCounter is less than 15, then only log a message to the console with the amount of current clicks.
+                    ComponentLogger.LogInformation("Times clicked: {_clickCounter}", _clickCounter);
+                }
             }
-        }
-        else
-        {
-            // If _clickCounter is 15 or higher, then invoke the image change process.
-            if (Configuration["ASPNETCORE_ENVIRONMENT"] == "Development")
+            else
             {
-                ComponentLogger.LogInformation("I can't believe you've done this.");
+                // If _clickCounter is 15 or higher, then invoke the image change process.
+                if (LoggingEnabled)
+                {
+                    ComponentLogger.LogInformation("I can't believe you've done this.");
+                }
+
+                await InvokeImageChange();
+
+                // Reset _clickCounter back to 0.
+                _clickCounter = 0;
             }
-
-            await InvokeImageChange();
-
-            // Reset _clickCounter back to 0.
-            _clickCounter = 0;
         }
     }
 
@@ -66,10 +70,13 @@ public partial class SidebarProfileImg : ComponentBase
     /// </summary>
     private async Task InvokeImageChange()
     {
+        _isSwitching = true;
+
         // Set the current animation to 'spin-out'.
         // Then wait 800ms to let the animation finish.
         _currentAnimationClass = "spin-out";
         await Task.Delay(800);
+        StateHasChanged();
 
         // Flip the current value of _isSetToDumb.
         _isSetToDumb = !_isSetToDumb;
@@ -87,5 +94,7 @@ public partial class SidebarProfileImg : ComponentBase
 
         // Remove the animation class value.
         _currentAnimationClass = null;
+
+        _isSwitching = false;
     }
 }
