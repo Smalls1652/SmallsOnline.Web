@@ -21,8 +21,19 @@
             <i class="bi bi-collection-fill"></i> Projects
         </a>
     </li>
+    @{
+        #if DEBUG
+    }
+    <li class="nav-item">
+        <a class="nav-link@(_currentPageLocation.TopLevelPage == "totally-legit-link" ? " active" : "")" href="/totally-legit-link" id="navitem_totally-legit-link">
+            🤔 Legit Link
+        </a>
+    </li>
+    @{
+        #endif
+    }
     <li class="nav-item dropdown">
-        <button class="nav-link dropdown-toggle@(_currentPageLocation.TopLevelPage == "top-music" ? " active" : "")" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button aria-expanded="false" class="nav-link dropdown-toggle@(_currentPageLocation.TopLevelPage == "top-music" ? " active" : "")" data-bs-toggle="dropdown" role="button">
             <i class="bi bi-headphones"></i> Top Music
         </button>
         <ul class="dropdown-menu dropdown-menu-dark bg-dark">
