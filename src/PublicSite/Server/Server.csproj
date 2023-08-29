@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
     <RazorLangVersion>8.0</RazorLangVersion>
   </PropertyGroup>
 
@@ -61,6 +62,7 @@
     
     <None Remove="node_modules\**" />
   </ItemGroup>
+
 
 
   <Target Name="InitProject_Combined">
