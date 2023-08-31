@@ -4,31 +4,33 @@
 
 @inherits ComponentBase
 
-<div class="col-12 col-sm-6 col-md-5 col-lg-3 col-xl-3 col-xxl-2 pt-4 pt-lg-0">
-    <div class="card shadow-lg">
-        <div class="card-body">
-            <div class="row justify-content-center">
-                <div class="col">
-                    <SidebarProfileImgWasm LoggingEnabled="@_isDevelopmentMode" />
-                </div>
+
+<div class="card shadow-lg">
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col">
+                <SidebarProfileImgWasm LoggingEnabled="@_isDevelopmentMode" />
             </div>
-            <div class="row pt-4 justify-content-center row-cols-auto">
-                <div class="col">
-                    <a href="@_mastodonUrl" rel="me noopener noreferrer" target="_blank">
-                        <i class="bi bi-mastodon bi-mastodon-color bi-2x"></i>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="https://github.com/smalls1652" rel="noopener noreferrer" target="_blank">
-                        <i class="bi bi-github bi-github-color bi-2x"></i>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="https://www.linkedin.com/in/timothy-small-a56965169" rel="noopener noreferrer"
-                       target="_blank">
-                        <i class="bi bi-linkedin bi-linkedin-color bi-2x"></i>
-                    </a>
-                </div>
+        </div>
+        <div class="row justify-content-center gx-0 mt-4">
+            <div class="col-9 social-container">
+                @for (var i = 0; i < _socialMediaItems.Length; i++)
+                {
+                    <div class="row social-link-container gx-0@(i != 0 ? " py-2" : " pb-2")">
+                        <div class="col">
+                            <a class="social-link bi-@(_socialMediaItems[i].Id)-color" href="@_socialMediaItems[i].Url" rel="@(_socialMediaItems[i].AddRelMe ? "me " : "")noopener noreferrer" target="_blank">
+                                <div class="row gx-0">
+                                    <div class="col-5 text-end">
+                                        <i class="bi bi-@(_socialMediaItems[i].Id) bi-2x"></i>
+                                    </div>
+                                    <div class="col ms-2 text-start align-self-center flex-grow-0">
+                                        @_socialMediaItems[i].DisplayName
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

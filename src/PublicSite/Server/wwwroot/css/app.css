@@ -89,6 +89,28 @@ body {
     color: none;
 }
 
+.social-container > .social-link-container:nth-child(n + 1):not(:last-child) {
+    border-bottom: #c8c9ca;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.social-link {
+    text-decoration: none;
+}
+
+.social-link:hover {
+    text-decoration: underline;
+}
+
+/*
+.social-link-container {
+    border-right: #c8c9ca;
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+*/
+
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }
