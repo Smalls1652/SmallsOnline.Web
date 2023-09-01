@@ -22,37 +22,20 @@ public partial class CosmosDbService : ICosmosDbService
     public CosmosDbService(string connectionString, string containerName)
     {
         _containerName = containerName;
-        _cosmosDbClient = InitService(connectionString, jsonSerializer);
+        _cosmosDbClient = InitService(connectionString);
     }
 
     private readonly string _containerName;
 
     /// <summary>
-    /// The JSON serializer for the CosmosDB client.
-    /// </summary>
-    private readonly CosmosDbSerializer jsonSerializer = new(
-        new()
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Converters = {
-                new JsonDateTimeOffsetConverter()
-            }
-        }
-    );
-
-    /// <summary>
     /// Create a CosmosDB client.
     /// </summary>
-    /// <param name="dbSerializer">The JSON serializer to use for the CosmosDB client.</param>
+    /// <param name="connectionString">The connection string for authenticating the service.</param>
     /// <returns>A CosmosDB client.</returns>
-    private static CosmosClient InitService(string connectionString, CosmosDbSerializer dbSerializer)
+    private static CosmosClient InitService(string connectionString)
     {
         return new(
-            connectionString: connectionString,
-            clientOptions: new()
-            {
-                Serializer = dbSerializer
-            }
+            connectionString: connectionString
         );
     }
 }
