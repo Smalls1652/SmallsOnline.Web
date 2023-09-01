@@ -11,8 +11,6 @@ public partial class CosmosDbService : ICosmosDbService
     /// <returns>The total number of pages available.</returns>
     public async Task<int> GetBlogTotalPagesAsync()
     {
-        List<int> totalPagesCount = new();
-
         // Get the container where the blog entries are stored.
         Container container = _cosmosDbClient.GetContainer(_containerName, "blogs");
 
@@ -22,19 +20,21 @@ public partial class CosmosDbService : ICosmosDbService
 
         // Run the query.
         // Note: Due to the weird way Cosmos DB handles queries, the query must be run through a loop.
-        FeedIterator<int> containerQueryIterator = container.GetItemQueryIterator<int>(query);
-        while (containerQueryIterator.HasMoreResults)
-        {
-            foreach (int item in await containerQueryIterator.ReadNextAsync())
+        using FeedIterator<int> countQueryIterator = container.GetItemQueryIterator<int>(
+            queryDefinition: query,
+            requestOptions: new()
             {
-                // Add the total number of blog entries to the list.
-                totalPagesCount.Add(item);
+                PartitionKey = new("blog-entry"),
+                MaxItemCount = 1
             }
-        }
+        );
+
+        FeedResponse<int> countQueryResponse = await countQueryIterator.ReadNextAsync();
+        int totalPagesCount = countQueryResponse.FirstOrDefault();
 
         // Return the total number of pages by,
         // dividing the total number of blog entries by the number of items per page
         // and rounding up to the nearest whole number.
-        return (int)Math.Round((decimal)totalPagesCount[0] / 5, 0, MidpointRounding.ToPositiveInfinity);
+        return (int)Math.Round((decimal)totalPagesCount / 5, 0, MidpointRounding.ToPositiveInfinity);
     }
 }

@@ -1,4 +1,6 @@
+using System.Text.Json;
 using Microsoft.Azure.Cosmos;
+using SmallsOnline.Web.Lib.Models.CosmosDB;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 
 namespace SmallsOnline.Web.Lib.Services;
@@ -29,12 +31,25 @@ public partial class CosmosDbService : ICosmosDbService
         AlbumData[] albumItems = new AlbumData[resultsCount];
 
         // Execute the query.
-        using FeedIterator<AlbumData> containerQueryIterator = container.GetItemQueryIterator<AlbumData>(resultsQuery);
+        using FeedIterator feedIterator = container.GetItemQueryStreamIterator(
+            queryDefinition: resultsQuery,
+            requestOptions: new()
+            {
+                PartitionKey = new("favorites-of-albums")
+            }
+        );
 
-        while (containerQueryIterator.HasMoreResults)
+        while (feedIterator.HasMoreResults)
         {
+            using ResponseMessage response = await feedIterator.ReadNextAsync();
+
+            CosmosDbResponse<AlbumData>? favoriteAlbumsResponse = await JsonSerializer.DeserializeAsync(
+                utf8Json: response.Content,
+                jsonTypeInfo: CoreJsonContext.Default.CosmosDbResponseAlbumData
+            );
+
             int i = 0;
-            foreach (AlbumData item in await containerQueryIterator.ReadNextAsync())
+            foreach (AlbumData item in favoriteAlbumsResponse!.Documents!)
             {
                 // Add the album to the list.
                 albumItems[i] = item;

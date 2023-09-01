@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text.Json;
 using Microsoft.Azure.Cosmos;
 using SmallsOnline.Web.Lib.Models.Blog;
 
@@ -15,11 +16,18 @@ public partial class CosmosDbService : ICosmosDbService
         // Get the container for the blog entries.
         Container container = _cosmosDbClient.GetContainer(_containerName, "blogs");
 
+        using MemoryStream streamPayload = new();
+        await JsonSerializer.SerializeAsync(
+            utf8Json: streamPayload,
+            value: blogEntry,
+            jsonTypeInfo: CoreJsonContext.Default.BlogEntry
+        );
+
         try
         {
             // Attempt to update the item.
-            await container.ReplaceItemAsync(
-                item: blogEntry,
+            await container.ReplaceItemStreamAsync(
+                streamPayload: streamPayload,
                 id: blogEntry.Id,
                 partitionKey: new("blog-entry")
             );

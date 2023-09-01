@@ -1,6 +1,8 @@
 using System.Text;
+using System.Text.Json;
 using Microsoft.Azure.Cosmos;
 using SmallsOnline.Web.Lib.Models.Blog;
+using SmallsOnline.Web.Lib.Models.CosmosDB;
 
 namespace SmallsOnline.Web.Lib.Services;
 
@@ -38,13 +40,27 @@ public partial class CosmosDbService : ICosmosDbService
         // Initialize a list to hold the blog entries.
         BlogEntry[] blogEntries = new BlogEntry[resultsCount];
 
+        using FeedIterator feedIterator = container.GetItemQueryStreamIterator(
+            queryDefinition: resultsQuery,
+            requestOptions: new()
+            {
+                PartitionKey = new("blog-entry")
+            }
+        );
+
         // Execute the Cosmos DB SQL query and get the results.
-        FeedIterator<BlogEntry> containerQueryIterator = container.GetItemQueryIterator<BlogEntry>(resultsQuery);
-        while (containerQueryIterator.HasMoreResults)
+        while (feedIterator.HasMoreResults)
         {
+            using ResponseMessage response = await feedIterator.ReadNextAsync();
+
+            CosmosDbResponse<BlogEntry>? blogEntriesResponse = await JsonSerializer.DeserializeAsync(
+                utf8Json: response.Content,
+                jsonTypeInfo: CoreJsonContext.Default.CosmosDbResponseBlogEntry
+            );
+
             int i = 0;
             // Loop through each database entry retrieved.
-            foreach (BlogEntry item in await containerQueryIterator.ReadNextAsync())
+            foreach (BlogEntry item in blogEntriesResponse!.Documents!)
             {
                 // If the content of the blog post is not null,
                 // then attempt to shorten the content.
@@ -60,7 +76,7 @@ public partial class CosmosDbService : ICosmosDbService
                         bool moreLineFound = false;
                         while (!moreLineFound)
                         {
-                            string? line = stringReader.ReadLine();
+                            string? line = await stringReader.ReadLineAsync();
 
                             if (line == "<!--more-->")
                             {
@@ -93,9 +109,6 @@ public partial class CosmosDbService : ICosmosDbService
                 i++;
             }
         }
-
-        // Dispose of the container query iterator.
-        containerQueryIterator.Dispose();
 
         return blogEntries;
     }

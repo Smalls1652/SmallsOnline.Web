@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.Azure.Cosmos;
 using SmallsOnline.Web.Lib.Models.ActivityPub;
 
@@ -16,10 +17,20 @@ public partial class CosmosDbService : ICosmosDbService
 
         // There's only one entry in the database, so we can just get it by
         // using the '00000000-0000-0000-0000-000000000000' ID.
-        WebFingerResponse retrievedItem = await container.ReadItemAsync<WebFingerResponse>(
+        ResponseMessage response = await container.ReadItemStreamAsync(
             id: "00000000-0000-0000-0000-000000000000",
             partitionKey: new("mastodon-accounts")
         );
+
+        WebFingerResponse? retrievedItem = await JsonSerializer.DeserializeAsync(
+            utf8Json: response.Content,
+            jsonTypeInfo: CoreJsonContext.Default.WebFingerResponse
+        );
+
+        if (retrievedItem is null)
+        {
+            throw new NullReferenceException("The WebFinger response was null.");
+        }
 
         return retrievedItem;
     }

@@ -1,4 +1,6 @@
+using System.Text.Json;
 using Microsoft.Azure.Cosmos;
+using SmallsOnline.Web.Lib.Models.CosmosDB;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 
 namespace SmallsOnline.Web.Lib.Services;
@@ -29,11 +31,25 @@ public partial class CosmosDbService : ICosmosDbService
         SongData[] trackItems = new SongData[resultsCount];
 
         // Execute the query.
-        using FeedIterator<SongData> containerQueryIterator = container.GetItemQueryIterator<SongData>(resultsQuery);
-        while (containerQueryIterator.HasMoreResults)
+        using FeedIterator feedIterator = container.GetItemQueryStreamIterator(
+            queryDefinition: resultsQuery,
+            requestOptions: new()
+            {
+                PartitionKey = new("favorites-of-tracks")
+            }
+        );
+
+        while (feedIterator.HasMoreResults)
         {
+            using ResponseMessage response = await feedIterator.ReadNextAsync();
+
+            CosmosDbResponse<SongData>? favoriteSongsResponse = await JsonSerializer.DeserializeAsync(
+                utf8Json: response.Content,
+                jsonTypeInfo: CoreJsonContext.Default.CosmosDbResponseSongData
+            );
+
             int i = 0;
-            foreach (SongData item in await containerQueryIterator.ReadNextAsync())
+            foreach (SongData item in favoriteSongsResponse!.Documents!)
             {
                 // Add the song to the list.
                 trackItems[i] = item;
