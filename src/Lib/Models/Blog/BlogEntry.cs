@@ -148,14 +148,14 @@ public class BlogEntry : DatabaseItem, IBlogEntry
     /// Convert to JSON.
     /// </summary>
     /// <returns>A JSON representation of the <see cref="BlogEntry" /> object.</returns>
-    public string ConvertToJson() => JsonSerializer.Serialize(this);
+    public string ConvertToJson() => JsonSerializer.Serialize(this, CoreJsonContext.Default.BlogEntry);
 
     /// <summary>
     /// Converts a JSON string to a <see cref="BlogEntry" /> object.
     /// </summary>
     /// <param name="jsonContent">The JSON string to convert from.</param>
     /// <returns>A <see cref="BlogEntry" /> object.</returns>
-    public static BlogEntry? ConvertFromJson(string jsonContent) => JsonSerializer.Deserialize<BlogEntry>(jsonContent);
+    public static BlogEntry? ConvertFromJson(string jsonContent) => JsonSerializer.Deserialize(jsonContent, CoreJsonContext.Default.BlogEntry);
 
     /// <summary>
     /// Convert Markdown content to a <see cref="BlogEntry" /> object.
