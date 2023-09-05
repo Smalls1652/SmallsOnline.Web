@@ -89,17 +89,17 @@ body {
     color: none;
 }
 
-.social-container > .social-link-container:nth-child(n + 1):not(:last-child) {
+.soc-container > .ext-link-container:nth-child(n + 1):not(:last-child) {
     border-bottom: #c8c9ca;
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
 
-.social-link {
+.ext-link {
     text-decoration: none;
 }
 
-.social-link:hover {
+.ext-link:hover {
     text-decoration: underline;
 }
 

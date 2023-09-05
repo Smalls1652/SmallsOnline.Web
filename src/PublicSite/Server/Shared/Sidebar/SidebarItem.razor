@@ -13,12 +13,12 @@
             </div>
         </div>
         <div class="row justify-content-center gx-0 mt-4">
-            <div class="col-9 social-container">
+            <div class="col-9 soc-container">
                 @for (var i = 0; i < _socialMediaItems.Length; i++)
                 {
-                    <div class="row social-link-container gx-0@(i != 0 ? " py-2" : " pb-2")">
+                    <div class="row ext-link-container gx-0@(i != 0 ? " py-2" : " pb-2")">
                         <div class="col">
-                            <a class="social-link bi-@(_socialMediaItems[i].Id)-color" href="@_socialMediaItems[i].Url" rel="@(_socialMediaItems[i].AddRelMe ? "me " : "")noopener noreferrer" target="_blank">
+                            <a class="ext-link bi-@(_socialMediaItems[i].Id)-color" href="@_socialMediaItems[i].Url" rel="@(_socialMediaItems[i].AddRelMe ? "me " : "")noopener noreferrer" target="_blank">
                                 <div class="row gx-0">
                                     <div class="col-5 text-end">
                                         <i class="bi bi-@(_socialMediaItems[i].Id) bi-2x"></i>
