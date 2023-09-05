@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <PublishedTrimmed>true</PublishedTrimmed>
+    <TrimMode>full</TrimMode>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageId>SmallsOnline.Web.Lib</PackageId>
     <Authors>Timothy Small</Authors>
     <Company>Smalls.Online</Company>
@@ -25,7 +31,6 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.33.0" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.3" />
     <PackageReference Include="YamlDotNet" Version="13.3.1" />
   </ItemGroup>
 

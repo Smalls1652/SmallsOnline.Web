@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <PublishedTrimmed>true</PublishedTrimmed>
+    <TrimMode>partial</TrimMode>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageId>SmallsOnline.Web.Lib.Services</PackageId>
     <Authors>Timothy Small</Authors>
     <Company>Smalls.Online</Company>

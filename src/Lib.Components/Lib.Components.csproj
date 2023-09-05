@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <PublishedTrimmed>true</PublishedTrimmed>
+    <TrimMode>full</TrimMode>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageId>SmallsOnline.Web.Lib.Components</PackageId>
     <Authors>Timothy Small</Authors>
     <Company>Smalls.Online</Company>
