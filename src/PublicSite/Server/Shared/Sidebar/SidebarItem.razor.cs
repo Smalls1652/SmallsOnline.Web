@@ -15,8 +15,6 @@ public partial class SidebarItem : ComponentBase
         new("linkedin", "LinkedIn", "https://www.linkedin.com/in/timothy-small-a56965169", false)
     };
 
-    private readonly string _mastodonUrl = "https://ocw.social/@smalls";
-
     private bool _isDevelopmentMode;
 
     protected override void OnInitialized()
