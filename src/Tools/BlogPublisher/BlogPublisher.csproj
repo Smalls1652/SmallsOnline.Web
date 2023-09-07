@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>SmallsOnline.Web.Tools.BlogPublisher</PackageId>
+    <Authors>Timothy Small</Authors>
+    <Company>Smalls.Online</Company>
+    <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web</RepositoryUrl>
+    <Description>
+      CLI tool for publishing blog posts to Smalls.Online.
+    </Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>SmallsOnline.Web.Tools.BlogPublisher</RootNamespace>
+    <AssemblyName>BlogPublisher</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugType>None</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>blogpublisher</ToolCommandName>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Api\Api.csproj" />
+    <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.23407.1" />
+  </ItemGroup>
+</Project>
