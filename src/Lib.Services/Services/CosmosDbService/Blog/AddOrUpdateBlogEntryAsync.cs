@@ -26,23 +26,18 @@ public partial class CosmosDbService : ICosmosDbService
         try
         {
             // Attempt to update the item.
+            await container.UpsertItemStreamAsync(
+                streamPayload: streamPayload,
+                partitionKey: new("blog-entry")
+            );
+        }
+        catch
+        {
             await container.ReplaceItemStreamAsync(
                 streamPayload: streamPayload,
                 id: blogEntry.Id,
                 partitionKey: new("blog-entry")
             );
-        }
-        catch (CosmosException dbException)
-        {
-            if (dbException.StatusCode == HttpStatusCode.NotFound)
-            {
-                // If the status code is 'NotFound',
-                // then create the item.
-                await container.CreateItemAsync(
-                item: blogEntry,
-                partitionKey: new("blog-entry")
-            );
-            }
         }
     }
 }
