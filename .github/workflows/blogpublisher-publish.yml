@@ -29,6 +29,12 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+      - name: Install .NET tools
+        run: dotnet tool restore
+
+      - name: Update project files with gitversion
+        run: dotnet tool run dotnet-gitversion /updateprojectfiles
+
       - name: 'dotnet: Restore'
         shell: pwsh
         run: |
