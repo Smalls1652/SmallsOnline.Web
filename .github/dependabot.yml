@@ -114,6 +114,24 @@ updates:
     assignees:
       - "Smalls1652"
 
+  # NuGet config for SmallsOnline.Web.Tools.BlogPublisher
+  - package-ecosystem: "nuget"
+    directory: "/src/Tools/BlogPublisher"
+    target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
+    schedule:
+      interval: "daily"
+    labels:
+      - "tools"
+      - "blogpublisher"
+      - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
+    assignees:
+      - "Smalls1652"
+
   # Config for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"

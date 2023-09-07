@@ -1,27 +1,26 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow
-name: API / Build
+name: BlogPublisher CLI Tool / Build
 on:
   push:
     paths-ignore:
       - "src/PublicSite/**"
-      - "src/Tools/**"
+      - "src/Api/**"
   pull_request:
     paths-ignore:
       - "src/PublicSite/**"
-      - "src/Tools/**"
+      - "src/Api/**"
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build
+  build-blogpublisher:
+    name: Build SmallsOnline.Web.Tools.BlogPublisher
     runs-on: ubuntu-latest
     env:
       DOTNET_NOLOGO: true
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          submodules: true
 
       - name: Setup dotnet SDK
         uses: actions/setup-dotnet@v3
@@ -29,9 +28,6 @@ jobs:
           global-json-file: global.json
           dotnet-quality: "daily"
 
-      - name: Run 'dotnet restore'
-        run: dotnet restore ./src/Api/
-
-      - name: Run 'dotnet build'
-        run: dotnet build ./src/Api/
-        
+      - name: Build BlogPublisher
+        shell: pwsh
+        run: dotnet restore ./src/Tools/BlogPublisher ; dotnet build ./src/Tools/BlogPublisher

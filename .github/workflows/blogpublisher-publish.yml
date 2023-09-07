@@ -1,0 +1,45 @@
+name: BlogPublisher CLI Tool / Publish
+
+on:
+  # Automatically trigger it when detected changes in repo
+  # for tagged releases matching 'v*.*.*'
+  push:
+    tags: [ 'v*.*.*', 'v*.*.*-*' ]
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 'dotnet: Setup SDK'
+        uses: actions/setup-dotnet@v3
+        with:
+          global-json-file: global.json
+          source-url: https://nuget.pkg.github.com/Smalls1652/index.json
+          owner: Smalls1652
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: 'dotnet: Restore'
+        shell: pwsh
+        run: |
+          dotnet restore ./src/Tools/BlogPublisher/
+
+      - name: 'dotnet: Create package'
+        shell: pwsh
+        run: |
+          dotnet pack ./src/Tools/BlogPublisher/ --configuration Release --no-restore --output ./src/Tools/BlogPublisher/
+
+      - name: 'dotnet: Publish package to registry'
+        shell: pwsh
+        run: |
+          dotnet nuget push "./src/Tools/BlogPublisher/*.nupkg"
