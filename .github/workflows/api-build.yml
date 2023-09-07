@@ -3,11 +3,14 @@ name: API / Build
 on:
   push:
     paths-ignore:
-      - 'src/PublicSite/**'
+      - "src/PublicSite/**"
+      - "src/Tools/**"
   pull_request:
     paths-ignore:
-      - 'src/PublicSite/**'
+      - "src/PublicSite/**"
+      - "src/Tools/**"
   workflow_dispatch:
+
 jobs:
   build:
     name: Build

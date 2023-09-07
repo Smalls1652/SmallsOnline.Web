@@ -3,10 +3,12 @@ name: Website / Build
 on:
   push:
     paths-ignore:
-      - 'src/Api/**'
+      - "src/Api/**"
+      - "src/Tools/**"
   pull_request:
     paths-ignore:
-      - 'src/Api/**'
+      - "src/Api/**"
+      - "src/Tools/**"
   workflow_dispatch:
 
 jobs:
