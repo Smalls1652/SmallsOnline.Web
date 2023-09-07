@@ -35,7 +35,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Api\Api.csproj" />
+    <ProjectReference Include="..\..\Lib\Lib.csproj" />
     <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
   </ItemGroup>
 
