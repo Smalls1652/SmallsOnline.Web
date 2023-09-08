@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Razor;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Http;
@@ -16,6 +17,9 @@ builder.Services
     .AddRazorComponents()
     .AddWebAssemblyComponents()
     .AddServerComponents();
+
+builder.Services
+    .AddRazorPages();
 
 builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
     provider => new CosmosDbService(
@@ -46,5 +50,7 @@ app
     .MapRazorComponents<App>()
     .AddWebAssemblyRenderMode()
     .AddServerRenderMode();
+
+app.MapRazorPages();
 
 app.Run();

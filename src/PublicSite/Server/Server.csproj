@@ -79,6 +79,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0-*"/>
+        <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0-*" />
     </ItemGroup>
 
     <Target Name="InitProject_Combined">
