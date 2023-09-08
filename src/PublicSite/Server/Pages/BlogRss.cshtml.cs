@@ -55,7 +55,7 @@ public class BlogRss : PageModel
                     Title = new(blogEntry.Title),
                     PublishDate = blogEntry.PostedDate!.Value,
                     Id = blogEntry.Id,
-                    Links = { new(new($"https://smalls.online/blog/entry/${blogEntry.UrlId}")) },
+                    Links = { new(new($"https://smalls.online/blog/entry/{blogEntry.UrlId}")) },
                     Summary = new(blogEntry.GetExcerpt(true)),
                     Content = SyndicationContent.CreateHtmlContent(blogEntry.ContentHtml),
                     SourceFeed = syndicationFeed,
