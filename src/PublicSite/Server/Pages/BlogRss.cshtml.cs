@@ -48,8 +48,10 @@ public class BlogRss : PageModel
         {
             BlogEntry[] blogEntries = await _cosmosDbService.GetBlogEntriesAsync(i);
 
-            foreach (BlogEntry blogEntry in blogEntries)
+            foreach (BlogEntry blogEntryItem in blogEntries)
             {
+                BlogEntry blogEntry = await _cosmosDbService.GetBlogEntryAsync(blogEntryItem.Id);
+
                 SyndicationItem syndicationItem = new()
                 {
                     Title = new(blogEntry.Title),
