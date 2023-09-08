@@ -165,7 +165,7 @@ public class BlogEntry : DatabaseItem, IBlogEntry
     /// <exception cref="Exception">Thrown whenever the provided content isn't in the correct format.</exception>
     public static BlogEntry ConvertFromMarkdown(string content)
     {
-        Regex contentRegex = new(@"(?:-{3}|\.{3})\r\n(?'metadata'.+?)\r\n(?:-{3}|\.{3})\r\n(?'content'.+)",
+        Regex contentRegex = new(@"(?:-{3}|\.{3})(?:\r\n|\n)(?'metadata'.+?)(?:\r\n|\n)(?:-{3}|\.{3})(?:\r\n|\n)(?'content'.+)",
             RegexOptions.Singleline);
         Match contentMatch = contentRegex.Match(content);
 
