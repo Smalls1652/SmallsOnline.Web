@@ -139,6 +139,7 @@ public class BlogEntry : DatabaseItem, IBlogEntry
                                 "noreferrer"
                             }
                         )
+                        .UseEmphasisExtras()
                         .UsePipeTables()
                         .UseFootnotes()
                         .UseBootstrap()
