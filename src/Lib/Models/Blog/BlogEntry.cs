@@ -131,6 +131,14 @@ public class BlogEntry : DatabaseItem, IBlogEntry
                     markdown: Content!,
                     pipeline: new MarkdownPipelineBuilder()
                         .UseGenericAttributes()
+                        .UseEmojiAndSmiley()
+                        .UseReferralLinks(
+                            rels: new[]
+                            {
+                                "noopener",
+                                "noreferrer"
+                            }
+                        )
                         .UsePipeTables()
                         .UseFootnotes()
                         .UseBootstrap()
