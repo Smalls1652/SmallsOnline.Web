@@ -1,10 +1,5 @@
-using Microsoft.AspNetCore.Razor;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Http;
 using SmallsOnline.Web.Lib.Services;
 using SmallsOnline.Web.PublicSite.Server;
-using SmallsOnline.Web.PublicSite.Server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +10,8 @@ builder.Configuration
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
-    .AddWebAssemblyComponents()
-    .AddServerComponents();
+    .AddServerComponents()
+    .AddWebAssemblyComponents();
 
 builder.Services
     .AddRazorPages();
@@ -31,15 +26,15 @@ builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseWebAssemblyDebugging();
+}
+else
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-}
-else
-{
-    app.UseWebAssemblyDebugging();
 }
 
 app.UseHttpsRedirection();
@@ -48,8 +43,8 @@ app.UseStaticFiles();
 
 app
     .MapRazorComponents<App>()
-    .AddWebAssemblyRenderMode()
-    .AddServerRenderMode();
+    .AddServerRenderMode()
+    .AddWebAssemblyRenderMode();
 
 app.MapRazorPages();
 
