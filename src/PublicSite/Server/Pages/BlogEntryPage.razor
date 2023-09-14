@@ -2,7 +2,7 @@
 
 @page "/blog/entry/{Id}"
 
-@if (_isFinishedLoading)
+@if (_isFinishedLoading && _blogEntry is not null)
 {
     <HeadContent>
         <!-- Generic meta tags -->
