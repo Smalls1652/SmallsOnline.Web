@@ -108,6 +108,28 @@ body {
     color: none;
 }
 
+@media (max-width: 1199px) {
+    main > div.container-fluid > div.row {
+        justify-content: center!important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbar-container {
+        position: sticky;
+        top: 1.5rem;
+        height: 90px;
+        z-index: 100;
+    }
+
+    .sidebar {
+        position: --webkit-sticky;
+        position: sticky;
+        top: .5rem;
+        /*align-self: flex-start;*/
+    }
+}
+
 .soc-container > .ext-link-container:nth-child(n + 1):not(:last-child) {
     border-bottom: #c8c9ca;
     border-bottom-style: solid;
