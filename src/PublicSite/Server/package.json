@@ -9,7 +9,7 @@
   "dependencies": {
     "@highlightjs/cdn-assets": "^11.8.0",
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.1",
+    "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.10.5"
   }
 }
