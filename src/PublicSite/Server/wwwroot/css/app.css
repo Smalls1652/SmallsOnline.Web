@@ -58,7 +58,7 @@ body {
     touch-action: manipulation;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 991px) {
     .profile-img {
         max-width: 100%;
         height: auto;
@@ -70,7 +70,7 @@ body {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
     .profile-img {
         max-width: 212px;
         height: auto;
@@ -108,13 +108,13 @@ body {
     color: none;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 992px) {
     main > div.container-fluid > div.row {
         justify-content: center!important;
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
     .navbar-container {
         position: sticky;
         top: 1.5rem;
@@ -123,10 +123,9 @@ body {
     }
 
     .sidebar {
-        position: --webkit-sticky;
         position: sticky;
         top: .5rem;
-        /*align-self: flex-start;*/
+        align-self: flex-start;
     }
 }
 
