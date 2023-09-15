@@ -10,8 +10,7 @@ builder.Configuration
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
-    .AddServerComponents()
-    .AddWebAssemblyComponents();
+    .AddServerComponents();
 
 builder.Services
     .AddRazorPages();
@@ -26,11 +25,7 @@ builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseWebAssemblyDebugging();
-}
-else
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -43,9 +38,8 @@ app.UseStaticFiles();
 
 app
     .MapRazorComponents<App>()
-    .AddServerRenderMode()
-    .AddWebAssemblyRenderMode();
+    .AddServerRenderMode();
 
 app.MapRazorPages();
 
-app.Run();
+await app.RunAsync();
