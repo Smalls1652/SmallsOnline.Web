@@ -13,6 +13,7 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// <summary>
 /// Page for rendering a specific blog post.
 /// </summary>
+[StreamRendering(false)]
 public partial class BlogEntryPage : ComponentBase
 {
     [Inject]
