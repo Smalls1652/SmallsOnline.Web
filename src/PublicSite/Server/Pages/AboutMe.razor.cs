@@ -8,8 +8,4 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 [StreamRendering(true)]
 public partial class AboutMe : ComponentBase
 {
-    protected override bool ShouldRender()
-    {
-        return true;
-    }
 }
