@@ -29,6 +29,16 @@
           "ASPNETCORE_ENVIRONMENT": "Development"
         }
       },
+      "http-prod": {
+        "commandName": "Project",
+        "dotnetRunMessages": true,
+        "launchBrowser": true,
+        "hotReloadEnabled": false,
+        "applicationUrl": "http://localhost:5187",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Production"
+        }
+      },
       "IIS Express": {
         "commandName": "IISExpress",
         "launchBrowser": true,
