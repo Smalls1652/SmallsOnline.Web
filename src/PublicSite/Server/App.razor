@@ -10,6 +10,9 @@
 
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
+    <PageTitle>Smalls.Online</PageTitle>
+    <HeadOutlet />
+
     <!-- Theme color attribute. Primarily for theming supported web browsers. -->
     <meta content="#496e9c" name="theme-color" />
 
@@ -33,8 +36,6 @@
     <link href="SmallsOnline.Web.PublicSite.Server.styles.css" rel="stylesheet" />
 
     <script src="highlight.js/highlight.min.js"></script>
-
-    <HeadOutlet />
 </head>
 
 <body>
@@ -52,12 +53,12 @@
 
 </Router>
 
+<script src="js/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="_framework/blazor.web.js" suppress-error="BL9992" autostart="false"></script>
 <script>
     Blazor.start({
         ssr: { disableDomPreservation: true }
     });
 </script>
-<script src="js/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>
