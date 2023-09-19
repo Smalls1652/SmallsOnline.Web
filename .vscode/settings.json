@@ -2,5 +2,5 @@
     "debug.internalConsoleOptions": "neverOpen",
     "razor.disableBlazorDebugPrompt": true,
     "git.detectSubmodules": false,
-    "omnisharp.defaultLaunchSolution": "${workspaceFolder}/SmallsOnline.Web.PublicSite.sln"
+    "dotnet.defaultSolution": "${workspaceFolder}/SmallsOnline.Web.PublicSite.sln"
 }
