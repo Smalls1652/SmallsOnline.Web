@@ -77,14 +77,34 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Build image",
+			"label": "PublicSite: Build image",
+			"detail": "Build the container image for the public site.",
 			"type": "docker-build",
 			"dockerBuild": {
 				"context": "${workspaceFolder}",
 				"dockerfile": "${workspaceFolder}/Dockerfile.publicsite",
 				"pull": true,
 				"tag": "smallsonlineweb-local:latest",
-				"customOptions": "--tag smallsonlineweb-local:${command:extension.commandvariable.UUID}"
+				"customOptions": "--tag smallsonlineweb-local:${command:extension.commandvariable.UUID}",
+				"platform": "${input:containerPlatformArch}"
+			}
+		},
+		{
+			"label": "PublicSite: Run image",
+			"detail": "Run the latest container image for the public site.",
+			"type": "docker-run",
+			"dockerRun": {
+				"image": "smallsonlineweb-local:latest",
+				"ports": [
+					{
+						"protocol": "tcp",
+						"containerPort": 8080,
+						"hostPort": 8080
+					}
+				],
+				"network": "bridge",
+				"os": "Linux",
+				"remove": true
 			}
 		}
 	],
@@ -143,6 +163,16 @@
 					"label": "Tools: BlogPublisher",
 					"value": "src/Tools/BlogPublisher"
 				}
+			]
+		},
+		{
+			"id": "containerPlatformArch",
+			"description": "Select a platform architecture for the container.",
+			"type": "pickString",
+			"default": "linux/arm64",
+			"options": [
+				"linux/amd64",
+				"linux/arm64"
 			]
 		}
 	]
