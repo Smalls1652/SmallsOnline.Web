@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "blazor server: dotnet watch",
+			"label": "PublicSite: Watch",
 			"detail": "Run the Blazor Server for local debugging and watch for changes.",
 			"type": "process",
 			"command": "dotnet",
@@ -13,7 +13,7 @@
 				"/consoleloggerparameters:NoSummary"
 			],
 			"options": {
-				"cwd": "${workspaceFolder}/src/SmallsOnline.Web.PublicSite/Server",
+				"cwd": "${workspaceFolder}/src/PublicSite/Server",
 				"env": {
 					"ASPNETCORE_ENVIRONMENT": "Development"
 				}
@@ -31,140 +31,108 @@
 			]
 		},
 		{
-			"label": "blazor server: dotnet run debug",
-			"detail": "Run the Blazor Server for local debugging and watch for changes.",
-			"type": "process",
-			"command": "dotnet",
-			"args": [
-				"run",
-				"--configuration",
-				"Debug",
-				"/consoleloggerparameters:NoSummary"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}/src/SmallsOnline.Web.PublicSite/Server",
-				"env": {
-					"ASPNETCORE_ENVIRONMENT": "Development"
-				}
-			},
-			"isBackground": true,
-			"problemMatcher": [
-				{
-					"base": "$msCompile",
-					"background": {
-						"activeOnStart": true,
-						"beginsPattern": "^info: Microsoft.\\Hosting\\.Lifetime",
-						"endsPattern": "^\\s*Application started\\..+?$"
-					}
-				}
-			]
-		},
-		{
-			"label": "blazor: dotnet build server (debug)",
-			"detail": "Run the build task in the 'Debug' configuration.",
+			"label": "Build project",
+			"detail": "Build a project.",
 			"type": "process",
 			"command": "dotnet",
 			"args": [
 				"build",
-				"${workspaceFolder}/src/SmallsOnline.Web.PublicSite/Server/",
+				"${workspaceFolder}/${input:projectItem}",
 				"--configuration",
-				"Debug",
-				"--nologo"
+				"${input:dotnetConfiguration}"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": true,
-				"clear": true
-			},
-			"problemMatcher": [],
-			"dependsOn": [
-				"blazor: dotnet clean server (debug)"
-			]
+			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "blazor: dotnet clean server (debug)",
-			"detail": "Run the clean task in the 'Debug' configuration.",
+			"label": "Clean project",
+			"detail": "Clean a project.",
 			"type": "process",
 			"command": "dotnet",
 			"args": [
 				"clean",
-				"${workspaceFolder}/src/SmallsOnline.Web.PublicSite/Server/",
+				"${workspaceFolder}/${input:projectItem}",
 				"--configuration",
-				"Debug",
-				"--nologo"
+				"${input:dotnetConfiguration}"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
-			"problemMatcher": []
+			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "blazor: publish web app",
-			"detail": "Run the publish task in the 'Release' configuration.",
+			"label": "Restore project",
+			"detail": "Restore a project.",
 			"type": "process",
 			"command": "dotnet",
 			"args": [
-				"publish",
-				"${workspaceFolder}/src/SmallsOnline.Web.PublicSite/Server/",
-				"--configuration",
-				"Release",
-				"--output",
-				"${workspaceFolder}/build/",
-				"--nologo"
+				"restore",
+				"${workspaceFolder}/${input:projectItem}"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
-			"problemMatcher": [],
-			"dependsOn": [
-				"blazor: clean output"
+			"problemMatcher": "$msCompile"
+		}
+	],
+	"inputs": [
+		{
+			"id": "dotnetConfiguration",
+			"description": "Select a configuration for compilation.",
+			"type": "pickString",
+			"default": "Debug",
+			"options": [
+				{
+					"label": "Debug",
+					"value": "Debug"
+				},
+				{
+					"label": "Release",
+					"value": "Release"
+				}
 			]
 		},
 		{
-			"label": "blazor: clean output",
-			"detail": "Clean all files created by the publish task.",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoLogo",
-				"-NoProfile",
-				"-File",
-				"\"${workspaceFolder}/cleanBuildOutput.ps1\""
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": [],
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": false,
-				"clear": true
-			}
-		},
-		{
-			"label": "blazor client: install bootstrap",
-			"detail": "Install the Bootstrap CSS files for the project.",
-			"type": "process",
-			"command": "dotnet",
-			"args": [
-				"msbuild",
-				"${workspaceFolder}/src/SmallsOnline.Web.PublicSite/Client/",
-				"-target:\"InitBootstrap\"",
-				"-noLogo"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": []
+			"id": "projectItem",
+			"description": "Select a project.",
+			"type": "pickString",
+			"default": "src/PublicSite/Server",
+			"options": [
+				{
+					"label": "Entire solution",
+					"value": "SmallsOnline.Web.sln"
+				},
+				{
+					"label": "PublicSite: Server",
+					"value": "src/PublicSite/Server"
+				},
+				{
+					"label": "PublicSite: Client",
+					"value": "src/PublicSite/Client"
+				},
+				{
+					"label": "Lib: Core",
+					"value": "src/Lib"
+				},
+				{
+					"label": "Lib: Components",
+					"value": "src/Lib.Components"
+				},
+				{
+					"label": "Lib: Services",
+					"value": "src/Lib.Services"
+				},
+				{
+					"label": "API",
+					"value": "src/Api"
+				},
+				{
+					"label": "Tools: BlogPublisher",
+					"value": "src/Tools/BlogPublisher"
+				}
+			]
 		}
 	]
 }
