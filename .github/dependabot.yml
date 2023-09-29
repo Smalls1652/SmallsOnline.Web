@@ -80,6 +80,7 @@ updates:
     ignore:
       - dependency-name: "Markdig"
       - dependency-name: "YamlDotNet"
+      - dependency-name: "Microsoft.Azure.Cosmos"
     assignees:
       - "Smalls1652"
 
@@ -111,6 +112,7 @@ updates:
     ignore:
       - dependency-name: "Markdig"
       - dependency-name: "YamlDotNet"
+      - dependency-name: "Microsoft.Azure.Cosmos"
     assignees:
       - "Smalls1652"
 
@@ -129,6 +131,7 @@ updates:
     ignore:
       - dependency-name: "Markdig"
       - dependency-name: "YamlDotNet"
+      - dependency-name: "Microsoft.Azure.Cosmos"
     assignees:
       - "Smalls1652"
 
