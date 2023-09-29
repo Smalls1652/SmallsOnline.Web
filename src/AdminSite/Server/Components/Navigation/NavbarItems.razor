@@ -1,0 +1,14 @@
+@namespace SmallsOnline.Web.AdminSite.Server.Shared.Navigation
+
+<ul class="navbar-nav ms-auto px-2 pt-0">
+    <li class="nav-item">
+        <a class="nav-link@(_currentPageLocation!.TopLevelPage == "" ? " active" : "")" href="/" id="navitem_home">
+            <i class="bi bi-house-fill"></i> Home
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link@(_currentPageLocation!.TopLevelPage == "favorite-music-of" ? " active" : "")" href="/favorite-music-of" id="navitem_favorite-music-of">
+            <i class="bi bi-headphones"></i> Favorite Music Of
+        </a>
+    </li>
+</ul>
