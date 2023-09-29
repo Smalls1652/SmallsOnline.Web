@@ -144,6 +144,10 @@
 					"value": "src/PublicSite/Client"
 				},
 				{
+					"label": "AdminSite: Server",
+					"value": "src/AdminSite/Server"
+				},
+				{
 					"label": "Lib: Core",
 					"value": "src/Lib"
 				},

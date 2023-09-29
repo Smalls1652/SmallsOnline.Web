@@ -2,5 +2,7 @@
     "debug.internalConsoleOptions": "neverOpen",
     "razor.disableBlazorDebugPrompt": true,
     "git.detectSubmodules": false,
-    "dotnet.defaultSolution": "${workspaceFolder}/SmallsOnline.Web.PublicSite.sln"
+    "dotnet.defaultSolution": "SmallsOnline.Web.PublicSite.sln",
+    "dotnet.server.useOmnisharp": false,
+    "dotnet.server.path": ""
 }
