@@ -7,6 +7,8 @@
         <LangVersion>latest</LangVersion>
         <RazorLangVersion>8.0</RazorLangVersion>
         <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+        <UseRazorSourceGenerator>true</UseRazorSourceGenerator>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     </PropertyGroup>
 
     <PropertyGroup>

@@ -1,0 +1,55 @@
+@namespace SmallsOnline.Web.AdminSite.Server.Pages
+
+@page "/favorite-music-of/edit/album/{AlbumId}"
+@page "/favorite-music-of/edit/album/{AlbumId}/{ListYear?}"
+
+<HeadContent>
+    <!-- Generic meta tags -->
+    <PageTitle>
+        Smalls.Online
+    </PageTitle>
+    <meta content="The personal website of Timothy Small (Smalls)." name="description" />
+    <meta content="Tim Small" name="author" />
+
+    <!-- OpenGraph/Facebook meta tags -->
+    <meta content="Smalls.Online" name="title" property="og:title" />
+    <meta content="The personal website of Timothy Small (Smalls)." property="og:description" />
+    <meta content="https://smalls.online/" property="og:url" />
+    <meta content="website" property="og:type">
+    <meta content="https://smalls.online/smalls.png" property="og:image">
+
+    <!-- Twitter meta tags -->
+    <meta content="summary_large_image" name="twitter:card">
+    <meta content="Smalls.Online" name="twitter:title">
+    <meta content="The personal website of Timothy Small (Smalls)." name="twitter:description">
+    <meta content="smalls.online" property="twitter:domain">
+    <meta content="https://smalls.online" property="twitter:url">
+    <meta content="https://smalls.online/smalls.png" name="twitter:image">
+</HeadContent>
+
+<div class="card shadow fade-slide-in">
+    <div class="card-header">
+        <h1 class="mb-0">
+            <a class="btn btn-text-hider btn-glaucous" href="/favorite-music-of/list@(ListYear is not null ? $"/{ListYear}" : "")" type="button">
+                <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
+            </a> <i class="bi bi-headphones"></i> Favorite Music Of
+        </h1>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                @if (_isLoading)
+                {
+                    <LoadingBar />
+                }
+                else
+                {
+                    @if (_albumData is not null)
+                    {
+                        <AlbumDataForm IsNewItem="@(AlbumId == "new")" @rendermode="@(new ServerRenderMode(false))" AlbumData="_albumData" />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

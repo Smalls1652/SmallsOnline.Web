@@ -1,0 +1,159 @@
+@namespace SmallsOnline.Web.AdminSite.Server.Pages
+@attribute [RenderModeServer(false)]
+
+@page "/favorite-music-of"
+@page "/favorite-music-of/list"
+@page "/favorite-music-of/list/{ListYear?}"
+
+<HeadContent>
+    <!-- Generic meta tags -->
+    <PageTitle>
+        Smalls.Online
+    </PageTitle>
+    <meta content="The personal website of Timothy Small (Smalls)." name="description" />
+    <meta content="Tim Small" name="author" />
+
+    <!-- OpenGraph/Facebook meta tags -->
+    <meta content="Smalls.Online" name="title" property="og:title" />
+    <meta content="The personal website of Timothy Small (Smalls)." property="og:description" />
+    <meta content="https://smalls.online/" property="og:url" />
+    <meta content="website" property="og:type">
+    <meta content="https://smalls.online/smalls.png" property="og:image">
+
+    <!-- Twitter meta tags -->
+    <meta content="summary_large_image" name="twitter:card">
+    <meta content="Smalls.Online" name="twitter:title">
+    <meta content="The personal website of Timothy Small (Smalls)." name="twitter:description">
+    <meta content="smalls.online" property="twitter:domain">
+    <meta content="https://smalls.online" property="twitter:url">
+    <meta content="https://smalls.online/smalls.png" name="twitter:image">
+</HeadContent>
+
+<div class="card shadow fade-slide-in">
+    <div class="card-header">
+        <h1 class="mb-0">
+            <i class="bi bi-headphones"></i> Favorite Music Of
+        </h1>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                @if (_isLoading)
+                {
+                    <LoadingBar />
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-select" @onchange="OnListYearChanged" title="list-year-select">
+                                <option value="">Select a year...</option>
+                                @foreach (var year in _listYears!)
+                                {
+                                    @if (ListYear == year)
+                                    {
+                                        <option selected value="@year">@year</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@year">@year</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    @if (ListYear is not null || !string.IsNullOrEmpty(ListYear))
+                    {
+                        @if (_isLoadingData)
+                        {
+                            <LoadingBar />
+                        }
+                        else
+                        {
+                            <div class="row pt-3">
+                                <div class="col">
+                                    <h2>
+                                        Albums <a href="/favorite-music-of/edit/album/new@(ListYear is not null ? $"/{ListYear}" : "")" class="btn btn-glaucous" role="button">Add</a>
+                                    </h2>
+                                    <div class="row">
+                                        @if (_albumItems is not null && _albumItems.Length > 0)
+                                        {
+                                            @foreach (var albumItem in _albumItems)
+                                            {
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 pt-3" @key="albumItem.AlbumId">
+                                                    <AlbumItemMini IsAdminSite ItemData="albumItem" />
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="col">
+                                                <p>
+                                                    No albums found for this year.
+                                                </p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col">
+                                    <h2>
+                                        Songs <a href="/favorite-music-of/edit/song/new@(ListYear is not null ? $"/{ListYear}" : "")" class="btn btn-glaucous" role="button">Add</a>
+                                    </h2>
+                                    <div class="row">
+                                        @if (_songItems is not null && _songItems.Length > 0)
+                                        {
+                                            @foreach (var songItem in _songItems)
+                                            {
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 pt-3" @key="songItem.SongId">
+                                                    <SongItem IsAdminSite ItemData="songItem" />
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="col">
+                                                <p>
+                                                    No songs found for this year.
+                                                </p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="row pt-3">
+                            <div class="col">
+                                <h2>
+                                    Albums <a href="/favorite-music-of/edit/album/new" class="btn btn-glaucous" role="button">Add</a>
+                                </h2>
+                                <div class="row">
+                                    <div class="col">
+                                        Select a year to view albums.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row pt-3">
+                            <div class="col">
+                                <h2>
+                                    Songs <a href="/favorite-music-of/edit/song/new" class="btn btn-glaucous" role="button">Add</a>
+                                </h2>
+                                <div class="row">
+                                    <div class="col">
+                                        Select a year to view songs.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
