@@ -1,0 +1,44 @@
+@namespace SmallsOnline.Web.Lib.Components.FavoritesOf.Albums
+
+<div class="card shadow-sm">
+    <div class="row">
+        <div class="col">
+            <img src="@ItemData.AlbumArtUrl" height="512" width="512" alt="@ItemData.Artist - @ItemData.Title artwork"
+                 class="card-img card-img-top img-fluid" />
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="text-truncate">
+                            @ItemData.Title
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card-subtitle text-muted text-truncate">
+                            by @ItemData.Artist
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col">
+                        @if (IsAdminSite)
+                        {
+                            <a href="/favorite-music-of/edit/album/@(ItemData.Id)" class="btn btn-glaucous"
+                               role="button">
+                                Edit Album
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@ItemData.AlbumUrl" target="_blank" rel="noopener noreferrer" class="btn btn-glaucous"
+                               role="button">
+                                Open Album
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
