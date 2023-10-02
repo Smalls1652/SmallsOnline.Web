@@ -102,6 +102,27 @@ public partial class ItunesApiService : IItunesApiService
         );
     }
 
+    public async Task<ApiSearchResult<SongItem>?> GetAlbumIdLookupSongsResultAsync(string albumId)
+    {
+        var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");
+
+        HttpRequestMessage requestMessage = new(
+            method: HttpMethod.Get,
+            requestUri: $"lookup?id={albumId}&entity=song"
+        );
+
+        var responseMessage = await httpClient.SendAsync(requestMessage);
+
+        responseMessage.EnsureSuccessStatusCode();
+
+        using var contentStream = await responseMessage.Content.ReadAsStreamAsync();
+
+        return await JsonSerializer.DeserializeAsync(
+            utf8Json: contentStream,
+            jsonTypeInfo: ItunesJsonContext.Default.ApiSearchResultSongItem
+        );
+    }
+
     public async Task<ApiSearchResult<SongItem>?> GetSongsByArtistResultAsync(string artistName, string songName)
     {
         var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");

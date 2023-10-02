@@ -10,4 +10,5 @@ public interface IItunesApiService
     Task<ApiSearchResult<AlbumItem>?> GetAlbumsByArtistResultAsync(string artistName, string albumName);
     Task<ApiSearchResult<SongItem>?> GetSongIdLookupResultAsync(string trackId);
     Task<ApiSearchResult<AlbumItem>?> GetAlbumIdLookupResultAsync(string albumId);
+    Task<ApiSearchResult<SongItem>?> GetAlbumIdLookupSongsResultAsync(string albumId);
 }
