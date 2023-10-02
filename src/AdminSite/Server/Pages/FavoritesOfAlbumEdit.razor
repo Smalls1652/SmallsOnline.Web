@@ -27,10 +27,30 @@
     <meta content="https://smalls.online/smalls.png" name="twitter:image">
 </HeadContent>
 
-<div class="card shadow fade-slide-in">
+@if (_isLoading)
+{
+    <div class="card shadow fade-slide-in">
     <div class="card-header">
         <h1 class="mb-0">
-            <a class="btn btn-text-hider btn-glaucous" href="/favorite-music-of/list@(ListYear is not null ? $"/{ListYear}" : "")" type="button">
+            <i class="bi bi-headphones"></i> Favorite Music Of
+        </h1>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <LoadingBar />
+            </div>
+        </div>
+    </div>
+</div>
+}
+else
+{
+    <div class="card shadow fade-slide-in">
+    <div class="card-header">
+        <h1 class="mb-0">
+            <a class="btn btn-text-hider btn-glaucous"
+                href="/favorite-music-of/list@(ListYear is not null ? $"/{ListYear}" : "")" type="button">
                 <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
             </a> <i class="bi bi-headphones"></i> Favorite Music Of
         </h1>
@@ -39,17 +59,19 @@
         <div class="row">
             <div class="col">
                 @if (_isLoading)
-                {
-                    <LoadingBar />
-                }
-                else
-                {
-                    @if (_albumData is not null)
                     {
-                        <AlbumDataForm IsNewItem="@(AlbumId == "new")" @rendermode="@(new ServerRenderMode(false))" AlbumData="_albumData" />
+                        <LoadingBar />
                     }
-                }
+                    else
+                    {
+                        @if (_albumData is not null)
+                        {
+                            <AlbumDataForm IsNewItem="@(AlbumId == "new")" @rendermode="@(new ServerRenderMode(false))"
+                                AlbumData="_albumData" />
+                        }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
