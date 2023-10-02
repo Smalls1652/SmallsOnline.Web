@@ -5,6 +5,8 @@ using SmallsOnline.Web.AdminSite.Server.Models.FavoritesOf.Songs;
 using SmallsOnline.Web.Lib.Models.Itunes;
 using SmallsOnline.Web.Lib.Models.Odesli;
 using SmallsOnline.Web.Lib.Services;
+using System.Collections.Generic;
+using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 
 namespace SmallsOnline.Web.AdminSite.Server.Shared.FavoritesOf.Albums;
 
@@ -72,6 +74,7 @@ public partial class AlbumDataForm : ComponentBase
 
         ApiSearchResult<AlbumItem>? itunesAlbumData = await ItunesApiService.GetAlbumIdLookupResultAsync(itunesStreamingEntity.Id!);
 
+
         if (itunesAlbumData is null)
         {
             _isUpdating = false;
@@ -85,6 +88,36 @@ public partial class AlbumDataForm : ComponentBase
         AlbumData.ReleaseDate = albumItem?.ReleaseDate;
         AlbumData.AlbumArtUrl = itunesStreamingEntity.ThumbnailUrl!.ToString();
         AlbumData.AlbumUrl = odesliResult.PageUrl!.ToString();
+
+        if (AlbumData.SchemaVersion == "2.0")
+        {
+            ApiSearchResult<SongItem>? itunesSongs = await ItunesApiService.GetAlbumIdLookupSongsResultAsync(itunesStreamingEntity.Id!);
+
+            if (itunesSongs is not null && itunesSongs.Results is not null)
+            {
+                SongItem[]? songs = Array.FindAll(itunesSongs.Results, song => song.WrapperType == "track");
+
+                AlbumStandoutSongItem[] songItems = new AlbumStandoutSongItem[songs.Length];
+
+                for (int i = 0; i < songs.Length; i++)
+                {
+                    SongItem song = songs[i];
+
+                    MusicEntityItem? songOdesliResult = await OdesliService.GetShareLinksAsync(song.TrackViewUrl!);
+
+                    songItems[i] = new AlbumStandoutSongItem
+                    {
+                        Name = song.TrackName,
+                        DiscNumber = song.DiscNumber,
+                        SongNumber = song.TrackNumber,
+                        SongUrl = songOdesliResult!.PageUrl!.ToString(),
+                        IsStandout = false
+                    };
+                }
+
+                AlbumData.StandoutSongs = songItems;
+            }
+        }
 
         _isUpdating = false;
     }
@@ -113,5 +146,11 @@ public partial class AlbumDataForm : ComponentBase
         AlbumData.AlbumArtUrl = await BlobStorageService.UploadImageAsync(fileName, stream);
 
         _isUpdating = false;
+    }
+
+    private void HandleAddStandoutSong()
+    {
+        AlbumData.AddStandoutSong();
+        StateHasChanged();
     }
 }
