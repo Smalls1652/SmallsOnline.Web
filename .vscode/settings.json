@@ -3,6 +3,6 @@
     "razor.disableBlazorDebugPrompt": true,
     "git.detectSubmodules": false,
     "dotnet.defaultSolution": "SmallsOnline.Web.PublicSite.sln",
-    "dotnet.server.useOmnisharp": false,
-    "dotnet.server.path": ""
+    "dotnet.server.useOmnisharp": true,
+    "dotnet.server.path": "latest"
 }
