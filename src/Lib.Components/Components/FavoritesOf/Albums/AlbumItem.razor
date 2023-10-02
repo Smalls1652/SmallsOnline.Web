@@ -82,9 +82,9 @@
                                         @foreach (AlbumStandoutSongItem standoutSongItem in ItemData.OnlyStandoutSongs)
                                         {
                                             <div class="list-group-item list-group-item-action">
-                                                <a class="text-decoration-none stretched-link" href="@standoutSongItem.SongUrl"
+                                                <span class="font-monospace">@standoutSongItem.GetSongNumberAsString()</span> <a class="text-decoration-none stretched-link" href="@standoutSongItem.SongUrl"
                                                     rel="noopener noreferrer" target="_blank">
-                                                    @standoutSongItem.GetSongNumberAsString() @standoutSongItem.Name
+                                                    @standoutSongItem.Name
                                                 </a>
                                             </div>
                                         }
