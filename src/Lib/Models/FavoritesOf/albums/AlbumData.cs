@@ -8,7 +8,8 @@ namespace SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 /// </summary>
 public class AlbumData : DatabaseItem, IAlbumData
 {
-    public AlbumData() { }
+    public AlbumData()
+    {}
 
     /// <inheritdoc />
     [JsonPropertyName("@schemaVersion")]
@@ -33,7 +34,11 @@ public class AlbumData : DatabaseItem, IAlbumData
 
     /// <inheritdoc />
     [JsonPropertyName("albumStandoutTracks")]
-    public IEnumerable<AlbumStandoutSong>? StandoutTracks { get; set; }
+    public IEnumerable<AlbumStandoutSong>? StandoutTracks
+    {
+        get => _standoutTracks;
+        set => _standoutTracks = value is not null ? new(value) : null;
+    }
 
     /// <inheritdoc />
     [JsonPropertyName("albumArtUrl")]
@@ -87,6 +92,19 @@ public class AlbumData : DatabaseItem, IAlbumData
             // Return the string builder's text and ensure it's lowercase.
             return stringBuilder.ToString().ToLower();
         }
+    }
+
+    private List<AlbumStandoutSong>? _standoutTracks;
+
+    public void AddStandoutSong() => AddStandoutSong(new());
+    public void AddStandoutSong(AlbumStandoutSong standoutSong)
+    {
+        if (_standoutTracks is null)
+        {
+            _standoutTracks = new();
+        }
+
+        _standoutTracks.Add(standoutSong);
     }
 
     /// <summary>

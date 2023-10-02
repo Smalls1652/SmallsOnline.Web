@@ -5,7 +5,8 @@
 <div class="card shadow-sm">
     <div class="row">
         <div class="col-12 col-sm-4 col-md-6">
-            <img alt="Album art for @ItemData.Title" class="card-img img-fluid" height="512" src="@ItemData.AlbumArtUrl" width="512">
+            <img alt="Album art for @ItemData.Title" class="card-img img-fluid" height="512" src="@ItemData.AlbumArtUrl"
+                width="512">
         </div>
         <div class="col">
             <div class="card-body">
@@ -34,15 +35,16 @@
                         <div class="row pt-2 pb-1">
                             <div class="col">
                                 <div class="badge text-bg-success fs-6">
-                                    <i class="bi bi-star-fill bi-icon-color-gold"></i> Favorite album @(!string.IsNullOrEmpty(ItemData.ListYear) ? $"of {ItemData.ListYear}" : "")
+                                    <i class="bi bi-star-fill bi-icon-color-gold"></i> Favorite album
+                                    @(!string.IsNullOrEmpty(ItemData.ListYear) ? $"of {ItemData.ListYear}" : "")
                                 </div>
                             </div>
                         </div>
                     }
                     <div class="row pt-2">
                         <div class="col">
-                            <a class="btn btn-glaucous" href="@ItemData.AlbumUrl" rel="noopener noreferrer" role="button"
-                               target="_blank">
+                            <a class="btn btn-glaucous" href="@ItemData.AlbumUrl" rel="noopener noreferrer"
+                                role="button" target="_blank">
                                 Open Album
                             </a>
                         </div>
@@ -52,23 +54,47 @@
                         <h4>Standout Songs</h4>
                         <div>
                             <div class="list-group">
-                                @if (ItemData.StandoutTracks is not null)
+                                @if (ItemData.SchemaVersion != "2.0")
                                 {
-                                    @foreach (AlbumStandoutSong standoutSongItem in ItemData.StandoutTracks)
+                                    @if (ItemData.StandoutTracks is not null)
                                     {
-                                        <div class="list-group-item list-group-item-action">
-                                            <a class="text-decoration-none stretched-link" href="@standoutSongItem.TrackUrl" rel="noopener noreferrer"
-                                               target="_blank">
-                                                @standoutSongItem.Name
-                                            </a>
+                                        @foreach (AlbumStandoutSong standoutSongItem in ItemData.StandoutTracks)
+                                        {
+                                            <div class="list-group-item list-group-item-action">
+                                                <a class="text-decoration-none stretched-link" href="@standoutSongItem.TrackUrl"
+                                                    rel="noopener noreferrer" target="_blank">
+                                                    @standoutSongItem.Name
+                                                </a>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="list-group-item">
+                                            No tracks were provided in the dataset.
                                         </div>
                                     }
                                 }
                                 else
                                 {
-                                    <div class="list-group-item">
-                                        No tracks were provided in the dataset.
-                                    </div>
+                                    @if (ItemData.OnlyStandoutSongs is not null && ItemData.OnlyStandoutSongs.Count() > 0)
+                                    {
+                                        @foreach (AlbumStandoutSongItem standoutSongItem in ItemData.OnlyStandoutSongs)
+                                        {
+                                            <div class="list-group-item list-group-item-action">
+                                                <a class="text-decoration-none stretched-link" href="@standoutSongItem.SongUrl"
+                                                    rel="noopener noreferrer" target="_blank">
+                                                    @standoutSongItem.GetSongNumberAsString() @standoutSongItem.Name
+                                                </a>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="list-group-item">
+                                            No tracks were provided in the dataset.
+                                        </div>
+                                    }
                                 }
                             </div>
                         </div>

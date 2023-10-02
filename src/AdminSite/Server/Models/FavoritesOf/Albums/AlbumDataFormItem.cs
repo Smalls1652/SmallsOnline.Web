@@ -25,11 +25,18 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
     {
         Id = albumData.Id;
         PartitionKey = albumData.PartitionKey;
-        SchemaVersion = albumData.SchemaVersion;
+
+        SchemaVersion = albumData.SchemaVersion is null && albumData.StandoutTracks is null || albumData.StandoutSongs is not null ? "2.0" : "1.0";
+
         Title = albumData.Title;
         Artist = albumData.Artist;
         StandoutSongs = albumData.StandoutSongs;
-        StandoutTracks = albumData.StandoutTracks;
+
+        if (albumData.StandoutTracks is not null)
+        {
+            _standoutTracks = new(albumData.StandoutTracks);
+        }
+
         AlbumArtUrl = albumData.AlbumArtUrl;
         AlbumUrl = albumData.AlbumUrl;
         IsBest = albumData.IsBest;
@@ -54,7 +61,11 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
 
     /// <inheritdoc />
     [JsonPropertyName("albumStandoutSongs")]
-    public AlbumStandoutSongItem[]? StandoutSongs { get; set; }
+    public AlbumStandoutSongItem[]? StandoutSongs
+    {
+        get => _standoutSongs is null ? Array.Empty<AlbumStandoutSongItem>() : _standoutSongs?.ToArray();
+        set => _standoutSongs = value is not null ? new(value) : null;
+    }
 
     /// <inheritdoc />
     /// <remarks>Does not return when converted to JSON.</remarks>
@@ -63,7 +74,11 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
 
     /// <inheritdoc />
     [JsonPropertyName("albumStandoutTracks")]
-    public IEnumerable<AlbumStandoutSong>? StandoutTracks { get; set; }
+    public IEnumerable<AlbumStandoutSong>? StandoutTracks
+    {
+        get => _standoutTracks;
+        set => _standoutTracks = value is not null ? new(value) : null;
+    }
 
     /// <inheritdoc />
     [Required]
@@ -123,11 +138,35 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
         }
     }
 
-    /// <summary>
-    /// Gets only the standout songs for the album.
-    /// </summary>
-    /// <returns>A collection of <see cref="AlbumStandoutSongItem" /> objects.</returns>
-    private AlbumStandoutSongItem[]? GetOnlyStandoutSongs()
+    private List<AlbumStandoutSong>? _standoutTracks;
+    private List<AlbumStandoutSongItem>? _standoutSongs;
+
+    public void AddStandoutSong() => AddStandoutSong(new());
+    public void AddStandoutSong(AlbumStandoutSong standoutSong)
+    {
+        if (_standoutTracks is null)
+        {
+            _standoutTracks = new();
+        }
+
+        _standoutTracks.Add(standoutSong);
+    }
+
+    public void AddStandoutSongItem(AlbumStandoutSongItem standoutSong)
+    {
+        if (_standoutSongs is null)
+        {
+            _standoutSongs = new();
+        }
+
+        _standoutSongs.Add(standoutSong);
+    }
+
+/// <summary>
+/// Gets only the standout songs for the album.
+/// </summary>
+/// <returns>A collection of <see cref="AlbumStandoutSongItem" /> objects.</returns>
+private AlbumStandoutSongItem[]? GetOnlyStandoutSongs()
     {
         return (StandoutSongs is not null) switch
         {

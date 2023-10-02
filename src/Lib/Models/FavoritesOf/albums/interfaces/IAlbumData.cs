@@ -76,4 +76,7 @@ public interface IAlbumData
     /// Unique identifier for the album based on the artist and title.
     /// </summary>
     string? AlbumId { get; }
+
+    void AddStandoutSong();
+    void AddStandoutSong(AlbumStandoutSong standoutSong);
 }

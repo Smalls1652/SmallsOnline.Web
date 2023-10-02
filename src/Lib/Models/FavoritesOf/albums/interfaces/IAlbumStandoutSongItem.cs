@@ -10,6 +10,8 @@ public interface IAlbumStandoutSongItem
     /// </summary>
     string? Name { get; set; }
 
+    int? DiscNumber { get; set; }
+
     /// <summary>
     /// The position of the song on the album.
     /// </summary>
