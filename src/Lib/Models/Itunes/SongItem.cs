@@ -5,10 +5,10 @@ namespace SmallsOnline.Web.Lib.Models.Itunes;
 public class SongItem : ISongItem
 {
     [JsonPropertyName("wrapperType")]
-    public string WrapperType { get; set; }
+    public string WrapperType { get; set; } = null!;
 
     [JsonPropertyName("kind")]
-    public string Kind { get; set; }
+    public string Kind { get; set; } = null!;
 
     [JsonPropertyName("artistId")]
     public long ArtistId { get; set; }
