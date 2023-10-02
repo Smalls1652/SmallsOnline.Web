@@ -33,6 +33,8 @@ public partial class FavoritesOfAlbumEdit : ComponentBase
             _ => new(await CosmosDbService.GetFavoriteAlbumItemAsync(AlbumId))
         };
 
+        ListYear ??= _albumData.ListYear;
+
         _isLoading = false;
         await base.OnParametersSetAsync();
     }
