@@ -2,74 +2,81 @@
 
 <div class="row">
     <div class="col">
-        <EditForm EditContext="_editContext" OnSubmit="@HandleOnSubmitAsync">
-            <div class="row pb-3">
-                <div class="col">
-                    <label class="form-label fw-bold">
-                        Id:
-                    </label>
-                    <input @bind-value="SongData.Id" class="form-control font-monospace" disabled id="id" readonly />
+        @if (_isUpdating)
+        {
+            <LoadingBar />
+        }
+        else
+        {
+            <EditForm EditContext="_editContext" OnSubmit="@HandleOnSubmitAsync">
+                <div class="row pb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">
+                            Id:
+                        </label>
+                        <input @bind-value="SongData.Id" class="form-control font-monospace" disabled id="id" readonly />
+                    </div>
                 </div>
-            </div>
-            <div class="row pb-3">
-                <div class="col">
-                    <label class="form-label fw-bold">
-                        List year:
-                    </label>
-                    <InputText autocapitalize="off" autocomplete="off" autocorrect="off" @bind-Value="SongData.ListYear" class="form-control font-monospace" id="list-year" spellcheck="false" />
+                <div class="row pb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">
+                            List year:
+                        </label>
+                        <InputText autocapitalize="off" autocomplete="off" autocorrect="off" @bind-Value="SongData.ListYear" class="form-control font-monospace" id="list-year" spellcheck="false" />
+                    </div>
                 </div>
-            </div>
-            <div class="row pb-3">
-                <div class="col-12 col-lg-6">
-                    <label class="form-label fw-bold">
-                        Artist:
-                    </label>
-                    <InputText @bind-Value="SongData.Artist" class="form-control" id="artist" />
+                <div class="row pb-3">
+                    <div class="col-12 col-lg-6">
+                        <label class="form-label fw-bold">
+                            Artist:
+                        </label>
+                        <InputText @bind-Value="SongData.Artist" class="form-control" id="artist" />
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <label class="form-label fw-bold">
+                            Title:
+                        </label>
+                        <InputText @bind-Value="SongData.Title" class="form-control" id="title" />
+                    </div>
                 </div>
-                <div class="col-12 col-lg-6">
-                    <label class="form-label fw-bold">
-                        Title:
-                    </label>
-                    <InputText @bind-Value="SongData.Title" class="form-control" id="title" />
+                <div class="row pb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">
+                            Release date:
+                        </label>
+                        <InputDate @bind-Value="SongData.ReleaseDate" class="form-control font-monospace" id="release-date" />
+                    </div>
                 </div>
-            </div>
-            <div class="row pb-3">
-                <div class="col">
-                    <label class="form-label fw-bold">
-                        Release date:
-                    </label>
-                    <InputDate @bind-Value="SongData.ReleaseDate" class="form-control font-monospace" id="release-date" />
+                <div class="row pb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">
+                            Artwork Url: <a type="button" @onclick="HandleArtworkUploadAsync"><i class="bi bi-box-arrow-up" /></a>
+                        </label>
+                        <InputText autocapitalize="off" autocomplete="off" autocorrect="off" @bind-Value="SongData.TrackArtUrl" class="form-control font-monospace" id="artwork-url" spellcheck="false" />
+                    </div>
                 </div>
-            </div>
-            <div class="row pb-3">
-                <div class="col">
-                    <label class="form-label fw-bold">
-                        Artwork Url: <a type="button" @onclick="HandleArtworkUploadAsync"><i class="bi bi-box-arrow-up" /></a>
-                    </label>
-                    <InputText autocapitalize="off" autocomplete="off" autocorrect="off" @bind-Value="SongData.TrackArtUrl" class="form-control font-monospace" id="artwork-url" spellcheck="false" />
+                <div class="row pb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">
+                            Share Url: <a type="button" @onclick="HandleLoadSongDataAsync"><i class="bi bi-arrow-repeat" /></a>
+                        </label>
+                        <InputText autocapitalize="off" autocomplete="off" autocorrect="off" @bind-Value="SongData.TrackUrl" class="form-control font-monospace" id="song-url" spellcheck="false" />
+                    </div>
                 </div>
-            </div>
-            <div class="row pb-3">
-                <div class="col">
-                    <label class="form-label fw-bold">
-                        Share Url: <a type="button" @onclick="HandleLoadSongDataAsync"><i class="bi bi-arrow-repeat" /></a>
-                    </label>
-                    <InputText autocapitalize="off" autocomplete="off" autocorrect="off" @bind-Value="SongData.TrackUrl" class="form-control font-monospace" id="song-url" spellcheck="false" />
+                <div class="row pb-3">
+                    <div class="col">
+                        @if (IsNewItem)
+                        {
+                            <button class="btn btn-glaucous" type="submit">Create</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-glaucous" type="submit">Update</button>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div class="row pb-3">
-                <div class="col">
-                    @if (IsNewItem)
-                    {
-                        <button class="btn btn-glaucous" type="submit">Create</button>
-                    }
-                    else
-                    {
-                        <button class="btn btn-glaucous" type="submit">Update</button>
-                    }
-                </div>
-            </div>
-        </EditForm>
+            </EditForm>
+        }
     </div>
 </div>
 <hr />
