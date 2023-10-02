@@ -12,6 +12,7 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
     {
         Id = Guid.NewGuid().ToString();
         PartitionKey = "favorites-of-albums";
+        SchemaVersion = "2.0";
     }
 
     public AlbumDataFormItem(string? listYear)
@@ -19,6 +20,7 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
         Id = Guid.NewGuid().ToString();
         PartitionKey = "favorites-of-albums";
         ListYear = listYear;
+        SchemaVersion = "2.0";
     }
 
     public AlbumDataFormItem(IAlbumData albumData)
