@@ -12,7 +12,12 @@ public interface ICosmosDbService
     Task<BlogEntry> GetBlogEntryAsync(string id);
     Task<int> GetBlogTotalPagesAsync();
 
+    Task<string[]?> GetFavoriteAlbumsListYearsAsync();
+    Task AddOrUpdateFavoriteAlbumItemAsync(IAlbumData albumData);
+    Task<AlbumData> GetFavoriteAlbumItemAsync(string id);
     Task<AlbumData[]> GetFavoriteAlbumsOfYearAsync(string listYear);
+    Task AddOrUpdateFavoriteSongItemAsync(ISongData songData);
+    Task<SongData> GetFavoriteSongItemAsync(string id);
     Task<SongData[]> GetFavoriteSongsOfYearAsync(string listYear);
 
     Task<WebFingerResponse> GetWebFingerResponseAsync();
