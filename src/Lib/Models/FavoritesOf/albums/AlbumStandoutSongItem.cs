@@ -30,6 +30,6 @@ public class AlbumStandoutSongItem : IAlbumStandoutSongItem
     /// <inheritdoc />
     public string GetSongNumberAsString()
     {
-        return SongNumber is not null && SongNumber != 0 ? $"{SongNumber?.ToString("00")}." : string.Empty;
+        return SongNumber is not null && SongNumber != 0 ? $"{SongNumber}." : string.Empty;
     }
 }
