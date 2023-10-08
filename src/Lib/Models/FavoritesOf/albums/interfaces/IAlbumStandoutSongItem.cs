@@ -10,12 +10,12 @@ public interface IAlbumStandoutSongItem
     /// </summary>
     string? Name { get; set; }
 
-    int? DiscNumber { get; set; }
+    int DiscNumber { get; set; }
 
     /// <summary>
     /// The position of the song on the album.
     /// </summary>
-    int? SongNumber { get; set; }
+    int SongNumber { get; set; }
 
     /// <summary>
     /// Whether the song is a standout song or not.
