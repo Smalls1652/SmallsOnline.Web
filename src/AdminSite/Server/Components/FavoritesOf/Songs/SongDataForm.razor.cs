@@ -113,4 +113,14 @@ public partial class SongDataForm : ComponentBase
 
         _isUpdating = false;
     }
+
+    private async Task HandleRemoveSongAsync()
+    {
+        _isUpdating = true;
+        await CosmosDbService.RemoveFavoriteSongItemAsync(SongData.Id);
+        NavigationManager.NavigateTo(
+            uri: $"/favorite-music-of/list/{SongData.ListYear}",
+            forceLoad: false
+        );
+    }
 }

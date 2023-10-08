@@ -7,6 +7,7 @@ using SmallsOnline.Web.Lib.Models.Odesli;
 using SmallsOnline.Web.Lib.Services;
 using System.Collections.Generic;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
+using System.Text;
 
 namespace SmallsOnline.Web.AdminSite.Server.Shared.FavoritesOf.Albums;
 
@@ -41,6 +42,8 @@ public partial class AlbumDataForm : ComponentBase
 
     private bool _isUpdating = false;
 
+    private string? _updatingStatusText;
+
     protected override void OnInitialized()
     {
         _editContext = new EditContext(AlbumData);
@@ -61,10 +64,13 @@ public partial class AlbumDataForm : ComponentBase
     {
         _isUpdating = true;
 
+        _updatingStatusText = "Getting share links from Odesli";
+        StateHasChanged();
         MusicEntityItem? odesliResult = await OdesliService.GetShareLinksAsync(AlbumData.AlbumUrl!);
 
         if (odesliResult is null)
         {
+            _updatingStatusText = null;
             _isUpdating = false;
             return;
         }
@@ -72,11 +78,14 @@ public partial class AlbumDataForm : ComponentBase
         PlatformEntityLink itunesPlatformEntity = odesliResult.LinksByPlatform!["itunes"];
         StreamingEntityItem itunesStreamingEntity = odesliResult.EntitiesByUniqueId![itunesPlatformEntity.EntityUniqueId!];
 
+        _updatingStatusText = "Getting album data from iTunes";
+        StateHasChanged();
         ApiSearchResult<AlbumItem>? itunesAlbumData = await ItunesApiService.GetAlbumIdLookupResultAsync(itunesStreamingEntity.Id!);
 
 
         if (itunesAlbumData is null)
         {
+            _updatingStatusText = null;
             _isUpdating = false;
             return;
         }
@@ -101,6 +110,8 @@ public partial class AlbumDataForm : ComponentBase
 
                 for (int i = 0; i < songs.Length; i++)
                 {
+                    _updatingStatusText = $"Getting data for song: {i + 1} / {songs.Length}";
+                    StateHasChanged();
                     SongItem song = songs[i];
 
                     MusicEntityItem? songOdesliResult = await OdesliService.GetShareLinksAsync(song.TrackViewUrl!);
@@ -119,12 +130,15 @@ public partial class AlbumDataForm : ComponentBase
             }
         }
 
+        _updatingStatusText = null;
         _isUpdating = false;
     }
 
     private async Task HandleArtworkUploadAsync()
     {
         _isUpdating = true;
+
+        _updatingStatusText = "Uploading artwork to storage";
 
         Regex fileExtRegex = new("^(?:https|http):\\/\\/.+\\/.+?\\.(?'fileExtension'.+?)$");
         Match fileExtMatch = fileExtRegex.Match(AlbumData.AlbumArtUrl!);
@@ -145,6 +159,7 @@ public partial class AlbumDataForm : ComponentBase
 
         AlbumData.AlbumArtUrl = await BlobStorageService.UploadImageAsync(fileName, stream);
 
+        _updatingStatusText = null;
         _isUpdating = false;
     }
 
@@ -152,5 +167,23 @@ public partial class AlbumDataForm : ComponentBase
     {
         AlbumData.AddStandoutSong();
         StateHasChanged();
+    }
+
+    private async Task HandleRemoveAlbumAsync()
+    {
+        _isUpdating = true;
+        await CosmosDbService.RemoveFavoriteAlbumItemAsync(AlbumData.Id);
+        NavigationManager.NavigateTo(
+            uri: $"/favorite-music-of/list/{AlbumData.ListYear}",
+            forceLoad: false
+        );
+    }
+
+    private string CreateStandoutSongId(string songName)
+    {
+        StringBuilder sb = new();
+        sb.Append("standoutsong-");
+        sb.Append(Convert.ToBase64String(Encoding.Default.GetBytes(songName)));
+        return sb.ToString();
     }
 }

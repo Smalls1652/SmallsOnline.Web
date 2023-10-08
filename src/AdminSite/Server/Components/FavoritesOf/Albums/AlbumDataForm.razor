@@ -6,7 +6,7 @@
     <div class="col">
         @if (_isUpdating)
         {
-            <LoadingBar />
+            <LoadingBar StatusText="@_updatingStatusText" />
         }
         else
         {
@@ -33,8 +33,8 @@
                         <label class="form-label fw-bold">
                             List year:
                         </label>
-                        <InputText autocapitalize="off" autocomplete="off" autocorrect="off" 
-                        @bind-Value="AlbumData.ListYear" class="form-control font-monospace" id="list-year"
+                        <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                            @bind-Value="AlbumData.ListYear" class="form-control font-monospace" id="list-year"
                             spellcheck="false" />
                     </div>
                 </div>
@@ -63,10 +63,12 @@
                 </div>
                 <div class="row pb-3">
                     <div class="col">
-                        <label class="form-label fw-bold">
-                            Favorite album of year? 
-                        </label>
-                        <InputCheckbox @bind-Value="AlbumData.IsBest" class="form-check-input" />
+                        <div class="form-check form-switch">
+                            <label class="form-check-label fw-bold" for="favorite-album-switch">
+                                Favorite album of year?
+                            </label>
+                            <InputCheckbox @bind-Value="AlbumData.IsBest" class="form-check-input" role="switch" id="favorite-album-switch" />
+                        </div>
                     </div>
                 </div>
                 <div class="row pb-3">
@@ -75,9 +77,8 @@
                             Artwork Url: <a type="button" @onclick="HandleArtworkUploadAsync"><i
                                     class="bi bi-box-arrow-up" /></a>
                         </label>
-                        <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
-                        @bind-Value="AlbumData.AlbumArtUrl" class="form-control font-monospace" id="artwork-url"
-                            spellcheck="false" />
+                        <InputText autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"
+                            @bind-Value="AlbumData.AlbumArtUrl" class="form-control font-monospace" id="artwork-url" />
                     </div>
                 </div>
                 <div class="row pb-3">
@@ -87,14 +88,14 @@
                                     class="bi bi-arrow-repeat" /></a>
                         </label>
                         <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
-                        @bind-Value="AlbumData.AlbumUrl" class="form-control font-monospace" id="song-url"
+                            @bind-Value="AlbumData.AlbumUrl" class="form-control font-monospace" id="song-url"
                             spellcheck="false" />
                     </div>
                 </div>
                 <div class="row pb-3">
-                    <div class="col">
+                    <div class="col pt-2 border rounded-2 shadow-sm">
                         <label class="form-label fw-bold">
-                            Standout songs: 
+                            Standout songs:
                             @if (AlbumData.SchemaVersion == "1.0")
                             {
                                 <a class="btn btn-success" role="button" @onclick="HandleAddStandoutSong">
@@ -110,14 +111,16 @@
                                     @foreach (var standoutSong in AlbumData.StandoutTracks)
                                     {
                                         <div class="col-12 col-lg-6 p-2">
-                                            <div class="card shadow-sm">
+                                            <div class="card">
                                                 <div class="card-body">
                                                     <div class="row pb-3">
                                                         <div class="col">
                                                             <label class="form-label fw-bold">
                                                                 Name:
                                                             </label>
-                                                            <InputText @bind-Value="standoutSong.Name" class="form-control" />
+                                                            <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                                spellcheck="false" @bind-Value="standoutSong.Name"
+                                                                class="form-control" />
                                                         </div>
                                                     </div>
                                                     <div class="row pb-3">
@@ -125,7 +128,8 @@
                                                             <label class="form-label fw-bold">
                                                                 Share Url:
                                                             </label>
-                                                            <InputText @bind-Value="standoutSong.TrackUrl"
+                                                            <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                                spellcheck="false" @bind-Value="standoutSong.TrackUrl"
                                                                 class="form-control font-monospace" />
                                                         </div>
                                                     </div>
@@ -141,46 +145,60 @@
                                 {
                                     @foreach (var standoutSong in AlbumData.StandoutSongs)
                                     {
-                                        <div class="col-12 col-lg-6 p-2">
-                                            <div class="card shadow-sm">
+                                        <div class="col-12 p-2">
+                                            <div class="card">
                                                 <div class="card-body">
                                                     <div class="row pb-3">
-                                                        <div class="col">
-                                                            <label class="form-label fw-bold">
-                                                                Disc number:
-                                                            </label>
-                                                            <InputNumber @bind-Value="standoutSong.DiscNumber" class="form-control font-monospace" />
+                                                        <div class="col-12 col-lg-6 pb-3 pb-lg-0">
+                                                            <div class="row">
+                                                                <div class="col-12 pb-2">
+                                                                    <label class="form-label fw-bold">
+                                                                        Name:
+                                                                    </label>
+                                                                    <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                                        spellcheck="false" @bind-Value="standoutSong.Name"
+                                                                        class="form-control" />
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label class="form-label fw-bold">
+                                                                        Share Url:
+                                                                    </label>
+                                                                    <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                                        spellcheck="false" @bind-Value="standoutSong.SongUrl"
+                                                                        class="form-control font-monospace" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <label class="form-label fw-bold">
-                                                                Song number:
-                                                            </label>
-                                                            <InputNumber @bind-Value="standoutSong.SongNumber" class="form-control font-monospace" />
+                                                        <div class="col-12 col-lg-6">
+                                                            <div class="row">
+                                                                <div class="col-12 pb-2">
+                                                                    <label class="form-label fw-bold">
+                                                                        Disc number:
+                                                                    </label>
+                                                                    <InputNumber @bind-Value="standoutSong.DiscNumber"
+                                                                        class="form-control font-monospace" />
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label class="form-label fw-bold">
+                                                                        Song number:
+                                                                    </label>
+                                                                    <InputNumber @bind-Value="standoutSong.SongNumber"
+                                                                        class="form-control font-monospace" />
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row pb-3">
-                                                        <div class="col">
-                                                            <label class="form-label fw-bold">
-                                                                Name:
-                                                            </label>
-                                                            <InputText @bind-Value="standoutSong.Name" class="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row pb-3">
-                                                        <div class="col">
-                                                            <label class="form-label fw-bold">
-                                                                Share Url:
-                                                            </label>
-                                                            <InputText @bind-Value="standoutSong.SongUrl"
-                                                                class="form-control font-monospace" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row pb-3">
-                                                        <div class="col">
-                                                            <label class="form-label fw-bold">
-                                                                Is standout?
-                                                            </label>
-                                                            <InputCheckbox @bind-Value="standoutSong.IsStandout" class="form-check-input" />
+                                                    <div class="d-flex justify-content-end ms-auto">
+                                                        <div class="flex-shrink-1">
+                                                            <div class="form-check form-switch">
+                                                                <InputCheckbox @bind-Value="@standoutSong.IsStandout"
+                                                                    class="form-check-input" role="switch"
+                                                                    id="@CreateStandoutSongId(standoutSong!.Name!)" />
+                                                                <label class="form-check-label"
+                                                                    for="@CreateStandoutSongId(standoutSong!.Name!)">
+                                                                    Is standout?
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -201,6 +219,7 @@
                         else
                         {
                             <button class="btn btn-glaucous" type="submit">Update</button>
+                            <button class="btn btn-danger" type="button" @onclick="HandleRemoveAlbumAsync">Remove</button>
                         }
                     </div>
                 </div>
