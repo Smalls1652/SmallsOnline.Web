@@ -5,5 +5,6 @@ namespace SmallsOnline.Web.Lib.Components.Core;
 /// </summary>
 public partial class LoadingBar : ComponentBase
 {
-
+    [Parameter]
+    public string? StatusText { get; set; }
 }
