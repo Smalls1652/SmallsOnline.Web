@@ -16,9 +16,12 @@ public interface ICosmosDbService
     Task AddOrUpdateFavoriteAlbumItemAsync(IAlbumData albumData);
     Task<AlbumData> GetFavoriteAlbumItemAsync(string id);
     Task<AlbumData[]> GetFavoriteAlbumsOfYearAsync(string listYear);
+    Task RemoveFavoriteAlbumItemAsync(string id);
+
     Task AddOrUpdateFavoriteSongItemAsync(ISongData songData);
     Task<SongData> GetFavoriteSongItemAsync(string id);
     Task<SongData[]> GetFavoriteSongsOfYearAsync(string listYear);
+    Task RemoveFavoriteSongItemAsync(string id);
 
     Task<WebFingerResponse> GetWebFingerResponseAsync();
 }
