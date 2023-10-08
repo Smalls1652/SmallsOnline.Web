@@ -14,4 +14,17 @@ public partial class AlbumItem : ComponentBase
     /// </summary>
     [Parameter, EditorRequired]
     public IAlbumData ItemData { get; set; } = null!;
+
+    private int[]? _discNumbers;
+
+    protected override void OnParametersSet()
+    {
+        if (ItemData.SchemaVersion == "2.0" && ItemData.OnlyStandoutSongs is not null)
+        {
+            _discNumbers = ItemData.OnlyStandoutSongs
+                .Select(s => s.DiscNumber)
+                .Distinct()
+                .ToArray();
+        }
+    }
 }
