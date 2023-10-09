@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
+name: Admin Website / Build
+on:
+  push:
+    paths-ignore:
+      - "src/Api/**"
+      - "src/Tools/**"
+  pull_request:
+    paths-ignore:
+      - "src/Api/**"
+      - "src/Tools/**"
+  workflow_dispatch:
+
+jobs:
+  build-lib:
+    name: Build web app
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup dotnet SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          global-json-file: global.json
+
+      - name: Build web app
+        shell: pwsh
+        run: dotnet restore ; dotnet build
+        working-directory: "src/AdminSite/Server/"
