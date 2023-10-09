@@ -1,5 +1,6 @@
 @namespace SmallsOnline.Web.AdminSite.Server.Pages
-@attribute [RenderModeServer(false)]
+@attribute [RenderModeInteractiveServer(false)]
+@attribute [Authorize]
 
 @page "/favorite-music-of/edit/song/{SongId}"
 @page "/favorite-music-of/edit/song/{SongId}/{ListYear?}"
@@ -61,7 +62,7 @@ else
             <div class="col">
                 @if (_songItem is not null)
                     {
-                        <SongDataForm IsNewItem="@(SongId == "new")" @rendermode="@(new ServerRenderMode(false))" SongData="_songItem" />
+                        <SongDataForm IsNewItem="@(SongId == "new")" @rendermode="@(new InteractiveServerRenderMode(false))" SongData="_songItem" />
                     }
                 </div>
             </div>

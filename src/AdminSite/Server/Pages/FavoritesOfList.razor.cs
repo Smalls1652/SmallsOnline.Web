@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Authorization;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 using SmallsOnline.Web.Lib.Services;
@@ -14,6 +15,9 @@ public partial class FavoritesOfList : ComponentBase
 
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = null!;
+
+    [CascadingParameter]
+    protected Task<AuthenticationState>? AuthState { get; set; }
 
     [Parameter]
     public string? ListYear { get; set; }

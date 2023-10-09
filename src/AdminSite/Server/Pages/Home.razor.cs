@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace SmallsOnline.Web.AdminSite.Server.Pages;
@@ -7,4 +8,6 @@ namespace SmallsOnline.Web.AdminSite.Server.Pages;
 /// </summary>
 public partial class Home : ComponentBase
 {
+    [CascadingParameter]
+    protected Task<AuthenticationState>? AuthState { get; set; }
 }

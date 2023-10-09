@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Authorization;
 using SmallsOnline.Web.AdminSite.Server.Models.FavoritesOf.Songs;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 using SmallsOnline.Web.Lib.Services;
@@ -11,6 +12,9 @@ public partial class FavoritesOfSongEdit : ComponentBase
 
     [Inject]
     protected ILogger<FavoritesOfSongEdit> PageLogger { get; set; } = null!;
+    
+    [CascadingParameter]
+    protected Task<AuthenticationState>? AuthState { get; set; }
 
     [Parameter]
     public string SongId { get; set; } = null!;

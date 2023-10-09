@@ -40,20 +40,48 @@
 
 <body>
 
-<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView DefaultLayout="@typeof(MainLayout)" RouteData="@routeData" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
+    <CascadingAuthenticationState>
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView DefaultLayout="@typeof(MainLayout)" RouteData="@routeData">
+                    <NotAuthorized>
+                        <div>
+                            <header>
+                                <SiteNavbar />
+                            </header>
+                            <main>
+                                <div class="container-xl pb-3">
+                                    <div class="row py-3 justify-content-center">
+                                        <div class="col-12">
+                                            <div class="card shadow fade-slide-in">
+                                                <div class="card-header">
+                                                    <h1 class="mb-0">
+                                                        <i class="bi bi-ban"></i> Access Denied
+                                                    </h1>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                You are not authorized to access this.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+                        </div>
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+            </Found>
+        </Router>
+    </CascadingAuthenticationState>
 
-</Router>
-
-<script src="js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="_framework/blazor.web.js" suppress-error="BL9992" autostart="true"></script>
+    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
 </body>
+
 </html>

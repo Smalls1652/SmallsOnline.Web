@@ -1,4 +1,6 @@
 @namespace SmallsOnline.Web.AdminSite.Server.Pages
+@attribute [RenderModeInteractiveServer(false)]
+@attribute [Authorize]
 
 @page "/favorite-music-of/edit/album/{AlbumId}"
 @page "/favorite-music-of/edit/album/{AlbumId}/{ListYear?}"
@@ -66,7 +68,7 @@ else
                     {
                         @if (_albumData is not null)
                         {
-                            <AlbumDataForm IsNewItem="@(AlbumId == "new")" @rendermode="@(new ServerRenderMode(false))"
+                            <AlbumDataForm IsNewItem="@(AlbumId == "new")" @rendermode="@(new InteractiveServerRenderMode(false))"
                                 AlbumData="_albumData" />
                         }
                     }
