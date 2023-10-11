@@ -13,6 +13,9 @@ builder.Configuration
     .AddJsonFile(builder.Environment.IsDevelopment() ? "appsettings.Development.json" : "appsettings.json");
 
 builder.Services
+    .AddCascadingAuthenticationState();
+
+builder.Services
     .AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(options =>
     {
