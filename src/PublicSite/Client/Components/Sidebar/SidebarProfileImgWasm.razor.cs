@@ -3,6 +3,6 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace SmallsOnline.Web.PublicSite.Client.Components.Sidebar;
 
-[RenderModeAuto(true)]
+[RenderModeInteractiveAuto(true)]
 public partial class SidebarProfileImgWasm : SidebarProfileImg
 {}
