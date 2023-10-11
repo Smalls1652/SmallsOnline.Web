@@ -23,10 +23,18 @@
                 </div>
                 <div class="row pt-2">
                     <div class="col">
-                        <a href="@ItemData.TrackUrl" target="_blank" rel="noopener noreferrer" class="btn btn-glaucous"
-                            role="button">
-                            Open Song
-                        </a>
+                        @if (IsAdminSite)
+                        {
+                            <a href="/favorite-music-of/edit/song/@(ItemData.Id)" class="btn btn-glaucous" role="button">
+                                Edit Song
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@ItemData.TrackUrl" target="_blank" rel="noopener noreferrer" class="btn btn-glaucous" role="button">
+                                Open Song
+                            </a>
+                        }
                     </div>
                 </div>
             </div>

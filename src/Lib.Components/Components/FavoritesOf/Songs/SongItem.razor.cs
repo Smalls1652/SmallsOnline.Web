@@ -14,4 +14,7 @@ public partial class SongItem : ComponentBase
     /// </summary>
     [Parameter, EditorRequired]
     public ISongData ItemData { get; set; } = null!;
+
+    [Parameter]
+    public bool IsAdminSite { get; set; }
 }

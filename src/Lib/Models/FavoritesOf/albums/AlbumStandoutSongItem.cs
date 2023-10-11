@@ -12,9 +12,12 @@ public class AlbumStandoutSongItem : IAlbumStandoutSongItem
     [JsonPropertyName("songName")]
     public string? Name { get; set; }
 
+    [JsonPropertyName("discNumber")]
+    public int DiscNumber { get; set; }
+
     /// <inheritdoc />
     [JsonPropertyName("songNumber")]
-    public int? SongNumber { get; set; }
+    public int SongNumber { get; set; }
 
     /// <inheritdoc />
     [JsonPropertyName("songIsStandout")]
@@ -27,6 +30,6 @@ public class AlbumStandoutSongItem : IAlbumStandoutSongItem
     /// <inheritdoc />
     public string GetSongNumberAsString()
     {
-        return SongNumber is not null && SongNumber != 0 ? $"{SongNumber}." : string.Empty;
+        return SongNumber != 0 ? $"{SongNumber}." : string.Empty;
     }
 }

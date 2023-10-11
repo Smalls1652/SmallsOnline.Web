@@ -1,0 +1,87 @@
+﻿@namespace SmallsOnline.Web.AdminSite.Server
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="/" />
+
+    <meta charset="utf-8" />
+
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+
+    <PageTitle>Smalls.Online</PageTitle>
+    <HeadOutlet />
+
+    <!-- Theme color attribute. Primarily for theming supported web browsers. -->
+    <meta content="#496e9c" name="theme-color" />
+
+    <!-- Twitter Posting Format -->
+    <meta content="summary" name="twitter:card" />
+    <meta content="@@thetimmysmalls" name="twitter:creator" />
+
+    <!-- OpenGraph Data -->
+    <meta content="https://smalls.online/smalls.png" property="og:image" />
+    <meta property="og:locale" content="en_US" />
+
+    <link href="favicon.ico" rel="icon" type="image/ico" />
+
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="css/bootstrap-icons-custom.css" rel="stylesheet" />
+    <link href="css/bootstrap-custom.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/animation/animation.css" rel="stylesheet" />
+    <link href="highlight.js/styles/github.min.css" rel="stylesheet" />
+    <link href="SmallsOnline.Web.PublicSite.Server.styles.css" rel="stylesheet" />
+
+    <script src="highlight.js/highlight.min.js"></script>
+</head>
+
+<body>
+
+    <CascadingAuthenticationState>
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView DefaultLayout="@typeof(MainLayout)" RouteData="@routeData">
+                    <NotAuthorized>
+                        <div>
+                            <header>
+                                <SiteNavbar />
+                            </header>
+                            <main>
+                                <div class="container-xl pb-3">
+                                    <div class="row py-3 justify-content-center">
+                                        <div class="col-12">
+                                            <div class="card shadow fade-slide-in">
+                                                <div class="card-header">
+                                                    <h1 class="mb-0">
+                                                        <i class="bi bi-ban"></i> Access Denied
+                                                    </h1>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                You are not authorized to access this.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+                        </div>
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+            </Found>
+        </Router>
+    </CascadingAuthenticationState>
+
+    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
+</body>
+
+</html>

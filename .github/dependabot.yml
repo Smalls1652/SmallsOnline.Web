@@ -98,6 +98,38 @@ updates:
     assignees:
       - "Smalls1652"
 
+  # NuGet config for SmallsOnline.Web.AdminSite.Server
+  - package-ecosystem: "nuget"
+    directory: "/src/AdminSite/Server"
+    target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
+    schedule:
+      interval: "daily"
+    labels:
+      - "website"
+      - "dependency update"
+    ignore:
+      - dependency-name: "Markdig"
+      - dependency-name: "YamlDotNet"
+      - dependency-name: "Microsoft.Azure.Cosmos"
+    assignees:
+      - "Smalls1652"
+
+  # NPM config for SmallsOnline.Web.AdminSite.Server
+  - package-ecosystem: "npm"
+    directory: "/src/AdminSite/Server"
+    target-branch: "dev"
+    reviewers:
+      - "Smalls1652"
+    schedule:
+      interval: "daily"
+    labels:
+      - "website"
+      - "dependency update"
+    assignees:
+      - "Smalls1652"
+
   # NuGet config for SmallsOnline.Web.Api
   - package-ecosystem: "nuget"
     directory: "/src/Api"

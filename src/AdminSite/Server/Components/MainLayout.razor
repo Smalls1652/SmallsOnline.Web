@@ -1,0 +1,19 @@
+﻿@namespace SmallsOnline.Web.AdminSite.Server.Shared
+@inherits LayoutComponentBase
+
+<div>
+    <header>
+        <SiteNavbar />
+    </header>
+    <main>
+        <div class="container-xl pb-3">
+            <div class="row py-3 justify-content-center">
+                <div class="col-12">
+                    <ErrorBoundary>
+                        @Body
+                    </ErrorBoundary>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

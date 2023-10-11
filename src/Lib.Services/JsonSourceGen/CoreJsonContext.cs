@@ -37,5 +37,6 @@ namespace SmallsOnline.Web.Lib.Services;
 [JsonSerializable(typeof(CosmosDbResponse<BlogEntry>))]
 [JsonSerializable(typeof(CosmosDbResponse<AlbumData>))]
 [JsonSerializable(typeof(CosmosDbResponse<SongData>))]
+[JsonSerializable(typeof(CosmosDbResponse<string>))]
 internal partial class CoreJsonContext : JsonSerializerContext
 {}

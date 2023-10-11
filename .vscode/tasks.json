@@ -31,6 +31,35 @@
 			]
 		},
 		{
+			"label": "AdminSite: Watch",
+			"detail": "Run the Blazor Server for local debugging and watch for changes.",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"watch",
+				"--",
+				"run",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/src/AdminSite/Server",
+				"env": {
+					"ASPNETCORE_ENVIRONMENT": "Development"
+				}
+			},
+			"isBackground": true,
+			"problemMatcher": [
+				{
+					"base": "$msCompile",
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "^info: Microsoft.\\Hosting\\.Lifetime",
+						"endsPattern": "^\\s*Application started\\..+?$"
+					}
+				}
+			]
+		},
+		{
 			"label": "Build project",
 			"detail": "Build a project.",
 			"type": "process",
@@ -106,7 +135,20 @@
 				"os": "Linux",
 				"remove": true
 			}
-		}
+		},
+		{
+			"label": "AdminSite: Build image",
+			"detail": "Build the container image for the admin site.",
+			"type": "docker-build",
+			"dockerBuild": {
+				"context": "${workspaceFolder}",
+				"dockerfile": "${workspaceFolder}/Dockerfile.adminsite",
+				"pull": true,
+				"tag": "smallsonlinewebadmin-local:latest",
+				"customOptions": "--tag smallsonlinewebadmin-local:${command:extension.commandvariable.UUID}",
+				"platform": "${input:containerPlatformArch}"
+			}
+		},
 	],
 	"inputs": [
 		{
@@ -142,6 +184,10 @@
 				{
 					"label": "PublicSite: Client",
 					"value": "src/PublicSite/Client"
+				},
+				{
+					"label": "AdminSite: Server",
+					"value": "src/AdminSite/Server"
 				},
 				{
 					"label": "Lib: Core",
