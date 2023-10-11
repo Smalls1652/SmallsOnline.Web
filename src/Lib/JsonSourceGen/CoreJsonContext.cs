@@ -6,6 +6,7 @@ using SmallsOnline.Web.Lib.Models.ActivityPub;
 using SmallsOnline.Web.Lib.Models.Database;
 using SmallsOnline.Web.Lib.Models.Blog;
 using SmallsOnline.Web.Lib.Models.Projects;
+using SmallsOnline.Web.Lib.Models.MusicPlaylists;
 
 namespace SmallsOnline.Web.Lib;
 
@@ -32,5 +33,13 @@ namespace SmallsOnline.Web.Lib;
 [JsonSerializable(typeof(ProjectItem[]))]
 [JsonSerializable(typeof(ProjectType))]
 [JsonSerializable(typeof(List<ProjectType>))]
+[JsonSerializable(typeof(Playlist))]
+[JsonSerializable(typeof(Playlist[]))]
+[JsonSerializable(typeof(PlaylistSong))]
+[JsonSerializable(typeof(PlaylistSong[]))]
+[JsonSerializable(typeof(SongShiftPlaylistExport))]
+[JsonSerializable(typeof(SongShiftPlaylistExport[]))]
+[JsonSerializable(typeof(SongShiftSong))]
+[JsonSerializable(typeof(SongShiftSong[]))]
 internal partial class CoreJsonContext : JsonSerializerContext
 {}

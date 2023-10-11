@@ -7,6 +7,7 @@ using SmallsOnline.Web.Lib.Models.ActivityPub;
 using SmallsOnline.Web.Lib.Models.Database;
 using SmallsOnline.Web.Lib.Models.Blog;
 using SmallsOnline.Web.Lib.Models.Projects;
+using SmallsOnline.Web.Lib.Models.MusicPlaylists;
 
 namespace SmallsOnline.Web.Lib.Services;
 
@@ -38,5 +39,13 @@ namespace SmallsOnline.Web.Lib.Services;
 [JsonSerializable(typeof(CosmosDbResponse<AlbumData>))]
 [JsonSerializable(typeof(CosmosDbResponse<SongData>))]
 [JsonSerializable(typeof(CosmosDbResponse<string>))]
+[JsonSerializable(typeof(Playlist))]
+[JsonSerializable(typeof(Playlist[]))]
+[JsonSerializable(typeof(PlaylistSong))]
+[JsonSerializable(typeof(PlaylistSong[]))]
+[JsonSerializable(typeof(SongShiftPlaylistExport))]
+[JsonSerializable(typeof(SongShiftPlaylistExport[]))]
+[JsonSerializable(typeof(SongShiftSong))]
+[JsonSerializable(typeof(SongShiftSong[]))]
 internal partial class CoreJsonContext : JsonSerializerContext
 {}

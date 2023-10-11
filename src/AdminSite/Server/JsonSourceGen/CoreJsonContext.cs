@@ -7,6 +7,7 @@ using SmallsOnline.Web.Lib.Models.Blog;
 using SmallsOnline.Web.Lib.Models.Database;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
+using SmallsOnline.Web.Lib.Models.MusicPlaylists;
 using SmallsOnline.Web.Lib.Models.Projects;
 
 namespace SmallsOnline.Web.AdminSite.Server.JsonSourceGen;
@@ -34,6 +35,14 @@ namespace SmallsOnline.Web.AdminSite.Server.JsonSourceGen;
 [JsonSerializable(typeof(ProjectItem[]))]
 [JsonSerializable(typeof(ProjectType))]
 [JsonSerializable(typeof(List<ProjectType>))]
+[JsonSerializable(typeof(Playlist))]
+[JsonSerializable(typeof(Playlist[]))]
+[JsonSerializable(typeof(PlaylistSong))]
+[JsonSerializable(typeof(PlaylistSong[]))]
+[JsonSerializable(typeof(SongShiftPlaylistExport))]
+[JsonSerializable(typeof(SongShiftPlaylistExport[]))]
+[JsonSerializable(typeof(SongShiftSong))]
+[JsonSerializable(typeof(SongShiftSong[]))]
 internal partial class CoreJsonContext : JsonSerializerContext
 {
 }
