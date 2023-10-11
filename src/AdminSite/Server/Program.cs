@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,7 +84,20 @@ builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>(
 builder.Services.AddSingleton<IOdesliService, OdesliService>();
 builder.Services.AddSingleton<IItunesApiService, ItunesApiService>();
 
+builder.Services.Configure<ForwardedHeadersOptions>(
+    options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    }
+);
+
 var app = builder.Build();
+
+app.Use((context, next) =>
+{
+    context.Request.Scheme = "https";
+    return next(context);
+});
 
 app.UseForwardedHeaders();
 
