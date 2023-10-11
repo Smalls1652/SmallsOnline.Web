@@ -135,7 +135,20 @@
 				"os": "Linux",
 				"remove": true
 			}
-		}
+		},
+		{
+			"label": "AdminSite: Build image",
+			"detail": "Build the container image for the admin site.",
+			"type": "docker-build",
+			"dockerBuild": {
+				"context": "${workspaceFolder}",
+				"dockerfile": "${workspaceFolder}/Dockerfile.adminsite",
+				"pull": true,
+				"tag": "smallsonlinewebadmin-local:latest",
+				"customOptions": "--tag smallsonlinewebadmin-local:${command:extension.commandvariable.UUID}",
+				"platform": "${input:containerPlatformArch}"
+			}
+		},
 	],
 	"inputs": [
 		{
