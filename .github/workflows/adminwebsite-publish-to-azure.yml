@@ -79,4 +79,17 @@ jobs:
             context: ./
             tags: ${{ steps.meta.outputs.tags }}
             labels: ${{ steps.meta.outputs.labels }}
+
+        - name: Azure Login
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_SMALLSONLINEADMINSITE_CREDENTIALS }}
+  
+        - name: Deploy to containerapp
+          uses: azure/CLI@v1
+          with:
+            inlineScript: |
+              az config set extension.use_dynamic_install=yes_without_prompt
+              az containerapp registry set -n ${{ secrets.AZURE_SMALLSONLINEADMIN_NAME }} -g ${{ secrets.AZURE_SMALLSONLINEADMIN_RG }} --server smallsonlinecontainerreg.azurecr.io --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
+              az containerapp update --resource-group ${{ secrets.AZURE_SMALLSONLINEADMIN_RG }} --name ${{ secrets.AZURE_SMALLSONLINEADMIN_NAME }} --image ${{ env.IMAGETAG }} --revision-suffix "api-${{ env.current_datetime_ticks }}"
             
