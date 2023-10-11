@@ -24,6 +24,8 @@ builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
 
 var app = builder.Build();
 
+app.UseAntiforgery();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
