@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>SmallsOnline.Web.AdminSite.Client</PackageId>
+    <Authors>Timothy Small</Authors>
+    <Company>Smalls.Online</Company>
+    <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web</RepositoryUrl>
+    <Description>
+      WebAssembly client components for Smalls.Online.
+    </Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>SmallsOnline.Web.AdminSite.Client</RootNamespace>
+    <AssemblyName>SmallsOnline.Web.AdminSite.Client</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\app.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\..\Lib\Lib.csproj" />
+    <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
+  </ItemGroup>
+
+</Project>
