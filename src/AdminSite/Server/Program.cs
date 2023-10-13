@@ -37,7 +37,8 @@ builder.Services
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
 
 builder.Services
     .AddMicrosoftIdentityConsentHandler();
@@ -119,6 +120,7 @@ app.MapControllers();
 
 app
     .MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode();
 
 await app.RunAsync();
