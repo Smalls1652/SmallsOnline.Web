@@ -19,4 +19,7 @@ public class PlaylistSong : IPlaylistSong
 
     [JsonPropertyName("songShareUrl")]
     public string? SongShareUrl { get; set; }
+
+    [JsonPropertyName("serviceSongId")]
+    public string? ServiceSongId { get; set; }
 }

@@ -8,4 +8,5 @@ public interface IPlaylistSong
     string? AlbumName { get; set; }
     string? AlbumArtUrl { get; set; }
     string? SongShareUrl { get; set; }
+    string? ServiceSongId { get; set; }
 }
