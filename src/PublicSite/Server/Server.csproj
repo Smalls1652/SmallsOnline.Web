@@ -25,9 +25,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj"/>
-        <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj"/>
-        <ProjectReference Include="..\..\Lib\Lib.csproj"/>
+        <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj" />
+        <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
+        <ProjectReference Include="..\..\Lib\Lib.csproj" />
+        <ProjectReference Include="..\Client\Client.csproj" />
         <!-- <ProjectReference Include="..\Client\Client.csproj"/> -->
     </ItemGroup>
 
@@ -37,7 +38,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <BootstrapFiles Include="$(Bootstrap_CssPath);$(Bootstrap_CssMapPath)"/>
+        <BootstrapFiles Include="$(Bootstrap_CssPath);$(Bootstrap_CssMapPath)" />
     </ItemGroup>
 
     <ItemGroup>
@@ -74,45 +75,45 @@
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
-        <None Remove="node_modules\**\*"/>
+        <None Remove="node_modules\**\*" />
     </ItemGroup>
 
     <ItemGroup>
-        <!-- <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0-*"/> -->
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0-*"/>
         <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0-*" />
     </ItemGroup>
 
     <Target Name="InitProject_Combined">
-        <Message Importance="high" Text="-------------------------------------------------"/>
-        <Message Importance="high" Text="Running initialization for Blazor WASM app"/>
-        <Message Importance="high" Text="-------------------------------------------------"/>
-        <CallTarget Targets="Clean;Restore;InitWebDependencies"/>
+        <Message Importance="high" Text="-------------------------------------------------" />
+        <Message Importance="high" Text="Running initialization for Blazor WASM app" />
+        <Message Importance="high" Text="-------------------------------------------------" />
+        <CallTarget Targets="Clean;Restore;InitWebDependencies" />
     </Target>
 
     <Target Name="BuildProject_Combined">
-        <Message Importance="high" Text="---------------------------------------"/>
-        <Message Importance="high" Text="Running build for Blazor WASM app"/>
-        <Message Importance="high" Text="---------------------------------------"/>
-        <CallTarget Targets="Clean;Restore;InitWebDependencies;Build"/>
+        <Message Importance="high" Text="---------------------------------------" />
+        <Message Importance="high" Text="Running build for Blazor WASM app" />
+        <Message Importance="high" Text="---------------------------------------" />
+        <CallTarget Targets="Clean;Restore;InitWebDependencies;Build" />
     </Target>
 
     <Target Name="InitWebDependencies">
-        <CallTarget Targets="InitNPM;InstallWebDependencies"/>
+        <CallTarget Targets="InitNPM;InstallWebDependencies" />
     </Target>
 
     <Target Name="InitNPM">
-        <Message Importance="high" Text="- Running 'npm install'"/>
-        <Exec Command="npm install"/>
+        <Message Importance="high" Text="- Running 'npm install'" />
+        <Exec Command="npm install" />
     </Target>
 
     <Target Name="UpdateBootstrap">
-        <Message Importance="high" Text="- Running 'npm update'"/>
-        <Exec Command="npm update bootstrap"/>
+        <Message Importance="high" Text="- Running 'npm update'" />
+        <Exec Command="npm update bootstrap" />
     </Target>
 
     <Target Name="InstallWebDependencies">
-        <Message Importance="high" Text="- Installing CSS/JS dependencies to project"/>
-        <Exec Command="pwsh -NoProfile -File installWebDependencies.ps1"/>
+        <Message Importance="high" Text="- Installing CSS/JS dependencies to project" />
+        <Exec Command="pwsh -NoProfile -File installWebDependencies.ps1" />
     </Target>
 
 </Project>

@@ -10,7 +10,8 @@ builder.Configuration
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
 
 builder.Services
     .AddRazorPages();
@@ -40,7 +41,8 @@ app.UseStaticFiles();
 
 app
     .MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode();
 
 app.MapRazorPages();
 //app.MapFallbackToPage("/error");
