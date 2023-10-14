@@ -27,10 +27,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Client\AdminSite.Client.csproj" />
         <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj" />
         <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
         <ProjectReference Include="..\..\Lib\Lib.csproj" />
-        <ProjectReference Include="..\Client\Client.csproj" />
         <!-- <ProjectReference Include="..\Client\Client.csproj"/> -->
     </ItemGroup>
 
