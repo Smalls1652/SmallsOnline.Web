@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 using System.Text;
 
-namespace SmallsOnline.Web.AdminSite.Server.Shared.FavoritesOf.Albums;
+namespace SmallsOnline.Web.AdminSite.Server.Components.FavoritesOf.Albums;
 
 public partial class AlbumDataForm : ComponentBase
 {

@@ -1,4 +1,4 @@
-namespace SmallsOnline.Web.AdminSite.Server.Shared.Navigation;
+namespace SmallsOnline.Web.AdminSite.Server.Components.Navigation;
 
 /// <summary>
 /// A collapse section in the navigation bar.

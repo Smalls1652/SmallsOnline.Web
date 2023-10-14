@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.JSInterop;
 
-namespace SmallsOnline.Web.AdminSite.Server.Shared;
+namespace SmallsOnline.Web.AdminSite.Server.Components;
 
 /// <summary>
 /// The main layout for the site.

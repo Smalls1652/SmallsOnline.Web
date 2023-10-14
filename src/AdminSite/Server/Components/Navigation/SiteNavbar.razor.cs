@@ -1,4 +1,4 @@
-namespace SmallsOnline.Web.AdminSite.Server.Shared.Navigation;
+namespace SmallsOnline.Web.AdminSite.Server.Components.Navigation;
 
 /// <summary>
 /// The navigation bar for displaying branding and links to pages.
