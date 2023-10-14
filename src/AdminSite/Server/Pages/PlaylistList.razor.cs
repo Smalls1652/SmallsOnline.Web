@@ -31,12 +31,6 @@ public partial class PlaylistList : ComponentBase
     {
         Logger.LogInformation("Received playlist song callback.");
 
-        if (playlist is null)
-        {
-            Logger.LogInformation("Playlist was null.");
-            return;
-        }
-
         foreach (var song in playlist.Songs!)
         {
             Logger.LogInformation("Getting song data for {SongServiceId}.", song.ServiceSongId);
@@ -45,13 +39,19 @@ public partial class PlaylistList : ComponentBase
 
             if (itunesSongData is null)
             {
-                return;
+                continue;
             }
 
-            song.AlbumArtUrl = itunesSongData.Results[0].ArtworkUrl100;
+            song.AlbumArtUrl = itunesSongData.Results![0].ArtworkUrl100;
 
             var odesliSongData = await OdesliService.GetShareLinksAsync(itunesSongData.Results[0].TrackViewUrl);
-            song.SongShareUrl = odesliSongData.PageUrl.ToString();
+
+            if (odesliSongData is null)
+            {
+                continue;
+            }
+
+            song.SongShareUrl = odesliSongData.PageUrl!.ToString();
         }
 
         _playlist = playlist;
