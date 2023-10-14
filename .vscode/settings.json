@@ -3,7 +3,7 @@
     "razor.disableBlazorDebugPrompt": true,
     "git.detectSubmodules": false,
     "dotnet.defaultSolution": "SmallsOnline.Web.sln",
-    "dotnet.server.useOmnisharp": false,
+    "dotnet.server.useOmnisharp": true,
     "dotnet.server.path": "latest",
     "task.quickOpen.history": 0,
     "task.autoDetect": "off"
