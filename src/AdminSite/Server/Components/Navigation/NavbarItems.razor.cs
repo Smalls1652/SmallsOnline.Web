@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.JSInterop;
 using SmallsOnline.Web.AdminSite.Server.Models;
 
-namespace SmallsOnline.Web.AdminSite.Server.Shared.Navigation;
+namespace SmallsOnline.Web.AdminSite.Server.Components.Navigation;
 
 /// <summary>
 /// Items (links) to display in the navigation bar.

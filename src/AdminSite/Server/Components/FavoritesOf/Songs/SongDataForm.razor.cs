@@ -5,7 +5,7 @@ using SmallsOnline.Web.Lib.Models.Itunes;
 using SmallsOnline.Web.Lib.Models.Odesli;
 using SmallsOnline.Web.Lib.Services;
 
-namespace SmallsOnline.Web.AdminSite.Server.Shared.FavoritesOf.Songs;
+namespace SmallsOnline.Web.AdminSite.Server.Components.FavoritesOf.Songs;
 
 public partial class SongDataForm : ComponentBase
 {

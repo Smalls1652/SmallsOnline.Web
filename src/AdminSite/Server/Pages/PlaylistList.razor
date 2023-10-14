@@ -1,8 +1,8 @@
 @namespace SmallsOnline.Web.AdminSite.Server.Pages
+@page "/music-playlist"
 @attribute [Authorize]
 
-@page "/favorite-music-of/edit/album/{AlbumId}"
-@page "/favorite-music-of/edit/album/{AlbumId}/{ListYear?}"
+@using SmallsOnline.Web.AdminSite.Server.Components.MusicPlaylist
 
 <HeadContent>
     <!-- Generic meta tags -->
@@ -28,51 +28,17 @@
     <meta content="https://smalls.online/smalls.png" name="twitter:image">
 </HeadContent>
 
-@if (_isLoading)
-{
-    <div class="card shadow fade-slide-in">
+<div class="card shadow fade-slide-in">
     <div class="card-header">
         <h1 class="mb-0">
-            <i class="bi bi-headphones"></i> Favorite Music Of
+            <i class="bi bi-music-note-list"></i> Music Playlists
         </h1>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col">
-                <LoadingBar />
+                <PlaylistForm Playlist="@_playlist" UploadCallback="HandlePlaylistSongCallbackAsync" />
             </div>
         </div>
     </div>
 </div>
-}
-else
-{
-    <div class="card shadow fade-slide-in">
-    <div class="card-header">
-        <h1 class="mb-0">
-            <a class="btn btn-text-hider btn-glaucous"
-                href="/favorite-music-of/list@(ListYear is not null ? $"/{ListYear}" : "")" type="button">
-                <i class="bi bi-arrow-left"></i> <span class="btn-hide">Go back</span>
-            </a> <i class="bi bi-headphones"></i> Favorite Music Of
-        </h1>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col">
-                @if (_isLoading)
-                    {
-                        <LoadingBar />
-                    }
-                    else
-                    {
-                        @if (_albumData is not null)
-                        {
-                            <AlbumDataForm IsNewItem="@(AlbumId == "new")" @rendermode="@(new InteractiveServerRenderMode(false))"
-                                AlbumData="_albumData" />
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-}

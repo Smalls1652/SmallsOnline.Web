@@ -1,0 +1,107 @@
+@namespace SmallsOnline.Web.AdminSite.Server.Components.MusicPlaylist
+
+<div class="row">
+    <div class="col">
+        @if (_isUpdating)
+        {
+            <LoadingBar />
+        }
+        else
+        {
+            <div class="row pb-3">
+                <div class="col">
+                    <InputFile OnChange="@HandlePlaylistExportUploadAsync" />
+                </div>
+            </div>
+            <EditForm EditContext="_editContext">
+                <div class="row pb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">
+                            Id:
+                        </label>
+                        <input @bind-value="Playlist.Id" class="form-control font-monospace" disabled id="id" readonly />
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">
+                            Name:
+                        </label>
+                        <InputText autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"
+                        @bind-Value="Playlist.Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">
+                            Description:
+                        </label>
+                        <InputTextArea @bind-Value="Playlist.Description" class="form-control" />
+                    </div>
+                </div>
+                <div class="row pb-2">
+                    @if (Playlist.Songs is not null)
+                    {
+                        @foreach (var songItem in Playlist.Songs)
+                        {
+                            <div class="col-12 p-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row pb-3">
+                                            <div class="col-12">
+                                                <label class="form-label fw-bold">
+                                                    Position:
+                                                </label>
+                                                <InputNumber @bind-Value="songItem.Position" class="form-control font-monospace" />
+                                            </div>
+                                        </div>
+                                        <div class="row pb-3">
+                                            <div class="col-12 col-lg-6 pb-2">
+                                                <label class="form-label fw-bold">
+                                                    Name:
+                                                </label>
+                                                <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                    spellcheck="false" @bind-Value="songItem.SongName" class="form-control" />
+                                            </div>
+                                            <div class="col-12 col-lg-6 pb-2">
+                                                <label class="form-label fw-bold">
+                                                    Artist:
+                                                </label>
+                                                <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                    spellcheck="false" @bind-Value="songItem.ArtistName" class="form-control" />
+                                            </div>
+                                            <div class="col-12 col-lg-6 pb-2">
+                                                <label class="form-label fw-bold">
+                                                    Album:
+                                                </label>
+                                                <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                    spellcheck="false" @bind-Value="songItem.AlbumName"
+                                                    class="form-control" />
+                                            </div>
+                                            <div class="col-12 col-lg-6 pb-2">
+                                                <label class="form-label fw-bold">
+                                                    Album art url:
+                                                </label>
+                                                <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                    spellcheck="false" @bind-Value="songItem.AlbumArtUrl"
+                                                    class="form-control font-monospace" />
+                                            </div>
+                                            <div class="col-12 col-lg-6 pb-2">
+                                                <label class="form-label fw-bold">
+                                                    Share url:
+                                                </label>
+                                                <InputText autocapitalize="off" autocomplete="off" autocorrect="off"
+                                                    spellcheck="false" @bind-Value="songItem.SongShareUrl"
+                                                    class="form-control font-monospace" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </EditForm>
+        }
+    </div>
+</div>
