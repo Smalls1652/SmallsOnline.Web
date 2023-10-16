@@ -7,11 +7,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService : ICosmosDbService
 {
-    /// <summary>
-    /// Get a blog entry by a specific ID.
-    /// </summary>
-    /// <param name="id">The unique ID of the blog entry.</param>
-    /// <returns>A blog entry.</returns>
+    /// <inheritdoc />
     public async Task<BlogEntry> GetBlogEntryAsync(string id)
     {
         // Get the container where the blog entries are stored.

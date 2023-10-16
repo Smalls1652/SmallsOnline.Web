@@ -6,10 +6,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService : ICosmosDbService
 {
-    /// <summary>
-    /// Gets the WebFinger response from the database.
-    /// </summary>
-    /// <returns>The <see cref="WebFingerResponse" /> object.</returns>
+    /// <inheritdoc />
     public async Task<WebFingerResponse> GetWebFingerResponseAsync()
     {
         // Get the container where the WebFinger entries are stored.

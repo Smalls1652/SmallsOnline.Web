@@ -6,6 +6,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService
 {
+    /// <inheritdoc />
     public async Task<string[]?> GetFavoriteAlbumsListYearsAsync()
     {
         Container container = _cosmosDbClient.GetContainer(_containerName, "favorites-of");

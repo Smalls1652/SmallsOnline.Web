@@ -7,6 +7,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService
 {
+    /// <inheritdoc />
     public async Task RemoveFavoriteAlbumItemAsync(string id)
     {
         Container container = _cosmosDbClient.GetContainer(_containerName, "favorites-of");

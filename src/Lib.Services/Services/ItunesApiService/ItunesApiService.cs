@@ -5,17 +5,33 @@ using SmallsOnline.Web.Lib.Models.Itunes;
 
 namespace SmallsOnline.Web.Lib.Services;
 
+/// <summary>
+/// Service for interacting with the iTunes Search API.
+/// </summary>
 public partial class ItunesApiService : IItunesApiService
 {
+    /// <summary>
+    /// Logger for the service.
+    /// </summary>
     private readonly ILogger<ItunesApiService> _logger;
+
+    /// <summary>
+    /// <see cref="IHttpClientFactory"/> for the service.
+    /// </summary>
     private readonly IHttpClientFactory _httpClientFactory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ItunesApiService"/> class.
+    /// </summary>
+    /// <param name="logger">The logger for the service.</param>
+    /// <param name="httpClientFactory">The HTTP client factory for the service.</param>
     public ItunesApiService(ILogger<ItunesApiService> logger, IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
     }
 
+    /// <inheritdoc />
     public async Task<ApiSearchResult<ArtistItem>?> GetArtistSearchResultAsync(string artistName)
     {
         var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");
@@ -39,6 +55,7 @@ public partial class ItunesApiService : IItunesApiService
         );
     }
 
+    /// <inheritdoc />
     public async Task<ApiSearchResult<ArtistItem>?> GetArtistIdLookupResultAsync(string artistId)
     {
         var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");
@@ -60,6 +77,7 @@ public partial class ItunesApiService : IItunesApiService
         );
     }
 
+    /// <inheritdoc />
     public async Task<ApiSearchResult<SongItem>?> GetSongIdLookupResultAsync(string trackId)
     {
         var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");
@@ -81,6 +99,7 @@ public partial class ItunesApiService : IItunesApiService
         );
     }
 
+    /// <inheritdoc />
     public async Task<ApiSearchResult<AlbumItem>?> GetAlbumIdLookupResultAsync(string albumId)
     {
         var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");
@@ -102,6 +121,7 @@ public partial class ItunesApiService : IItunesApiService
         );
     }
 
+    /// <inheritdoc />
     public async Task<ApiSearchResult<SongItem>?> GetAlbumIdLookupSongsResultAsync(string albumId)
     {
         var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");
@@ -123,6 +143,7 @@ public partial class ItunesApiService : IItunesApiService
         );
     }
 
+    /// <inheritdoc />
     public async Task<ApiSearchResult<SongItem>?> GetSongsByArtistResultAsync(string artistName, string songName)
     {
         var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");
@@ -146,6 +167,7 @@ public partial class ItunesApiService : IItunesApiService
         );
     }
 
+    /// <inheritdoc />
     public async Task<ApiSearchResult<AlbumItem>?> GetAlbumsByArtistResultAsync(string artistName, string albumName)
     {
         var httpClient = _httpClientFactory.CreateClient("ItunesApiClient");
