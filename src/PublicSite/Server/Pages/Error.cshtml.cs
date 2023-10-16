@@ -6,14 +6,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SmallsOnline.Web.PublicSite.Server.Pages;
 
+/// <summary>
+/// Error page for the site.
+/// </summary>
+/// <remarks>
+/// Might be replaced with a built-in Blazor error page in the future.
+/// </remarks>
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 [IgnoreAntiforgeryToken]
 public class Error : PageModel
 {
+    /// <summary>
+    /// The request ID.
+    /// </summary>
     public string? RequestId { get; set; }
 
+    /// <summary>
+    /// The original status code.
+    /// </summary>
     public int OriginalStatusCode { get; set; }
 
+    /// <summary>
+    /// Enriched status code message from <see cref="OriginalStatusCode"/>.
+    /// </summary>
     public string StatusCodeMessage => (HttpStatusCode)OriginalStatusCode switch
     {
         HttpStatusCode.BadRequest => "Bad Request",
@@ -56,8 +71,14 @@ public class Error : PageModel
         _ => "Unknown Status Code"
     };
 
+    /// <summary>
+    /// The original path the user was trying to access.
+    /// </summary>
     public string? OriginalPath { get; set; }
 
+    /// <summary>
+    /// Whether to show the request ID or not.
+    /// </summary>
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
     private readonly ILogger<Error> _logger;

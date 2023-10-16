@@ -2,8 +2,15 @@ using System.Text.RegularExpressions;
 
 namespace SmallsOnline.Web.AdminSite.Server.Models;
 
+/// <summary>
+/// Holds data for the current page location.
+/// </summary>
 public class CurrentPageLocation
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CurrentPageLocation"/> class.
+    /// </summary>
+    /// <param name="inputUri">The URI for the current location.</param>
     public CurrentPageLocation(string inputUri)
     {
         Regex uriSectionRegex =
@@ -25,11 +32,23 @@ public class CurrentPageLocation
         }
     }
 
+    /// <summary>
+    /// The host name for the current page.
+    /// </summary>
     public string HostName { get; set; } = null!;
 
+    /// <summary>
+    /// The path for the current page.
+    /// </summary>
     public string Path { get; set; } = null!;
 
+    /// <summary>
+    /// The top level page for the current page.
+    /// </summary>
     public string? TopLevelPage { get; set; }
 
+    /// <summary>
+    /// The secondary pages for the current page.
+    /// </summary>
     public string? SecondaryPages { get; set; }
 }

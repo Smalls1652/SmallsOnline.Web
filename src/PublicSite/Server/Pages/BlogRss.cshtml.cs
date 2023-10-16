@@ -7,6 +7,9 @@ using SmallsOnline.Web.Lib.Services;
 
 namespace SmallsOnline.Web.PublicSite.Server.Pages;
 
+/// <summary>
+/// Page for rendering the RSS feed for the blog.
+/// </summary>
 public class BlogRss : PageModel
 {
     private readonly ICosmosDbService _cosmosDbService;

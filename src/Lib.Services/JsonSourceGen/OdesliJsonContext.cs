@@ -3,6 +3,9 @@ using SmallsOnline.Web.Lib.Models.Odesli;
 
 namespace SmallsOnline.Web.Lib.Services;
 
+/// <summary>
+/// Source generated JSON context for the Odesli API classes.
+/// </summary>
 [JsonSourceGenerationOptions(
     WriteIndented = false,
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,

@@ -5,10 +5,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService : ICosmosDbService
 {
-    /// <summary>
-    /// Get the total number of pages for blog entries.
-    /// </summary>
-    /// <returns>The total number of pages available.</returns>
+    /// <inheritdoc />
     public async Task<int> GetBlogTotalPagesAsync()
     {
         // Get the container where the blog entries are stored.

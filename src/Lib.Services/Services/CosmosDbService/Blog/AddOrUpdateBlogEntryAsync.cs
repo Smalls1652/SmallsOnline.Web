@@ -7,10 +7,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService : ICosmosDbService
 {
-    /// <summary>
-    /// Add or update a <see cref="BlogEntry" /> item in the database.
-    /// </summary>
-    /// <param name="blogEntry">The blog entry to add or update.</param>
+    /// <inheritdoc />
     public async Task AddOrUpdateBlogEntryAsync(BlogEntry blogEntry)
     {
         // Get the container for the blog entries.

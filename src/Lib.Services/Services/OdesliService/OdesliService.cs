@@ -12,20 +12,28 @@ namespace SmallsOnline.Web.Lib.Services;
 /// </summary>
 public partial class OdesliService : IOdesliService
 {
+    /// <summary>
+    /// Logger for the service.
+    /// </summary>
     private readonly ILogger<OdesliService> _logger;
+
+    /// <summary>
+    /// <see cref="IHttpClientFactory"/> for the service.
+    /// </summary>
     private readonly IHttpClientFactory _httpClientFactory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OdesliService"/> class.
+    /// </summary>
+    /// <param name="logger">Logger for the service.</param>
+    /// <param name="httpClientFactory">HTTP client factory for the service.</param>
     public OdesliService(ILogger<OdesliService> logger, IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
     }
 
-    /// <summary>
-    /// Gets share links from the Odesli API for the given URL.
-    /// </summary>
-    /// <param name="inputUrl">The URL to get share links for.</param>
-    /// <returns>Data from the Odesli API for the given URL.</returns>
+    /// <inheritdoc />
     public async Task<MusicEntityItem?> GetShareLinksAsync(string inputUrl)
     {
         var httpClient = _httpClientFactory.CreateClient("OdesliApiClient");

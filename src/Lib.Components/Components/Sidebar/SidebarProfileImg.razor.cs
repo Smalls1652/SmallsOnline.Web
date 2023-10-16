@@ -7,9 +7,15 @@ namespace SmallsOnline.Web.Lib.Components.Sidebar;
 /// </summary>
 public partial class SidebarProfileImg : ComponentBase
 {
+    /// <summary>
+    /// Logger for the component.
+    /// </summary>
     [Inject]
     protected ILogger<SidebarProfileImg> ComponentLogger { get; set; } = null!;
 
+    /// <summary>
+    /// Whether or not logging is enabled.
+    /// </summary>
     [Parameter]
     [EditorRequired]
     public bool LoggingEnabled { get; set; }
@@ -65,8 +71,8 @@ public partial class SidebarProfileImg : ComponentBase
     }
 
     /// <summary>
-    ///     Changes the image from the normal image to the dumb image.
-    ///     Also handles the spin in and spin out animations during the process.
+    /// Changes the image from the normal image to the dumb image.
+    /// Also handles the spin in and spin out animations during the process.
     /// </summary>
     private async Task InvokeImageChange()
     {

@@ -10,6 +10,9 @@ namespace SmallsOnline.Web.Lib.Components.Blog;
 /// </summary>
 public partial class BlogEntryCard : ComponentBase
 {
+    /// <summary>
+    /// Logger for the component.
+    /// </summary>
     [Inject]
     protected ILogger<BlogEntryCard> ComponentLogger { get; set; } = null!;
 

@@ -7,11 +7,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService : ICosmosDbService
 {
-    /// <summary>
-    /// Get the favorite albums for a specific year.
-    /// </summary>
-    /// <param name="listYear">The list year to get the data for.</param>
-    /// <returns>A collection of favorite albums for a year.</returns>
+    /// <inheritdoc />
     public async Task<AlbumData[]> GetFavoriteAlbumsOfYearAsync(string listYear)
     {
         // Get the container where the favorite music entries are stored.

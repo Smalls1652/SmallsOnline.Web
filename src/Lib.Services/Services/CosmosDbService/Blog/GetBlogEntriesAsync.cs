@@ -8,11 +8,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService : ICosmosDbService
 {
-    /// <summary>
-    /// Get a list of blog entries for a given page number
-    /// </summary>
-    /// <param name="pageNumber">The page number to get.</param>
-    /// <returns>A collection of blog entries.</returns>
+    /// <inheritdoc />
     /// <exception cref="Exception"></exception>
     public async Task<BlogEntry[]> GetBlogEntriesAsync(int pageNumber = 1)
     {

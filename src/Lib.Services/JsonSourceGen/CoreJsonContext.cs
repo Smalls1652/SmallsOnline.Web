@@ -11,6 +11,9 @@ using SmallsOnline.Web.Lib.Models.MusicPlaylists;
 
 namespace SmallsOnline.Web.Lib.Services;
 
+/// <summary>
+/// Source generated JSON context for the core classes.
+/// </summary>
 [JsonSourceGenerationOptions(
     WriteIndented = false,
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,

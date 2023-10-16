@@ -15,12 +15,21 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// </summary>
 public partial class BlogEntryPage : ComponentBase
 {
+    /// <summary>
+    /// Service for interacting with the Cosmos DB API.
+    /// </summary>
     [Inject]
     protected ICosmosDbService CosmosDbService { get; set; } = null!;
 
+    /// <summary>
+    /// Logger for the page.
+    /// </summary>
     [Inject]
     protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
 
+    /// <summary>
+    /// JS runtime for running JavaScript interop.
+    /// </summary>
     [Inject]
     protected IJSRuntime JsRuntime { get; set; } = null!;
 

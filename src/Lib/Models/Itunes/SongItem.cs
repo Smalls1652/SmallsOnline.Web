@@ -1,99 +1,131 @@
-using System.Text.Json.Serialization;
-
 namespace SmallsOnline.Web.Lib.Models.Itunes;
 
+/// <summary>
+/// Holds data for a track/song returned from the iTunes Search API.
+/// </summary>
 public class SongItem : ISongItem
 {
-    [JsonPropertyName("wrapperType")]
+	/// <inheritdoc />
+	[JsonPropertyName("wrapperType")]
     public string WrapperType { get; set; } = null!;
 
-    [JsonPropertyName("kind")]
+    /// <inheritdoc />
+	[JsonPropertyName("kind")]
     public string Kind { get; set; } = null!;
 
-    [JsonPropertyName("artistId")]
+    /// <inheritdoc />
+	[JsonPropertyName("artistId")]
     public long ArtistId { get; set; }
 
-    [JsonPropertyName("collectionId")]
+    /// <inheritdoc />
+	[JsonPropertyName("collectionId")]
     public long CollectionId { get; set; }
 
-    [JsonPropertyName("trackId")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackId")]
     public long TrackId { get; set; }
 
-    [JsonPropertyName("artistName")]
+    /// <inheritdoc />
+	[JsonPropertyName("artistName")]
     public string ArtistName { get; set; } = null!;
 
-    [JsonPropertyName("collectionName")]
+    /// <inheritdoc />
+	[JsonPropertyName("collectionName")]
     public string CollectionName { get; set; } = null!;
 
-    [JsonPropertyName("trackName")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackName")]
     public string TrackName { get; set; } = null!;
 
-    [JsonPropertyName("collectionCensoredName")]
+    /// <inheritdoc />
+	[JsonPropertyName("collectionCensoredName")]
     public string CollectionCensoredName { get; set; } = null!;
 
-    [JsonPropertyName("trackCensoredName")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackCensoredName")]
     public string TrackCensoredName { get; set; } = null!;
 
-    [JsonPropertyName("artistViewUrl")]
+    /// <inheritdoc />
+	[JsonPropertyName("artistViewUrl")]
     public string ArtistViewUrl { get; set; } = null!;
 
-    [JsonPropertyName("collectionViewUrl")]
+    /// <inheritdoc />
+	[JsonPropertyName("collectionViewUrl")]
     public string CollectionViewUrl { get; set; } = null!;
 
-    [JsonPropertyName("trackViewUrl")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackViewUrl")]
     public string TrackViewUrl { get; set; } = null!;
 
-    [JsonPropertyName("previewUrl")]
+    /// <inheritdoc />
+	[JsonPropertyName("previewUrl")]
     public string PreviewUrl { get; set; } = null!;
 
-    [JsonPropertyName("artworkUrl30")]
+    /// <inheritdoc />
+	[JsonPropertyName("artworkUrl30")]
     public string ArtworkUrl30 { get; set; } = null!;
 
-    [JsonPropertyName("artworkUrl60")]
+    /// <inheritdoc />
+	[JsonPropertyName("artworkUrl60")]
     public string ArtworkUrl60 { get; set; } = null!;
 
-    [JsonPropertyName("artworkUrl100")]
+    /// <inheritdoc />
+	[JsonPropertyName("artworkUrl100")]
     public string ArtworkUrl100 { get; set; } = null!;
 
-    [JsonPropertyName("collectionPrice")]
+    /// <inheritdoc />
+	[JsonPropertyName("collectionPrice")]
     public double CollectionPrice { get; set; }
 
-    [JsonPropertyName("trackPrice")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackPrice")]
     public double TrackPrice { get; set; }
 
-    [JsonPropertyName("releaseDate")]
+    /// <inheritdoc />
+	[JsonPropertyName("releaseDate")]
     public DateTimeOffset ReleaseDate { get; set; }
 
-    [JsonPropertyName("collectionExplicitness")]
+    /// <inheritdoc />
+	[JsonPropertyName("collectionExplicitness")]
     public string CollectionExplicitness { get; set; } = null!;
 
-    [JsonPropertyName("trackExplicitness")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackExplicitness")]
     public string TrackExplicitness { get; set; } = null!;
 
-    [JsonPropertyName("discCount")]
+    /// <inheritdoc />
+	[JsonPropertyName("discCount")]
     public int DiscCount { get; set; }
 
-    [JsonPropertyName("discNumber")]
+    /// <inheritdoc />
+	[JsonPropertyName("discNumber")]
     public int DiscNumber { get; set; }
 
-    [JsonPropertyName("trackCount")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackCount")]
     public int TrackCount { get; set; }
 
-    [JsonPropertyName("trackNumber")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackNumber")]
     public int TrackNumber { get; set; }
 
-    [JsonPropertyName("trackTimeMillis")]
+    /// <inheritdoc />
+	[JsonPropertyName("trackTimeMillis")]
     public long TrackTimeMillis { get; set; }
 
-    [JsonPropertyName("country")]
+    /// <inheritdoc />
+	[JsonPropertyName("country")]
     public string Country { get; set; } = null!;
 
-    [JsonPropertyName("currency")]
+    /// <inheritdoc />
+	[JsonPropertyName("currency")]
     public string Currency { get; set; } = null!;
 
-    [JsonPropertyName("primaryGenreName")]
+    /// <inheritdoc />
+	[JsonPropertyName("primaryGenreName")]
     public string PrimaryGenreName { get; set; } = null!;
 
-    [JsonPropertyName("isStreamable")]
+    /// <inheritdoc />
+	[JsonPropertyName("isStreamable")]
     public bool IsStreamable { get; set; }
 }

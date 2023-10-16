@@ -3,6 +3,9 @@ using SmallsOnline.Web.Lib.Models.Itunes;
 
 namespace SmallsOnline.Web.Lib.Services;
 
+/// <summary>
+/// Source generated JSON context for the iTunes Search API classes.
+/// </summary>
 [JsonSourceGenerationOptions(
     WriteIndented = false,
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,

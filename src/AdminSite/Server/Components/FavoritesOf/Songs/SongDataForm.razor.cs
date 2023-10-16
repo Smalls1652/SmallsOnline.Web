@@ -7,30 +7,57 @@ using SmallsOnline.Web.Lib.Services;
 
 namespace SmallsOnline.Web.AdminSite.Server.Components.FavoritesOf.Songs;
 
+/// <summary>
+/// Component for rendering a form for song data.
+/// </summary>
 public partial class SongDataForm : ComponentBase
 {
+    /// <summary>
+    /// Service for interacting with Cosmos DB.
+    /// </summary>
     [Inject]
     protected ICosmosDbService CosmosDbService { get; set; } = null!;
 
+    /// <summary>
+    /// Service for interacting with the Odesli API.
+    /// </summary>
     [Inject]
     protected IOdesliService OdesliService { get; set; } = null!;
 
+    /// <summary>
+    /// Service for interacting with the iTunes Search API.
+    /// </summary>
     [Inject]
     protected IItunesApiService ItunesApiService { get; set; } = null!;
 
+    /// <summary>
+    /// Dependency injected <see cref="IHttpClientFactory" /> for creating <see cref="HttpClient" /> instances.
+    /// </summary>
     [Inject]
     protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
 
+    /// <summary>
+    /// Service for interacting with the Azure Storage Account blob storage.
+    /// </summary>
     [Inject]
     protected IBlobStorageService BlobStorageService { get; set; } = null!;
 
+    /// <summary>
+    /// <see cref="NavigationManager" /> for the component.
+    /// </summary>
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = null!;
 
+    /// <summary>
+    /// The song data used for the form.
+    /// </summary>
     [Parameter]
     [EditorRequired]
     public SongDataFormItem SongData { get; set; } = null!;
 
+    /// <summary>
+    /// Whether or not the item is a new item.
+    /// </summary>
     [Parameter]
     public bool IsNewItem { get; set; }
 
@@ -44,6 +71,10 @@ public partial class SongDataForm : ComponentBase
         base.OnInitialized();
     }
 
+    /// <summary>
+    /// Handle the form being submitted.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleOnSubmitAsync()
     {
         _isUpdating = true;
@@ -54,6 +85,10 @@ public partial class SongDataForm : ComponentBase
         );
     }
 
+    /// <summary>
+    /// Handle loading song data from the Odesli API and the iTunes Search API.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleLoadSongDataAsync()
     {
         _isUpdating = true;
@@ -88,6 +123,10 @@ public partial class SongDataForm : ComponentBase
         _isUpdating = false;
     }
 
+    /// <summary>
+    /// Handle uploading the artwork to blob storage.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleArtworkUploadAsync()
     {
         _isUpdating = true;
@@ -114,6 +153,10 @@ public partial class SongDataForm : ComponentBase
         _isUpdating = false;
     }
 
+    /// <summary>
+    /// Handle removing the song from the database.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleRemoveSongAsync()
     {
         _isUpdating = true;

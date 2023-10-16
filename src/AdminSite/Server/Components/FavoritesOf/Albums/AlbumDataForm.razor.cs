@@ -11,30 +11,57 @@ using System.Text;
 
 namespace SmallsOnline.Web.AdminSite.Server.Components.FavoritesOf.Albums;
 
+/// <summary>
+/// Component for rendering a form for album data.
+/// </summary>
 public partial class AlbumDataForm : ComponentBase
 {
+    /// <summary>
+    /// Service for interacting with Cosmos DB.
+    /// </summary>
     [Inject]
     protected ICosmosDbService CosmosDbService { get; set; } = null!;
 
+    /// <summary>
+    /// Service for interacting with the Odesli API.
+    /// </summary>
     [Inject]
     protected IOdesliService OdesliService { get; set; } = null!;
 
+    /// <summary>
+    /// Service for interacting with the iTunes Search API.
+    /// </summary>
     [Inject]
     protected IItunesApiService ItunesApiService { get; set; } = null!;
 
+    /// <summary>
+    /// Dependency injected <see cref="IHttpClientFactory" /> for creating <see cref="HttpClient" /> instances.
+    /// </summary>
     [Inject]
     protected IHttpClientFactory HttpClientFactory { get; set; } = null!;
 
+    /// <summary>
+    /// Service for interacting with the Azure Storage Account blob storage.
+    /// </summary>
     [Inject]
     protected IBlobStorageService BlobStorageService { get; set; } = null!;
 
+    /// <summary>
+    /// <see cref="NavigationManager" /> for the component.
+    /// </summary>
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = null!;
 
+    /// <summary>
+    /// The album data used for the form.
+    /// </summary>
     [Parameter]
     [EditorRequired]
     public AlbumDataFormItem AlbumData { get; set; } = null!;
 
+    /// <summary>
+    /// Whether the item is a new item.
+    /// </summary>
     [Parameter]
     public bool IsNewItem { get; set; }
 
@@ -50,6 +77,10 @@ public partial class AlbumDataForm : ComponentBase
         base.OnInitialized();
     }
 
+    /// <summary>
+    /// Handles the form submission.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleOnSubmitAsync()
     {
         _isUpdating = true;
@@ -60,6 +91,10 @@ public partial class AlbumDataForm : ComponentBase
         );
     }
 
+    /// <summary>
+    /// Handles getting the album data from the Odesli API and the iTunes Search API.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleLoadAlbumDataAsync()
     {
         _isUpdating = true;
@@ -134,6 +169,10 @@ public partial class AlbumDataForm : ComponentBase
         _isUpdating = false;
     }
 
+    /// <summary>
+    /// Handles uploading the artwork to the Azure Storage Account blob storage.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleArtworkUploadAsync()
     {
         _isUpdating = true;
@@ -163,12 +202,19 @@ public partial class AlbumDataForm : ComponentBase
         _isUpdating = false;
     }
 
+    /// <summary>
+    /// Handles adding a standout song to the album.
+    /// </summary>
     private void HandleAddStandoutSong()
     {
         AlbumData.AddStandoutSong();
         StateHasChanged();
     }
 
+    /// <summary>
+    /// Handles removing the album from the database.
+    /// </summary>
+    /// <returns></returns>
     private async Task HandleRemoveAlbumAsync()
     {
         _isUpdating = true;
@@ -179,6 +225,11 @@ public partial class AlbumDataForm : ComponentBase
         );
     }
 
+    /// <summary>
+    /// Creates an element ID for a standout song.
+    /// </summary>
+    /// <param name="songName">The name of the song.</param>
+    /// <returns>An element ID for the song.</returns>
     private string CreateStandoutSongId(string songName)
     {
         StringBuilder sb = new();

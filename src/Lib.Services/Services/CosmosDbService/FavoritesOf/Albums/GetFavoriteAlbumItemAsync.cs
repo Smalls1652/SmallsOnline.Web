@@ -8,6 +8,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService
 {
+    /// <inheritdoc />
     public async Task<AlbumData> GetFavoriteAlbumItemAsync(string id)
     {
         AlbumData? retrievedItem = null;

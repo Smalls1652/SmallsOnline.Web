@@ -5,6 +5,9 @@ namespace SmallsOnline.Web.PublicSite.Server.Shared.Sidebar;
 /// </summary>
 public partial class SidebarItem : ComponentBase
 {
+    /// <summary>
+    /// Dependency injected configuration for the application.
+    /// </summary>
     [Inject]
     protected IConfiguration Configuration { get; set; } = null!;
 

@@ -5,11 +5,29 @@ using Azure.Storage.Blobs.Models;
 
 namespace SmallsOnline.Web.Lib.Services;
 
+/// <summary>
+/// Service for interacting with an Azure Storage Account's blobs.
+/// </summary>
 public partial class BlobStorageService : IBlobStorageService
 {
+    /// <summary>
+    /// The underlying <see cref="BlobContainerClient"/> for the service.
+    /// </summary>
     private readonly BlobContainerClient _blobContainerClient;
+
+    /// <summary>
+    /// The domain name for the storage account.
+    /// </summary>
+    /// <remarks>
+    /// Useful for utilizing a CDN or custom domain name for the storage account.
+    /// </remarks>
     private readonly string _storageAccountDomainName;
 
+    /// <summary>
+    /// Create a new instance of the <see cref="BlobStorageService"/> class.
+    /// </summary>
+    /// <param name="connectionString">The connection string for the Azure Storage Account.</param>
+    /// <param name="storageAccountDomainName">The domain name to use for generated URLs.</param>
     public BlobStorageService(string connectionString, string storageAccountDomainName)
     {
         _blobContainerClient = new(
@@ -20,6 +38,7 @@ public partial class BlobStorageService : IBlobStorageService
         _storageAccountDomainName = storageAccountDomainName;
     }
 
+    /// <inheritdoc />
     public async Task<string> UploadImageAsync(string fileName, Stream data)
     {
         await _blobContainerClient.DeleteBlobIfExistsAsync($"top-music/uploaded/{fileName}");

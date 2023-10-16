@@ -9,6 +9,9 @@ namespace SmallsOnline.Web.AdminSite.Server.Components.Navigation;
 /// </summary>
 public partial class NavbarItems : ComponentBase
 {
+    /// <summary>
+    /// <see cref="NavigationManager"/> for the component.
+    /// </summary>
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = null!;
 

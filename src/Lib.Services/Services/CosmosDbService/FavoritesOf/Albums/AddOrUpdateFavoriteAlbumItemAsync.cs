@@ -7,6 +7,7 @@ namespace SmallsOnline.Web.Lib.Services;
 
 public partial class CosmosDbService
 {
+    /// <inheritdoc />
     public async Task AddOrUpdateFavoriteAlbumItemAsync(IAlbumData albumData)
     {
         // Get the container for the blog entries.
