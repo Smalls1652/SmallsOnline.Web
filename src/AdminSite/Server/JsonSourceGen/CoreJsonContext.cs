@@ -12,6 +12,9 @@ using SmallsOnline.Web.Lib.Models.Projects;
 
 namespace SmallsOnline.Web.AdminSite.Server.JsonSourceGen;
 
+/// <summary>
+/// Source generated JSON context for the core classes.
+/// </summary>
 [JsonSourceGenerationOptions(
     WriteIndented = false,
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
