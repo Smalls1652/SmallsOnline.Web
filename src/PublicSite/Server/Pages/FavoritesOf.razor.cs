@@ -13,9 +13,15 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// </summary>
 public partial class FavoritesOf : ComponentBase
 {
+    /// <summary>
+    /// Service for interacting with the Cosmos DB API.
+    /// </summary>
     [Inject]
     protected ICosmosDbService CosmosDbService { get; set; } = null!;
 
+    /// <summary>
+    /// Logger for the page.
+    /// </summary>
     [Inject]
     protected ILogger<FavoritesOf> PageLogger { get; set; } = null!;
 
@@ -65,6 +71,10 @@ public partial class FavoritesOf : ComponentBase
         _trackItems = await CosmosDbService.GetFavoriteSongsOfYearAsync(ListYear!);
     }
 
+    /// <summary>
+    /// Filter favorite albums to separate the best album and the rest of the albums.
+    /// </summary>
+    /// <param name="inputAlbums">The collection of albums to filter.</param>
     private void FilterFavoriteAlbumsOfYear(AlbumData[]? inputAlbums)
     {
         if (inputAlbums is not null)

@@ -11,12 +11,21 @@ namespace SmallsOnline.Web.PublicSite.Server.Pages;
 /// </summary>
 public partial class BlogListPage : ComponentBase
 {
+    /// <summary>
+    /// Dependency injected <see cref="NavigationManager"/>.
+    /// </summary>
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = null!;
 
+    /// <summary>
+    /// Service for interacting with the Cosmos DB API.
+    /// </summary>
     [Inject]
     protected ICosmosDbService CosmosDbService { get; set; } = null!;
 
+    /// <summary>
+    /// Logger for the page.
+    /// </summary>
     [Inject]
     protected ILogger<BlogEntryPage> PageLogger { get; set; } = null!;
 
