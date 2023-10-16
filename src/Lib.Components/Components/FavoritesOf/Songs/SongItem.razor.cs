@@ -15,6 +15,9 @@ public partial class SongItem : ComponentBase
     [Parameter, EditorRequired]
     public ISongData ItemData { get; set; } = null!;
 
+    /// <summary>
+    /// Whether or not the item is being displayed on the admin site.
+    /// </summary>
     [Parameter]
     public bool IsAdminSite { get; set; }
 }
