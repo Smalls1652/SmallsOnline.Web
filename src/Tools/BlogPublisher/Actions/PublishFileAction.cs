@@ -16,6 +16,12 @@ public class PublishFileAction : AsynchronousCliAction
         Terminating = terminating;
     }
 
+    /// <summary>
+    /// The action to run when the command is invoked.
+    /// </summary>
+    /// <param name="parseResult"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public override async Task<int> InvokeAsync(ParseResult parseResult, CancellationToken cancellationToken = default)
     {;
         string? websiteUrl = Environment.GetEnvironmentVariable("WEBSITE_URL");
