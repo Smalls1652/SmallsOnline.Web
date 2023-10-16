@@ -6,8 +6,14 @@ using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 
 namespace SmallsOnline.Web.AdminSite.Server.Models.FavoritesOf.Albums;
 
+/// <summary>
+/// A form item for album data.
+/// </summary>
 public class AlbumDataFormItem : DatabaseItem, IAlbumData
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AlbumDataFormItem" /> class.
+    /// </summary>
     public AlbumDataFormItem()
     {
         Id = Guid.NewGuid().ToString();
@@ -15,6 +21,10 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
         SchemaVersion = "2.0";
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AlbumDataFormItem" /> class with the given list year.
+    /// </summary>
+    /// <param name="listYear">The list year for the item.</param>
     public AlbumDataFormItem(string? listYear)
     {
         Id = Guid.NewGuid().ToString();
@@ -23,6 +33,10 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
         SchemaVersion = "2.0";
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AlbumDataFormItem" /> class from the given <see cref="IAlbumData" /> object.
+    /// </summary>
+    /// <param name="albumData">The album data to import.</param>
     public AlbumDataFormItem(IAlbumData albumData)
     {
         Id = albumData.Id;
@@ -143,7 +157,17 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
     private List<AlbumStandoutSong>? _standoutTracks;
     private List<AlbumStandoutSongItem>? _standoutSongs;
 
+    /// <summary>
+    /// Add an empty standout song to the album.
+    /// </summary>
+    [Obsolete("Only works for schema version 1.0. Use AddStandoutSongItem() instead.")]
     public void AddStandoutSong() => AddStandoutSong(new());
+
+    /// <summary>
+    /// Add a standout song to the album.
+    /// </summary>
+    /// <param name="standoutSong">The song to add.</param>
+    [Obsolete("Only works for schema version 1.0. Use AddStandoutSongItem() instead.")]
     public void AddStandoutSong(AlbumStandoutSong standoutSong)
     {
         if (_standoutTracks is null)
@@ -154,6 +178,10 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
         _standoutTracks.Add(standoutSong);
     }
 
+    /// <summary>
+    /// Add a standout song item to the album.
+    /// </summary>
+    /// <param name="standoutSong">The song to add.</param>
     public void AddStandoutSongItem(AlbumStandoutSongItem standoutSong)
     {
         if (_standoutSongs is null)
@@ -164,11 +192,11 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
         _standoutSongs.Add(standoutSong);
     }
 
-/// <summary>
-/// Gets only the standout songs for the album.
-/// </summary>
-/// <returns>A collection of <see cref="AlbumStandoutSongItem" /> objects.</returns>
-private AlbumStandoutSongItem[]? GetOnlyStandoutSongs()
+    /// <summary>
+    /// Gets only the standout songs for the album.
+    /// </summary>
+    /// <returns>A collection of <see cref="AlbumStandoutSongItem" /> objects.</returns>
+    private AlbumStandoutSongItem[]? GetOnlyStandoutSongs()
     {
         return (StandoutSongs is not null) switch
         {
@@ -214,6 +242,10 @@ private AlbumStandoutSongItem[]? GetOnlyStandoutSongs()
         return stringBuilder.ToString();
     }
 
+    /// <summary>
+    /// Convert to the <see cref="AlbumData" /> type.
+    /// </summary>
+    /// <returns>The data as <see cref="AlbumData" />.</returns>
     public AlbumData ToAlbumData() => new()
     {
         Id = Id,

@@ -6,14 +6,24 @@ using SmallsOnline.Web.Lib.Models.FavoritesOf.Songs;
 
 namespace SmallsOnline.Web.AdminSite.Server.Models.FavoritesOf.Songs;
 
+/// <summary>
+/// A form item for song data.
+/// </summary>
 public class SongDataFormItem : DatabaseItem, ISongData
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SongDataFormItem" /> class.
+    /// </summary>
     public SongDataFormItem()
     {
         Id = Guid.NewGuid().ToString();
         PartitionKey = "favorites-of-tracks";
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SongDataFormItem" /> class with the given list year.
+    /// </summary>
+    /// <param name="listYear">The list year for the item.</param>
     public SongDataFormItem(string? listYear)
     {
         Id = Guid.NewGuid().ToString();
@@ -21,6 +31,10 @@ public class SongDataFormItem : DatabaseItem, ISongData
         ListYear = listYear;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SongDataFormItem" /> class from the given <see cref="ISongData" /> object.
+    /// </summary>
+    /// <param name="songData">The song data to import.</param>
     public SongDataFormItem(ISongData songData)
     {
         Id = songData.Id;
@@ -135,6 +149,10 @@ public class SongDataFormItem : DatabaseItem, ISongData
         return stringBuilder.ToString();
     }
 
+    /// <summary>
+    /// Convert to the <see cref="SongData" /> type.
+    /// </summary>
+    /// <returns>The data as <see cref="SongData" />.</returns>
     public SongData ToSongData() => new()
     {
         Id = Id,
