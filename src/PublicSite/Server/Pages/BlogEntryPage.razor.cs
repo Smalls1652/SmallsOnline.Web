@@ -43,8 +43,6 @@ public partial class BlogEntryPage : ComponentBase
     private BlogEntry? _blogEntry;
     private string? _blogExcerpt;
 
-    private readonly Regex _anchorTagRegex = new("^(?>https|http):\\/\\/.+?\\/.*(?'anchorTag'#(?'anchorTagName'.+))$");
-
     protected override async Task OnParametersSetAsync()
     {
         // Get the blog entry data.
@@ -78,4 +76,9 @@ public partial class BlogEntryPage : ComponentBase
     {
         _blogEntry = await CosmosDbService.GetBlogEntryAsync(Id);
     }
+
+    [GeneratedRegex(
+        pattern: "^(?>https|http):\\/\\/.+?\\/.*(?'anchorTag'#(?'anchorTagName'.+))$"
+    )]
+    private static partial Regex AnchorTagRegex();
 }
