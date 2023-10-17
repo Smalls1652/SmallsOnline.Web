@@ -10,7 +10,7 @@ namespace SmallsOnline.Web.Lib.Models.Blog;
 /// <summary>
 /// Contains the data for a blog post.
 /// </summary>
-public class BlogEntry : DatabaseItem, IBlogEntry
+public partial class BlogEntry : DatabaseItem, IBlogEntry
 {
     [JsonConstructor()]
     public BlogEntry()
@@ -174,9 +174,7 @@ public class BlogEntry : DatabaseItem, IBlogEntry
     /// <exception cref="Exception">Thrown whenever the provided content isn't in the correct format.</exception>
     public static BlogEntry ConvertFromMarkdown(string content)
     {
-        Regex contentRegex = new(@"(?:-{3}|\.{3})(?:\r\n|\n)(?'metadata'.+?)(?:\r\n|\n)(?:-{3}|\.{3})(?:\r\n|\n)(?'content'.+)",
-            RegexOptions.Singleline);
-        Match contentMatch = contentRegex.Match(content);
+        Match contentMatch = ContentRegex().Match(content);
 
         if (!contentMatch.Success)
         {
@@ -259,4 +257,10 @@ public class BlogEntry : DatabaseItem, IBlogEntry
             throw new NullReferenceException("The 'Content' property is null.");
         }
     }
+
+    [GeneratedRegex(
+        pattern: @"(?:-{3}|\.{3})(?:\r\n|\n)(?'metadata'.+?)(?:\r\n|\n)(?:-{3}|\.{3})(?:\r\n|\n)(?'content'.+)",
+        options: RegexOptions.Singleline
+    )]
+    private static partial Regex ContentRegex();
 }

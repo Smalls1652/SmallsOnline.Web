@@ -5,7 +5,7 @@ namespace SmallsOnline.Web.PublicSite.Server.Models;
 /// <summary>
 /// Holds data for the current page location.
 /// </summary>
-public class CurrentPageLocation
+public partial class CurrentPageLocation
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CurrentPageLocation"/> class.
@@ -13,11 +13,7 @@ public class CurrentPageLocation
     /// <param name="inputUri">The URI for the current location.</param>
     public CurrentPageLocation(string inputUri)
     {
-        Regex uriSectionRegex =
-            new("^(?:https|http)://(?'hostName'.+?)(?'path'/(?'topLevelPage'.*?)(?'secondaryPages'/.*?|))(?:#.*|)$",
-                RegexOptions.Multiline);
-
-        Match uriSectionMatch = uriSectionRegex.Match(inputUri);
+        Match uriSectionMatch = ExtractUriSections(inputUri);
 
         if (uriSectionMatch.Success == false)
         {
@@ -51,4 +47,22 @@ public class CurrentPageLocation
     /// The secondary pages for the current page.
     /// </summary>
     public string? SecondaryPages { get; set; }
+
+    [GeneratedRegex(
+        pattern: "^(?:https|http)://(?'hostName'.+?)(?'path'/(?'topLevelPage'.*?)(?'secondaryPages'/.*?|))(?:#.*|)$",
+        options: RegexOptions.Multiline
+    )]
+    private static partial Regex UriSectionRegex();
+
+    private Match ExtractUriSections(string url)
+    {
+        Match uriSectionMatch = UriSectionRegex().Match(url);
+
+        if (uriSectionMatch.Success == false)
+        {
+            throw new($"Failed to parse the current page to update the navigation bar. Uri provided: {url}");
+        }
+
+        return uriSectionMatch;
+    }
 }

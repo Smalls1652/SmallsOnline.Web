@@ -131,8 +131,7 @@ public partial class SongDataForm : ComponentBase
     {
         _isUpdating = true;
 
-        Regex fileExtRegex = new("^(?:https|http):\\/\\/.+\\/.+?\\.(?'fileExtension'.+?)$");
-        Match fileExtMatch = fileExtRegex.Match(SongData.TrackArtUrl!);
+        Match fileExtMatch = FileExtensionRegex().Match(SongData.TrackArtUrl!);
         string fileExt = fileExtMatch.Groups["fileExtension"].Value;
 
         using HttpClient httpClient = HttpClientFactory.CreateClient("GenericClient");
@@ -166,4 +165,9 @@ public partial class SongDataForm : ComponentBase
             forceLoad: false
         );
     }
+
+    [GeneratedRegex(
+        pattern: "^(?:https|http):\\/\\/.+\\/.+?\\.(?'fileExtension'.+?)$"
+    )]
+    private static partial Regex FileExtensionRegex();
 }

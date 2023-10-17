@@ -61,17 +61,13 @@ public partial class BlogEntryCard : ComponentBase
         // then modify the footnote links in the HTML content.
         if (BlogEntry.ContentHtml is not null)
         {
-            // Regex pattern for finding footnote links in the HTML content.
-            Regex footnoteLinkRegex =
-                new(
-                    "<a (?'idProperty'id=\"(?'id'(?:fnref|fn):.+?)\" |)href=\"(?'footnoteAnchorTag'#(?:fnref|fn):.+?\") class=\"(?'class'.+?)\">");
 
             // Instantiate a string of the current HTML content of the blog entry,
             // so it can be used to hold the updated HTML content.
             string modifiedEntryContent = BlogEntry.ContentHtml;
 
             // Find the first match of the footnote link regex pattern in the HTML content.
-            Match footnoteLinkMatch = footnoteLinkRegex.Match(BlogEntry.ContentHtml);
+            Match footnoteLinkMatch = FootnoteLinkRegex().Match(BlogEntry.ContentHtml);
 
             // Loop while there are still successful matches.
             while (footnoteLinkMatch.Success)
@@ -115,4 +111,9 @@ public partial class BlogEntryCard : ComponentBase
         // then throw a null reference exception.
         throw new NullReferenceException("Content was null.");
     }
+
+    [GeneratedRegex(
+        pattern: "<a (?'idProperty'id=\"(?'id'(?:fnref|fn):.+?)\" |)href=\"(?'footnoteAnchorTag'#(?:fnref|fn):.+?\") class=\"(?'class'.+?)\">"
+    )]
+    private static partial Regex FootnoteLinkRegex();
 }

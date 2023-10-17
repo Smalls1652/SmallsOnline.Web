@@ -179,8 +179,7 @@ public partial class AlbumDataForm : ComponentBase
 
         _updatingStatusText = "Uploading artwork to storage";
 
-        Regex fileExtRegex = new("^(?:https|http):\\/\\/.+\\/.+?\\.(?'fileExtension'.+?)$");
-        Match fileExtMatch = fileExtRegex.Match(AlbumData.AlbumArtUrl!);
+        Match fileExtMatch = FileExtensionRegex().Match(AlbumData.AlbumArtUrl!);
         string fileExt = fileExtMatch.Groups["fileExtension"].Value;
 
         using HttpClient httpClient = HttpClientFactory.CreateClient("GenericClient");
@@ -237,4 +236,9 @@ public partial class AlbumDataForm : ComponentBase
         sb.Append(Convert.ToBase64String(Encoding.Default.GetBytes(songName)));
         return sb.ToString();
     }
+
+    [GeneratedRegex(
+        pattern: "^(?:https|http):\\/\\/.+\\/.+?\\.(?'fileExtension'.+?)$"
+    )]
+    private static partial Regex FileExtensionRegex();
 }

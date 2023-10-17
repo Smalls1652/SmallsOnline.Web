@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>latest</LangVersion>
         <RazorLangVersion>8.0</RazorLangVersion>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     </PropertyGroup>
 
