@@ -7,6 +7,9 @@ builder.Configuration
     .AddEnvironmentVariables()
     .AddJsonFile(builder.Environment.IsDevelopment() ? "appsettings.Development.json" : "appsettings.json");
 
+builder.Services
+    .AddHealthChecks();
+
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
@@ -47,5 +50,8 @@ app
 app.MapRazorPages();
 //app.MapFallbackToPage("/error");
 app.UseStatusCodePagesWithReExecute("/error/{0}");
+
+app
+    .MapHealthChecks("/healthz");
 
 await app.RunAsync();

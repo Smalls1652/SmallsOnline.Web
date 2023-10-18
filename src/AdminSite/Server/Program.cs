@@ -14,6 +14,9 @@ builder.Configuration
     .AddJsonFile(builder.Environment.IsDevelopment() ? "appsettings.Development.json" : "appsettings.json");
 
 builder.Services
+    .AddHealthChecks();
+
+builder.Services
     .AddCascadingAuthenticationState();
 
 builder.Services
@@ -122,5 +125,8 @@ app
     .MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode();
+
+app
+    .MapHealthChecks("/healthz");
 
 await app.RunAsync();
