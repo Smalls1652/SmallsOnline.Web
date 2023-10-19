@@ -130,24 +130,6 @@ updates:
     assignees:
       - "Smalls1652"
 
-  # NuGet config for SmallsOnline.Web.Api
-  - package-ecosystem: "nuget"
-    directory: "/src/Api"
-    target-branch: "dev"
-    reviewers:
-      - "Smalls1652"
-    schedule:
-      interval: "daily"
-    labels:
-      - "api"
-      - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
-      - dependency-name: "Microsoft.Azure.Cosmos"
-    assignees:
-      - "Smalls1652"
-
   # NuGet config for SmallsOnline.Web.Tools.BlogPublisher
   - package-ecosystem: "nuget"
     directory: "/src/Tools/BlogPublisher"

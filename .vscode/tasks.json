@@ -202,10 +202,6 @@
 					"value": "src/Lib.Services"
 				},
 				{
-					"label": "API",
-					"value": "src/Api"
-				},
-				{
 					"label": "Tools: BlogPublisher",
 					"value": "src/Tools/BlogPublisher"
 				}

@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib", "src\Lib\Lib.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Components", "src\Lib.Components\Lib.Components.csproj", "{4069E2D7-5627-4532-864D-2ECE9BF2F4B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Api\Api.csproj", "{AEE2CBB8-0EB1-47BC-8BF5-D4A45FED2497}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Services", "src\Lib.Services\Lib.Services.csproj", "{09CBFB1A-079D-4702-BD5E-BF5AF688DEE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "src\PublicSite\Client\Client.csproj", "{F376E677-76A8-402C-8769-A9A53FD5B807}"
@@ -47,10 +45,6 @@ Global
 		{4069E2D7-5627-4532-864D-2ECE9BF2F4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4069E2D7-5627-4532-864D-2ECE9BF2F4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4069E2D7-5627-4532-864D-2ECE9BF2F4B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AEE2CBB8-0EB1-47BC-8BF5-D4A45FED2497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AEE2CBB8-0EB1-47BC-8BF5-D4A45FED2497}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AEE2CBB8-0EB1-47BC-8BF5-D4A45FED2497}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AEE2CBB8-0EB1-47BC-8BF5-D4A45FED2497}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09CBFB1A-079D-4702-BD5E-BF5AF688DEE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{09CBFB1A-079D-4702-BD5E-BF5AF688DEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09CBFB1A-079D-4702-BD5E-BF5AF688DEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU

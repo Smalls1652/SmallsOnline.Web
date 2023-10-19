@@ -3,11 +3,9 @@ name: Admin Website / Build
 on:
   push:
     paths-ignore:
-      - "src/Api/**"
       - "src/Tools/**"
   pull_request:
     paths-ignore:
-      - "src/Api/**"
       - "src/Tools/**"
   workflow_dispatch:
 
