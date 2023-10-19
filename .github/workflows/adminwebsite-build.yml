@@ -4,9 +4,11 @@ on:
   push:
     paths-ignore:
       - "src/Tools/**"
+      - "src/PublicSite/**"
   pull_request:
     paths-ignore:
       - "src/Tools/**"
+      - "src/PublicSite/**"
   workflow_dispatch:
 
 jobs:
