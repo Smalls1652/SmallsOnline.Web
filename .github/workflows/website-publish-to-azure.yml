@@ -75,11 +75,15 @@ jobs:
             tags: ${{ steps.meta.outputs.tags }}
             labels: ${{ steps.meta.outputs.labels }}
 
-        - name: Deploy to Azure Web App
-          id: deploy-to-webapp
-          uses: azure/webapps-deploy@v2
+        - name: Azure Login
+          uses: azure/login@v1
           with:
-            app-name: 'smallsonline-web'
-            slot-name: 'production'
-            publish-profile: ${{ secrets.WEBSITE_AZUREAPPSVC_PUBLISHPROFILE }}
-            images: ${{ env.IMAGETAG }}
+            creds: ${{ secrets.AZURE_SMALLSONLINEPUBLICSITE_CREDENTIALS }}
+    
+        - name: Deploy to containerapp
+          uses: azure/CLI@v1
+          with:
+            inlineScript: |
+              az config set extension.use_dynamic_install=yes_without_prompt
+              az containerapp registry set --name ${{ secrets.AZURE_SMALLSONLINEPUBLICSITE_NAME }} --resource-group ${{ secrets.AZURE_SMALLSONLINEPUBLICSITE_RG }} --server smallsonlinecontainerreg.azurecr.io --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
+              az containerapp update --resource-group ${{ secrets.AZURE_SMALLSONLINEPUBLICSITE_RG }} --name ${{ secrets.AZURE_SMALLSONLINEPUBLICSITE_NAME }} --image ${{ env.IMAGETAG }}
