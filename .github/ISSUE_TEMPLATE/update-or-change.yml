@@ -27,7 +27,6 @@ body:
         - "Core component library"
         - "Public website"
         - "Admin website"
-        - "API"
         - "Other"
     validations:
       required: true
