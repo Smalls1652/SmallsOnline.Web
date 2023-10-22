@@ -35,7 +35,12 @@ builder.Services
     .AddMicrosoftIdentityUI();
 
 builder.Services
-    .AddAuthorization();
+    .AddAuthorization(
+        options =>
+        {
+            options.FallbackPolicy = options.DefaultPolicy;
+        }
+    );
 
 // Add services to the container.
 builder.Services
