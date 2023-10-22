@@ -131,7 +131,7 @@ app
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode();
 
-app
-    .MapHealthChecks("/healthz");
+app.MapBlazorHub();
+app.MapHealthChecks("/healthz");
 
 await app.RunAsync();
