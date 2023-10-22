@@ -2,6 +2,7 @@
 name: BlogPublisher CLI Tool / Build
 on:
   push:
+    tags-ignore: [ 'v*.*.*', 'v*.*.*-*' ]
     paths-ignore:
       - "src/PublicSite/**"
       - "src/AdminSite/**"

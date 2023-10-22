@@ -1,9 +1,10 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow
 name: Class library / Build
 on:
-  - push
-  - pull_request
-  - workflow_dispatch
+  push:
+    tags-ignore: [ 'v*.*.*', 'v*.*.*-*' ]
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build-lib:

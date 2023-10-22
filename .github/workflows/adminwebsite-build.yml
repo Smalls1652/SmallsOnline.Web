@@ -2,6 +2,7 @@
 name: Admin Website / Build
 on:
   push:
+    tags-ignore: [ 'v*.*.*', 'v*.*.*-*' ]
     paths-ignore:
       - "src/Tools/**"
       - "src/PublicSite/**"
