@@ -71,7 +71,7 @@ builder.Services
         name: "ItunesApiClient",
         configureClient: (serviceProvider, httpClient) =>
         {
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new("MuzakBot", Assembly.GetExecutingAssembly().GetName().Version!.ToString()));
+            httpClient.DefaultRequestHeaders.UserAgent.Add(new("SmallsOnline.Web.AdminSite.Server", Assembly.GetExecutingAssembly().GetName().Version!.ToString()));
             httpClient.BaseAddress = new("https://itunes.apple.com/");
         }
     );
