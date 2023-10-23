@@ -45,8 +45,7 @@ builder.Services
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
-    .AddInteractiveServerComponents()
-    .AddInteractiveWebAssemblyComponents();
+    .AddInteractiveServerComponents();
 
 builder.Services
     .AddMicrosoftIdentityConsentHandler();
@@ -128,10 +127,8 @@ app.MapControllers();
 
 app
     .MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode();
+    .AddInteractiveServerRenderMode();
 
-app.MapBlazorHub();
 app.MapHealthChecks("/healthz");
 
 await app.RunAsync();
