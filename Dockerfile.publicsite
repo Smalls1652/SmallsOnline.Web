@@ -18,6 +18,7 @@ RUN apt-get update; \
 RUN curl -qL https://www.npmjs.com/install.sh | sh
 
 RUN dotnet tool install --global PowerShell
+RUN dotnet workload install wasm-tools
 
 WORKDIR /app
 COPY ./cleanBuildOutput.ps1 ./
@@ -26,8 +27,6 @@ COPY ./src/Lib/ ./src/Lib/
 COPY ./src/Lib.Components/ ./src/Lib.Components/
 COPY ./src/Lib.Services/ ./src/Lib.Services/
 COPY ./src/PublicSite/ ./src/PublicSite/
-
-RUN dotnet workload install wasm-tools
 
 RUN dotnet msbuild ./src/PublicSite/Server/ -t:"InitProject_Combined"
 RUN dotnet restore ./src/PublicSite/Server/
