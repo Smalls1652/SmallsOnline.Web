@@ -102,6 +102,42 @@
 				"cwd": "${workspaceFolder}"
 			},
 			"problemMatcher": "$msCompile"
+		},
+		// Remaining tasks are only for the VSCode launch configs
+		// or are supporting tasks.
+		{
+			"label": "Build: PublicSite",
+			"detail": "Build the PublicSite.Server project.",
+			"hide": true,
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"${workspaceFolder}/src/PublicSite/Server",
+				"--configuration",
+				"Debug"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build: AdminSite",
+			"detail": "Build the AdminSite.Server project.",
+			"hide": true,
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"${workspaceFolder}/src/AdminSite/Server",
+				"--configuration",
+				"Debug"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": "$msCompile"
 		}
 	],
 	"inputs": [
