@@ -35,16 +35,16 @@
     <link href="highlight.js/styles/github.min.css" rel="stylesheet" />
     <link href="SmallsOnline.Web.PublicSite.Server.styles.css" rel="stylesheet" />
 
-    <script src="highlight.js/highlight.min.js"></script>
+    <script src="highlight.js/highlight.min.js" suppress-error="BL9992"></script>
 </head>
 
 <body>
 
     <Routes />
 
-    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap/bootstrap.bundle.min.js" suppress-error="BL9992"></script>
     <script src="_framework/blazor.web.js" suppress-error="BL9992" autostart="false"></script>
-    <script>
+    <script suppress-error="BL9992">
         Blazor.start({
             ssr: { disableDomPreservation: true }
         });
