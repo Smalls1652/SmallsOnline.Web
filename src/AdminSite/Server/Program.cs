@@ -102,6 +102,12 @@ builder.Services.Configure<ForwardedHeadersOptions>(
 
 var app = builder.Build();
 
+app.Use((context, next) =>
+{
+    context.Request.Scheme = "https";
+    return next(context);
+});
+
 app.UseForwardedHeaders();
 
 // Configure the HTTP request pipeline.
