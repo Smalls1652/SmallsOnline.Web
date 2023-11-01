@@ -68,7 +68,7 @@ jobs:
           shell: pwsh
           run: |
             $metaData = $env:DOCKER_METADATA_OUTPUT_JSON | ConvertFrom-Json
-            $imageTag = $metaData.tags | Where-Object { $PSItem -like "*:v*" }
+            $imageTag = $metaData.tags | Where-Object { $PSItem -like "*:sha-*" }
             "IMAGETAG=$($imageTag)" >> $env:GITHUB_ENV
 
         - name: Build and push container image to registry
