@@ -6,6 +6,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,10 +32,6 @@ builder.Services
     });
 
 builder.Services
-    .AddControllersWithViews()
-    .AddMicrosoftIdentityUI();
-
-builder.Services
     .AddAuthorization(
         options =>
         {
@@ -46,6 +43,10 @@ builder.Services
 builder.Services
     .AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services
+    .AddControllersWithViews()
+    .AddMicrosoftIdentityUI();
 
 builder.Services
     .AddMicrosoftIdentityConsentHandler();
@@ -101,12 +102,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(
 
 var app = builder.Build();
 
-app.Use((context, next) =>
-{
-    context.Request.Scheme = "https";
-    return next(context);
-});
-
 app.UseForwardedHeaders();
 
 // Configure the HTTP request pipeline.
@@ -117,11 +112,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseRouting();
 app.UseAuthorization();
+
 app.UseAntiforgery();
 app.MapControllers();
 
