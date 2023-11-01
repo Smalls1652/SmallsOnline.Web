@@ -1,3 +1,5 @@
+using System.Net;
+using Microsoft.AspNetCore.HttpOverrides;
 using SmallsOnline.Web.Lib.Services;
 using SmallsOnline.Web.PublicSite.Server;
 
@@ -26,7 +28,22 @@ builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
     )
 );
 
+builder.Services.Configure<ForwardedHeadersOptions>(
+    options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    }
+);
+
 var app = builder.Build();
+
+app.Use((context, next) =>
+{
+    context.Request.Scheme = "https";
+    return next(context);
+});
+
+app.UseForwardedHeaders();
 
 app.UseAntiforgery();
 
@@ -38,7 +55,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
