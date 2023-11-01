@@ -2,37 +2,12 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "PublicSite: Watch",
+			"label": "Watch",
 			"detail": "Run the Blazor Server for local debugging and watch for changes.",
-			"type": "process",
-			"command": "dotnet",
-			"args": [
-				"watch",
-				"--",
-				"run",
-				"/consoleloggerparameters:NoSummary"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}/src/PublicSite/Server",
-				"env": {
-					"ASPNETCORE_ENVIRONMENT": "Development"
-				}
+			"icon": {
+				"id": "eye-watch",
+				"color": "terminal.ansiCyan"
 			},
-			"isBackground": true,
-			"problemMatcher": [
-				{
-					"base": "$msCompile",
-					"background": {
-						"activeOnStart": true,
-						"beginsPattern": "^info: Microsoft.\\Hosting\\.Lifetime",
-						"endsPattern": "^\\s*Application started\\..+?$"
-					}
-				}
-			]
-		},
-		{
-			"label": "AdminSite: Watch",
-			"detail": "Run the Blazor Server for local debugging and watch for changes.",
 			"type": "process",
 			"command": "dotnet",
 			"args": [
@@ -42,7 +17,7 @@
 				"/consoleloggerparameters:NoSummary"
 			],
 			"options": {
-				"cwd": "${workspaceFolder}/src/AdminSite/Server",
+				"cwd": "${workspaceFolder}/${input:watchProject}",
 				"env": {
 					"ASPNETCORE_ENVIRONMENT": "Development"
 				}
@@ -62,6 +37,10 @@
 		{
 			"label": "Build project",
 			"detail": "Build a project.",
+			"icon": {
+				"id": "tools",
+				"color": "terminal.ansiYellow"
+			},
 			"type": "process",
 			"command": "dotnet",
 			"args": [
@@ -78,6 +57,10 @@
 		{
 			"label": "Clean project",
 			"detail": "Clean a project.",
+			"icon": {
+				"id": "trashcan",
+				"color": "terminal.ansiBlack"
+			},
 			"type": "process",
 			"command": "dotnet",
 			"args": [
@@ -94,6 +77,10 @@
 		{
 			"label": "Restore project",
 			"detail": "Restore a project.",
+			"icon": {
+				"id": "sync",
+				"color": "terminal.ansiBlue"
+			},
 			"type": "process",
 			"command": "dotnet",
 			"args": [
@@ -104,51 +91,7 @@
 				"cwd": "${workspaceFolder}"
 			},
 			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "PublicSite: Build image",
-			"detail": "Build the container image for the public site.",
-			"type": "docker-build",
-			"dockerBuild": {
-				"context": "${workspaceFolder}",
-				"dockerfile": "${workspaceFolder}/Dockerfile.publicsite",
-				"pull": true,
-				"tag": "smallsonlineweb-local:latest",
-				"customOptions": "--tag smallsonlineweb-local:${command:extension.commandvariable.UUID}",
-				"platform": "${input:containerPlatformArch}"
-			}
-		},
-		{
-			"label": "PublicSite: Run image",
-			"detail": "Run the latest container image for the public site.",
-			"type": "docker-run",
-			"dockerRun": {
-				"image": "smallsonlineweb-local:latest",
-				"ports": [
-					{
-						"protocol": "tcp",
-						"containerPort": 8080,
-						"hostPort": 8080
-					}
-				],
-				"network": "bridge",
-				"os": "Linux",
-				"remove": true
-			}
-		},
-		{
-			"label": "AdminSite: Build image",
-			"detail": "Build the container image for the admin site.",
-			"type": "docker-build",
-			"dockerBuild": {
-				"context": "${workspaceFolder}",
-				"dockerfile": "${workspaceFolder}/Dockerfile.adminsite",
-				"pull": true,
-				"tag": "smallsonlinewebadmin-local:latest",
-				"customOptions": "--tag smallsonlinewebadmin-local:${command:extension.commandvariable.UUID}",
-				"platform": "${input:containerPlatformArch}"
-			}
-		},
+		}
 	],
 	"inputs": [
 		{
@@ -215,6 +158,22 @@
 			"options": [
 				"linux/amd64",
 				"linux/arm64"
+			]
+		},
+		{
+			"id": "watchProject",
+			"description": "Select a project to run 'dotnet watch' on.",
+			"type": "pickString",
+			"default": "src/PublicSite/Server",
+			"options": [
+				{
+					"label": "PublicSite: Server",
+					"value": "src/PublicSite/Server"
+				},
+				{
+					"label": "AdminSite: Server",
+					"value": "src/AdminSite/Server"
+				}
 			]
 		}
 	]
