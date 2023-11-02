@@ -22,6 +22,9 @@ public partial class FavoritesOfList : ComponentBase
     [Parameter]
     public string? ListYear { get; set; }
 
+    [Parameter]
+    public string? ItemType { get; set; }
+
     private bool _isLoading = true;
     private bool _isLoadingData = true;
 
@@ -62,8 +65,16 @@ public partial class FavoritesOfList : ComponentBase
         PageLogger.LogInformation("Loading favorites of {ListYear}", ListYear);
 
         // Get the favorite albums from the API.
-        _albumItems = await CosmosDbService.GetFavoriteAlbumsOfYearAsync(ListYear!);
-        _songItems = await CosmosDbService.GetFavoriteSongsOfYearAsync(ListYear!);
+        switch (ItemType)
+        {
+            case "songs":
+                _songItems = await CosmosDbService.GetFavoriteSongsOfYearAsync(ListYear!);
+                break;
+
+            default:
+                _albumItems = await CosmosDbService.GetFavoriteAlbumsOfYearAsync(ListYear!);
+                break;
+        }
 
         _isLoadingData = false;
     }
@@ -81,6 +92,20 @@ public partial class FavoritesOfList : ComponentBase
             );
 
             //await GetFavorites();
+        }
+    }
+
+    private void OnListItemTypeChanged(ChangeEventArgs e)
+    {
+        string? itemType = e.Value?.ToString();
+
+        if (itemType is not null)
+        {
+            ItemType = itemType;
+            NavigationManager.NavigateTo(
+                uri: $"/favorite-music-of/list/{ListYear}/{itemType}",
+                replace: true
+            );
         }
     }
 }
