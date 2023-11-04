@@ -6,6 +6,7 @@ RUN apk add bash curl icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib
 
 ENV DOTNET_ROOT /dotnet
 ENV PATH "/dotnet:$PATH"
+ENV DOTNET_NOLOGO true
 
 RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 8.0 --quality preview --install-dir /dotnet/
 
