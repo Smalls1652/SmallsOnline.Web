@@ -22,10 +22,7 @@ ENV PROXY_PASS_URI http://localhost:5000
 
 RUN apk add brotli nginx nginx-mod-http-brotli bash
 
-COPY ./nginx/nginx-entry.sh /
 COPY --from=template-builder /NginxTemplateCustomizer/out/nginxcustomizer /tmp/nginxcustomizer
 COPY ./nginx/nginx.conf /etc/nginx/http.d/default.conf
 
-RUN chmod +x /nginx-entry.sh
-
-CMD ["/bin/bash", "-c", "/nginx-entry.sh"]
+CMD ["/tmp/nginxcustomizer"]
