@@ -1,6 +1,6 @@
 FROM docker.io/library/alpine:3.18 as template-builder
 
-ARG RUNTIME_IDENTIFIER linux-musl-x64
+ARG RUNTIME_IDENTIFIER=linux-musl-x64
 
 RUN apk add bash curl icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib clang build-base zlib-dev
 
