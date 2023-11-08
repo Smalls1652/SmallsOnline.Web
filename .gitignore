@@ -1,3 +1,9 @@
+## --- Temporary exclusions ---
+
+docker-compose.yml
+
+## ----------------------------
+
 *.crt
 *.key
 local.settings.json

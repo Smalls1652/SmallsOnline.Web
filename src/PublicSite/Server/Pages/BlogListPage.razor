@@ -32,7 +32,6 @@
 </HeadContent>
 @if (_isFinishedLoading == false)
 {
-    <div class="fade-slide-in">
         <div class="row">
             <div class="col">
                 <div class="card shadow">
@@ -51,20 +50,17 @@
                 </div>
             </div>
         </div>
-    </div>
 }
 else
 {
-    <div class="fade-slide-in">
-        <div class="row pb-2">
-            <div class="col">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <div class="mb-0">
-                            <h1>
-                                <i class="bi bi-journal-text"></i> Blog
-                            </h1>
-                        </div>
+    <div class="row pb-2">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">
+                    <div class="mb-0">
+                        <h1>
+                            <i class="bi bi-journal-text"></i> Blog
+                        </h1>
                     </div>
                 </div>
             </div>
@@ -72,7 +68,7 @@ else
     </div>
     @if (_blogEntries is not null && _blogEntries.Entries is not null && _blogEntries.Entries.Count() != 0)
     {
-        <div class="fade-slide-in">
+        <div>
             @foreach (BlogEntry blogEntryItem in _blogEntries.Entries)
             {
                 <div class="row pb-2">

@@ -1,10 +1,12 @@
 FROM docker.io/library/alpine:3.18 as template-builder
 
+ARG RUNTIME_IDENTIFIER=linux-musl-x64
+
 RUN apk add bash curl icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib clang build-base zlib-dev
 
 ENV DOTNET_ROOT /dotnet
 ENV PATH "/dotnet:$PATH"
-ENV RUNTIME_IDENTIFIER linux-musl-x64
+ENV DOTNET_NOLOGO true
 
 RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 8.0 --quality preview --install-dir /dotnet/
 
@@ -20,10 +22,7 @@ ENV PROXY_PASS_URI http://localhost:5000
 
 RUN apk add brotli nginx nginx-mod-http-brotli bash
 
-COPY ./nginx/nginx-entry.sh /
 COPY --from=template-builder /NginxTemplateCustomizer/out/nginxcustomizer /tmp/nginxcustomizer
 COPY ./nginx/nginx.conf /etc/nginx/http.d/default.conf
 
-RUN chmod +x /nginx-entry.sh
-
-CMD ["/bin/bash", "-c", "/nginx-entry.sh"]
+CMD ["/tmp/nginxcustomizer"]
