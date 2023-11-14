@@ -30,7 +30,6 @@
         <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
         <ProjectReference Include="..\..\Lib\Lib.csproj" />
         <ProjectReference Include="..\Client\Client.csproj" />
-        <!-- <ProjectReference Include="..\Client\Client.csproj"/> -->
     </ItemGroup>
 
     <PropertyGroup>
@@ -80,8 +79,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0-*"/>
-        <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0-*" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.*" />
+        <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.*" />
     </ItemGroup>
 
     <Target Name="InitProject_Combined">
