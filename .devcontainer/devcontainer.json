@@ -1,0 +1,33 @@
+{
+    "name": "Smalls.Online Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.vscode-dotnet-runtime",
+                "adrianwilczynski.asp-net-core-switcher",
+                "ms-dotnettools.csharp",
+                "streetsidesoftware.code-spell-checker",
+                "rioj7.command-variable",
+                "donjayamanne.githistory",
+                "github.vscode-github-actions",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "ms-vscode.vscode-github-issue-notebooks",
+                "GitHub.vscode-pull-request-github",
+                "ms-vscode.powershell",
+                "redhat.vscode-commons",
+                "redhat.vscode-xml",
+                "DotJoshJohnson.xml",
+                "redhat.vscode-yaml"
+            ]
+        }
+    }
+}
