@@ -10,13 +10,13 @@
 {
     <div class="row">
         <div class="col">
-            <div class="card shadow fade-slide-in">
-                <div class="card-header">
+            <div class="card page-card shadow fade-slide-in">
+                <div class="card-header page-card-header">
                     <h1 class="mb-0">
                         <i class="bi bi-headphones"></i> Favorite Music of...
                     </h1>
                 </div>
-                <div class="card-body">
+                <div class="card-body page-card-body">
                     <div class="row">
                         <div class="col">
                             <LoadingBar />
@@ -82,13 +82,13 @@ else
         </HeadContent>
         <div class="row">
             <div class="col">
-                <div class="card shadow">
-                    <div class="card-header">
+                <div class="card page-card shadow">
+                    <div class="card-header page-card-header">
                         <h1 class="mb-0">
                             <i class="bi bi-headphones"></i> Favorite Music of @ListYear
                         </h1>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body page-card-body">
                         <div class="row">
                             <div class="col">
                                 <h2 id="table-of-contents">
@@ -115,13 +115,13 @@ else
 
         <div class="row pt-3">
             <div class="col">
-                <div class="card shadow" id="favorite-albums">
-                    <div class="card-header">
+                <div class="card page-card shadow" id="favorite-albums">
+                    <div class="card-header page-card-header">
                         <h1 class="mb-0">
                             Favorite Albums
                         </h1>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body page-card-body">
                         @if (_bestAlbum is not null)
                         {
                             <div class="row pb-3">
@@ -149,13 +149,13 @@ else
 
         <div class="row pt-3">
             <div class="col">
-                <div class="card shadow" id="favorite-songs">
-                    <div class="card-header">
+                <div class="card page-card shadow" id="favorite-songs">
+                    <div class="card-header page-card-header">
                         <h1 class="mb-0">
                             Favorite Songs
                         </h1>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body page-card-body">
                         <div class="row">
                             @foreach (SongData songItem in _trackItems!)
                             {
