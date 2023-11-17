@@ -5,8 +5,8 @@
 @if (BlogEntry is not null)
 {
     <article>
-        <div class="card shadow">
-            <div class="card-header">
+        <div class="card page-card shadow">
+            <div class="card-header page-card-header">
                 <div class="mb-0">
                     <h1>
                         @if (BlogEntry.Title is not null)
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body page-card-body">
                 <div class="row">
                     <div class="col">
                         @if (_contentHtml is not null)
