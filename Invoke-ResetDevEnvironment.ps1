@@ -1,5 +1,8 @@
 [CmdletBinding()]
-param()
+param(
+    [Parameter(Position = 0)]
+    [switch]$NoRestore
+)
 
 $scriptRoot = $PSScriptRoot
 
@@ -13,5 +16,7 @@ foreach ($dirItem in $devDirs) {
     Remove-Item -Path $dirItem.FullName -Recurse -Force
 }
 
-Write-Warning "Running 'dotnet restore `"$($slnPath)`"'"
-dotnet restore "$($slnPath)"
+if (!$NoRestore) {
+    Write-Warning "Running 'dotnet restore `"$($slnPath)`"'"
+    dotnet restore "$($slnPath)"
+}
