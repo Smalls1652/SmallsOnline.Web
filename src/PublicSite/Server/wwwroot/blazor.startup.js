@@ -10,7 +10,6 @@ Blazor.addEventListener('enhancedload', () => {
             pageContentElement.classList.remove("fade-slide-in");
         }, { once: true });
 
-        console.log("Scrolling to top");
         window.scrollTo(0, 0);
     }
 });
