@@ -1,14 +1,21 @@
-# Smalls.Online
+# [Smalls.Online](https://smalls.online)
 
-My personal website built in [Blazor WebAssembly](https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-6.0#blazor-webassembly).
+![My avatar](https://cdn.smalls.online/images/site/smalls_animal-crossing.webp)
 
-## Tools used
+The repo for my personal website and it's associated tools.
 
-- [**ASP.NET Core Blazor**](https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-6.0)
-- [**Smalls.Online.Lib**](https://github.com/Smalls1652/SmallsOnline.Web.Lib)
+## Dependencies / Services used
+
+- [**ASP.NET Core Blazor**](https://learn.microsoft.com/en-us/aspnet/core/blazor)
 - [**Bootstrap**](https://getbootstrap.com/)
 - [**Bootstrap Icons**](https://icons.getbootstrap.com/)
+- [**Markdig**](https://github.com/xoofx/markdig)
+- [**YamlDotNet**](https://github.com/aaubry/YamlDotNet)
+- [**Songlink/Odesli**](https://odesli.co/)
 
 ## License
 
-This website is not licensed for redistribution; however, you are licensed to reuse components for your own use. I am not sure if I should apply the MIT license to this repo, so for the time being it is _"not licensed"_.
+This repo is dual licensed, depending on the type of content:
+
+- [**Code** - `MIT License`](LICENSE_Code)
+- [**Content** - `CC BY-NC-ND 4.0`](LICENSE_Content)
