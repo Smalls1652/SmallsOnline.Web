@@ -3,7 +3,7 @@ updates:
   # NuGet config for SmallsOnline.Web.Lib
   - package-ecosystem: "nuget"
     directory: "/src/Lib/"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -17,7 +17,7 @@ updates:
   # NuGet config for SmallsOnline.Web.Lib.Components
   - package-ecosystem: "nuget"
     directory: "/src/Lib.Components/"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -34,7 +34,7 @@ updates:
   # NuGet config for SmallsOnline.Web.Lib.Services
   - package-ecosystem: "nuget"
     directory: "/src/Lib.Services"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -52,7 +52,7 @@ updates:
   # NuGet config for SmallsOnline.Web.PublicSite.Client
   - package-ecosystem: "nuget"
     directory: "/src/PublicSite/Client"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -69,7 +69,7 @@ updates:
   # NuGet config for SmallsOnline.Web.PublicSite.Server
   - package-ecosystem: "nuget"
     directory: "/src/PublicSite/Server"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -87,7 +87,7 @@ updates:
   # NPM config for SmallsOnline.Web.PublicSite.Server
   - package-ecosystem: "npm"
     directory: "/src/PublicSite/Server"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -101,7 +101,7 @@ updates:
   # NuGet config for SmallsOnline.Web.AdminSite.Server
   - package-ecosystem: "nuget"
     directory: "/src/AdminSite/Server"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -119,7 +119,7 @@ updates:
   # NPM config for SmallsOnline.Web.AdminSite.Server
   - package-ecosystem: "npm"
     directory: "/src/AdminSite/Server"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -133,7 +133,7 @@ updates:
   # NuGet config for SmallsOnline.Web.Tools.BlogPublisher
   - package-ecosystem: "nuget"
     directory: "/src/Tools/BlogPublisher"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
@@ -152,7 +152,7 @@ updates:
   # Config for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
-    target-branch: "dev"
+    target-branch: "main"
     reviewers:
       - "Smalls1652"
     schedule:
