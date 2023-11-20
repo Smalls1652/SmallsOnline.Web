@@ -17,5 +17,7 @@ The repo for my personal website and it's associated tools.
 
 This repo is dual licensed, depending on the type of content:
 
-- [**Code** - `MIT License`](LICENSE_Code)
-- [**Content** - `CC BY-NC-ND 4.0`](LICENSE_Content)
+| Type | Associated License |
+| --- | --- |
+| **Code** | [![MIT License badge](https://badgen.net/static/license/MIT/blue)](LICENSE_Code) |
+| **Content** | [![CC BY-NC-ND 4.0 badge](https://badgen.net/static/license/CC%20BY-NC-ND%204.0/orange)](LICENSE_Content) |
