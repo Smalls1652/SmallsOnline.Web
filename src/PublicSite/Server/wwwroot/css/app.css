@@ -46,12 +46,31 @@ html {
 }
 
 body {
-    background-image: linear-gradient(#496e9c 65%, #f68026);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
+    background-color: #435c76 !important;
     overflow-y: scroll;
+}
+
+.background-img {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    z-index: -1;
+    background-color: #435c76;
+}
+
+@media (min-width: 0px) and (max-width: 991px) {
+    .background-img {
+        background-image: url("/images/background_portrait.webp");
+    }
+}
+
+@media (min-width: 992px) {
+    .background-img {
+        background-image: url("/images/background.webp");
+    }
 }
 
 .profile-img {
