@@ -1,0 +1,6 @@
+prSections:
+  - title: Pull Requests
+    filters: is:open repo:Smalls1652/SmallsOnline.Web
+issuesSections:
+  - title: Issues
+    filters: is:open repo:Smalls1652/SmallsOnline.Web
