@@ -15,7 +15,6 @@ builder.Services
 // Add services to the container.
 builder.Services
     .AddRazorComponents()
-    .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services
@@ -61,7 +60,6 @@ app.UseStaticFiles();
 
 app
     .MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode();
 
 app.MapRazorPages();
