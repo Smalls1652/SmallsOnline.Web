@@ -61,3 +61,11 @@
 .bi-icon-color-apple {
     color: #000;
 }
+
+.bi-rss-color {
+    color: #ee802f;
+}
+
+.bi-rss-color:hover {
+    color: #D07029;
+}

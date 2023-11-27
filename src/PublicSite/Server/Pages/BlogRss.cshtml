@@ -2,7 +2,7 @@
 @model SmallsOnline.Web.PublicSite.Server.Pages.BlogRss
 @{
     Layout = null;
-    Response.ContentType = "text/xml; charset=utf-8";
+    Response.ContentType = "application/xml; charset=utf-8";
 }
 @if (Model.RssFeedContent is not null)
 {
