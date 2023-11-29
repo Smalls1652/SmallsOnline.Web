@@ -11,42 +11,64 @@
 }
 
 .blockquote {
-    font-size: 1rem!important;
-    padding-left: 1em!important;
+    font-size: 1rem !important;
+    padding-left: 1em !important;
     color: #656d76;
     border-left: 0.25em solid #d0d7de;
 }
 
+.page-card {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    z-index: 1;
+}
+
+.page-card-header {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(50px);
+}
+
+.page-card-body {
+    z-index: 2;
+}
+
 @media (prefers-color-scheme: light) {
     .page-card {
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
         background-color: rgb(255, 255, 255, 0.85) !important;
     }
-    
+
     .page-card-header {
-        background-color: rgb(0, 0, 0, 0.03) !important;
+        background-color: rgba(217, 217, 217, 0.5) !important;
     }
-    
+
+    .page-card-header> :is(h1, h2, h3, h4, h5, h6) {
+        text-shadow: 1px 2px 10px #FFF;
+    }
+
     .page-card-body {
         background-color: rgb(255, 255, 255, 1) !important;
-    }    
+    }
 }
 
 @media (prefers-color-scheme: dark) {
     .page-card {
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
         background-color: rgb(73, 80, 87, 0.85) !important;
     }
-    
+
     .page-card-header {
         background-color: rgba(0, 0, 0, 0.03) !important;
     }
-    
+
+    .page-card-header> :is(h1, h2, h3, h4, h5, h6) {
+        text-shadow: 1px 2px 10px #000;
+    }
+
     .page-card-body {
         background-color: rgb(73, 80, 87, 1) !important;
-    }    
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,7 +78,7 @@
     }
 
     .blockquote {
-        color: var(--bs-dark-text-muted)!important;
+        color: var(--bs-dark-text-muted) !important;
     }
 
     .card-footer {
