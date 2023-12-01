@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpOverrides;
 using SmallsOnline.Web.Lib.Services;
 using SmallsOnline.Web.PublicSite.Server;
@@ -33,6 +34,13 @@ builder.Services.Configure<ForwardedHeadersOptions>(
         options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
     }
 );
+
+string? dataProtectionPath = builder.Configuration.GetValue<string>("DataProtectionKeysPath");
+if (dataProtectionPath is not null || !string.IsNullOrEmpty(dataProtectionPath))
+{
+    builder.Services.AddDataProtection()
+        .PersistKeysToFileSystem(new DirectoryInfo(dataProtectionPath));
+}
 
 var app = builder.Build();
 
