@@ -57,41 +57,22 @@ builder.Services
     );
 
 builder.Services
-    .AddHttpClient(
-        name: "OdesliApiClient",
-        configureClient: (serviceProvider, httpClient) =>
+    .AddCosmosDbService(
+        options =>
         {
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new("SmallsOnline.Web.AdminSite.Server", Assembly.GetExecutingAssembly().GetName().Version!.ToString()));
-            httpClient.BaseAddress = new("https://api.song.link/v1-alpha.1/");
+            options.ConnectionString = builder.Configuration.GetValue<string>("CosmosDbConnectionString")!;
+            options.ContainerName = builder.Configuration.GetValue<string>("CosmosDbContainerName")!;
         }
-    );
-
-builder.Services
-    .AddHttpClient(
-        name: "ItunesApiClient",
-        configureClient: (serviceProvider, httpClient) =>
+    )
+    .AddBlobStorageService(
+        options =>
         {
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new("SmallsOnline.Web.AdminSite.Server", Assembly.GetExecutingAssembly().GetName().Version!.ToString()));
-            httpClient.BaseAddress = new("https://itunes.apple.com/");
+            options.ConnectionString = builder.Configuration.GetValue<string>("StorageAccountConnectionString")!;
+            options.StorageAccountDomainName = builder.Configuration.GetValue<string>("StorageAccountDomainName")!;
         }
-    );
-
-builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
-    provider => new CosmosDbService(
-        connectionString: builder.Configuration.GetValue<string>("CosmosDbConnectionString")!,
-        containerName: builder.Configuration.GetValue<string>("CosmosDbContainerName")!
     )
-);
-
-builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>(
-    provider => new BlobStorageService(
-        connectionString: builder.Configuration.GetValue<string>("StorageAccountConnectionString")!,
-        storageAccountDomainName: builder.Configuration.GetValue<string>("StorageAccountDomainName")!
-    )
-);
-
-builder.Services.AddSingleton<IOdesliService, OdesliService>();
-builder.Services.AddSingleton<IItunesApiService, ItunesApiService>();
+    .AddItunesApiService("SmallsOnline.Web.AdminSite.Server")
+    .AddOdesliService("SmallsOnline.Web.AdminSite.Server");
 
 builder.Services.Configure<ForwardedHeadersOptions>(
     options =>

@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Options;
 using SmallsOnline.Web.Lib.Models.Json;
 
 namespace SmallsOnline.Web.Lib.Services;
@@ -15,7 +16,7 @@ public partial class CosmosDbService : ICosmosDbService
     private readonly CosmosClient _cosmosDbClient;
 
     /// <summary>
-    /// Instantiate the service with service with a connection string and the database name.
+    /// Create an instance of the <see cref="CosmosDbService"/>.
     /// </summary>
     /// <param name="connectionString">The connection string for authenticating the service.</param>
     /// <param name="containerName">The database name to connect to.</param>
@@ -23,6 +24,16 @@ public partial class CosmosDbService : ICosmosDbService
     {
         _containerName = containerName;
         _cosmosDbClient = InitService(connectionString);
+    }
+
+    /// <summary>
+    /// Create an instance of the <see cref="CosmosDbService"/>.
+    /// </summary>
+    /// <param name="options">The <see cref="CosmosDbServiceOptions"/> for configuring the service.</param>
+    public CosmosDbService(IOptions<CosmosDbServiceOptions> options)
+    {
+        _containerName = options.Value.ContainerName;
+        _cosmosDbClient = InitService(options.Value.ConnectionString);
     }
 
     private readonly string _containerName;
