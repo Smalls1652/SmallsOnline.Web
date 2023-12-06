@@ -48,5 +48,6 @@ jobs:
 
       - name: 'dotnet: Publish package to registry'
         shell: pwsh
+        working-directory: ./src/Tools/BlogPublisher/
         run: |
-          dotnet nuget push "./src/Tools/BlogPublisher/*.nupkg"
+          dotnet nuget push "./*.nupkg"
