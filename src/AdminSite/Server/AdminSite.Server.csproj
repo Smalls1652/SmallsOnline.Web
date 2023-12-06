@@ -44,12 +44,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="..\..\Css\**\*">
-            <Link>wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-        </Content>
-        
         <None Include="Data\**\*">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
@@ -74,7 +68,8 @@
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </Content>
 
-        <None Condition="'$(Configuration)'=='Release'" Include="wwwroot\appsettings.Development.json">
+        <None Condition="'$(Configuration)'=='Release'"
+            Include="wwwroot\appsettings.Development.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
@@ -87,22 +82,37 @@
     </ItemGroup>
 
     <ItemGroup>
-        <!-- <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0-*"/> -->
+        <!-- <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server"
+        Version="8.0.0-*"/> -->
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.*" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.*" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect"
+            Version="8.0.*" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.*" />
         <PackageReference Include="Microsoft.Identity.Web" Version="2.15.5" />
         <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.15.5" />
         <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.*" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.*" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server"
+            Version="8.0.*" />
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="Components\Navigation\NavbarCollapseSection.razor" />
-      <AdditionalFiles Include="Components\Navigation\NavbarItems.razor" />
-      <AdditionalFiles Include="Components\Navigation\NavbarLogo.razor" />
-      <AdditionalFiles Include="Components\Navigation\SiteNavbar.razor" />
+        <AdditionalFiles Include="Components\Navigation\NavbarCollapseSection.razor" />
+        <AdditionalFiles Include="Components\Navigation\NavbarItems.razor" />
+        <AdditionalFiles Include="Components\Navigation\NavbarLogo.razor" />
+        <AdditionalFiles Include="Components\Navigation\SiteNavbar.razor" />
     </ItemGroup>
+
+    <Target Name="CopyCssContentFiles" BeforeTargets="Build">
+        <ItemGroup>
+            <SharedCssFiles Include="..\..\Css\**\*" />
+        </ItemGroup>
+
+        <CallTarget Targets="InstallWebDependencies" />
+
+        <Copy
+            SourceFiles="@(SharedCssFiles)"
+            DestinationFiles="@(SharedCssFiles -> 'wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)')" />
+    </Target>
 
     <Target Name="InitProject_Combined">
         <Message Importance="high" Text="-------------------------------------------------" />
