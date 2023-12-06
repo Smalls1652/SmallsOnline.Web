@@ -2,6 +2,7 @@ using Azure.Core;
 using Azure.Identity;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Microsoft.Extensions.Options;
 
 namespace SmallsOnline.Web.Lib.Services;
 
@@ -36,6 +37,20 @@ public partial class BlobStorageService : IBlobStorageService
         );
 
         _storageAccountDomainName = storageAccountDomainName;
+    }
+
+    /// <summary>
+    /// Create a new instance of the <see cref="BlobStorageService"/> class.
+    /// </summary>
+    /// <param name="options">The <see cref="BlobStorageServiceOptions"/> for configuring the service.</param>
+    public BlobStorageService(IOptions<BlobStorageServiceOptions> options)
+    {
+        _blobContainerClient = new(
+            connectionString: options.Value.ConnectionString,
+            blobContainerName: "images"
+        );
+
+        _storageAccountDomainName = options.Value.StorageAccountDomainName;
     }
 
     /// <inheritdoc />
