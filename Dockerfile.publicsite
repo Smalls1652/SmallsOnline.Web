@@ -23,6 +23,7 @@ RUN dotnet workload install wasm-tools
 WORKDIR /app
 COPY ./cleanBuildOutput.ps1 ./
 COPY ./nuget.config /
+COPY ./src/Css/ ./src/Css/
 COPY ./src/Lib/ ./src/Lib/
 COPY ./src/Lib.Components/ ./src/Lib.Components/
 COPY ./src/Lib.Services/ ./src/Lib.Services/
