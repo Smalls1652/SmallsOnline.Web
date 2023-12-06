@@ -7,6 +7,13 @@ $writeInfoSplat = @{
     "InformationAction" = "Continue";
 }
 
+$nodeModulesPath = Join-Path -Path $scriptRoot -ChildPath "node_modules"
+
+if (!(Test-Path -Path $nodeModulesPath)) {
+    Write-Information @writeInfoSplat -MessageData "`t| Running 'npm install'"
+    npm install
+}
+
 $tempPath = [System.IO.Path]::GetTempPath()
 
 $bootstrapCssPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\bootstrap\dist\css\bootstrap.min.css"
