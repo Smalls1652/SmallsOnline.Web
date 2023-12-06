@@ -42,6 +42,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Content Include="..\..\Css\**\*">
+            <Link>wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+
         <None Include="Data\**\*">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
