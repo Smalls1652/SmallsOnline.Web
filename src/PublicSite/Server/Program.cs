@@ -21,11 +21,12 @@ builder.Services
 builder.Services
     .AddRazorPages();
 
-builder.Services.AddSingleton<ICosmosDbService, CosmosDbService>(
-    provider => new CosmosDbService(
-        connectionString: builder.Configuration.GetValue<string>("CosmosDbConnectionString")!,
-        containerName: builder.Configuration.GetValue<string>("CosmosDbContainerName")!
-    )
+builder.Services.AddCosmosDbService(
+    options =>
+    {
+        options.ConnectionString = builder.Configuration.GetValue<string>("CosmosDbConnectionString")!;
+        options.ContainerName = builder.Configuration.GetValue<string>("CosmosDbContainerName")!;
+    }
 );
 
 builder.Services.Configure<ForwardedHeadersOptions>(
