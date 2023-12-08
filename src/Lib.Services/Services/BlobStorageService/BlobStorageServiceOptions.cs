@@ -14,4 +14,9 @@ public class BlobStorageServiceOptions
     /// Useful for utilizing a CDN or custom domain name for the storage account.
     /// </remarks>
     public string StorageAccountDomainName { get; set; } = null!;
+
+    /// <summary>
+    /// Whether or not to enable logging.
+    /// </summary>
+    public bool EnableLogging { get; set; } = true;
 }

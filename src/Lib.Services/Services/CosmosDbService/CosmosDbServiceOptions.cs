@@ -14,4 +14,9 @@ public class CosmosDbServiceOptions
     /// Gets or sets the name of the container in the CosmosDB.
     /// </summary>
     public string ContainerName { get; set; } = null!;
+
+    /// <summary>
+    /// Whether or not to enable logging.
+    /// </summary>
+    public bool EnableLogging { get; set; } = true;
 }
