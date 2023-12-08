@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using SmallsOnline.Web.Lib.Models.Json;
 
@@ -15,6 +17,8 @@ public partial class CosmosDbService : ICosmosDbService
     /// </summary>
     private readonly CosmosClient _cosmosDbClient;
 
+    private readonly ILogger<CosmosDbService> _logger;
+
     /// <summary>
     /// Create an instance of the <see cref="CosmosDbService"/>.
     /// </summary>
@@ -24,6 +28,7 @@ public partial class CosmosDbService : ICosmosDbService
     {
         _containerName = containerName;
         _cosmosDbClient = InitService(connectionString);
+        _logger = NullLogger<CosmosDbService>.Instance;
     }
 
     /// <summary>
@@ -34,6 +39,22 @@ public partial class CosmosDbService : ICosmosDbService
     {
         _containerName = options.Value.ContainerName;
         _cosmosDbClient = InitService(options.Value.ConnectionString);
+        _logger = NullLogger<CosmosDbService>.Instance;
+    }
+
+    public CosmosDbService(IOptions<CosmosDbServiceOptions> options, ILogger<CosmosDbService>? logger)
+    {
+        _containerName = options.Value.ContainerName;
+        _cosmosDbClient = InitService(options.Value.ConnectionString);
+
+        if (options.Value.EnableLogging)
+        {
+            _logger = logger ?? NullLogger<CosmosDbService>.Instance;
+        }
+        else
+        {
+            _logger = NullLogger<CosmosDbService>.Instance;
+        }
     }
 
     private readonly string _containerName;
