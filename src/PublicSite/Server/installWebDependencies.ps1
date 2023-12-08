@@ -1,5 +1,8 @@
 ﻿[CmdletBinding()]
-param()
+param(
+    [Parameter(Position = 0)]
+    [switch]$ForceHighlightJsInstall
+)
 
 $scriptRoot = $PSScriptRoot
 
@@ -107,48 +110,51 @@ Copy-Item -Path $bootstrapJsPath -Destination $bootstrapJsOutPath -ErrorAction "
 Write-Information @writeInfoSplat -MessageData "`t| bootstrap.bundle.min.js.map-> $($bootstrapJsOutPath)"
 Copy-Item -Path $bootstrapJsMapPath -Destination $bootstrapJsOutPath -ErrorAction "Stop"
 
-Write-Information @writeInfoSplat -MessageData "`t| Customizing highlight.js"
-Write-Information @writeInfoSplat -MessageData "`t`t| Pulling highlight.js repo"
-Start-Process -FilePath "git" -Wait -WorkingDirectory $tempPath -ArgumentList @(
-    "clone",
-    "https://github.com/highlightjs/highlight.js.git"
-)
+if ((!(Test-Path -Path $highlightJsOutPath) -or !(Test-Path -Path $highlightJsCssOutPath)) -or $ForceHighlightJsInstall) {
+    
+    Write-Information @writeInfoSplat -MessageData "`t| Customizing highlight.js"
+    Write-Information @writeInfoSplat -MessageData "`t`t| Pulling highlight.js repo"
+    Start-Process -FilePath "git" -Wait -WorkingDirectory $tempPath -ArgumentList @(
+        "clone",
+        "https://github.com/highlightjs/highlight.js.git"
+    )
 
-Write-Information @writeInfoSplat -MessageData "`t`t| Changing highlight.js to tag '$($highlightJsRepoTag)'"
-Start-Process -FilePath "git" -Wait -WorkingDirectory $highlightJsSrcPath -ArgumentList @(
-    "switch",
-    "--detach",
-    "$($highlightJsRepoTag)"
-)
+    Write-Information @writeInfoSplat -MessageData "`t`t| Changing highlight.js to tag '$($highlightJsRepoTag)'"
+    Start-Process -FilePath "git" -Wait -WorkingDirectory $highlightJsSrcPath -ArgumentList @(
+        "switch",
+        "--detach",
+        "$($highlightJsRepoTag)"
+    )
 
-Write-Information @writeInfoSplat -MessageData "`t`t| Building highlight.js from source"
-$highlightJsBuildProcSplat = @{
-    "Wait"             = $true;
-    "WorkingDirectory" = $highlightJsSrcPath;
+    Write-Information @writeInfoSplat -MessageData "`t`t| Building highlight.js from source"
+    $highlightJsBuildProcSplat = @{
+        "Wait"             = $true;
+        "WorkingDirectory" = $highlightJsSrcPath;
+    }
+    Start-Process @highlightJsBuildProcSplat -FilePath "npm" -ArgumentList @(
+        "install"
+    )
+
+    Start-Process @highlightJsBuildProcSplat -FilePath "node" -ArgumentList @(
+        "`"$($highlightJsBuildToolPath)`"",
+        ":common",
+        "powershell",
+        "dockerfile"
+    )
+
+    if (Test-Path -Path $highlightJsOutPath) {
+        Remove-Item -Path $highlightJsOutPath -Recurse -Force
+    }
+
+    $null = New-Item -Path $highlightJsOutPath -ItemType "Directory"
+    $null = New-Item -Path $highlightJsCssOutPath -ItemType "Directory"
+
+    Write-Information @writeInfoSplat -MessageData "`t| highlight.min.js-> $($highlightJsOutPath)"
+    Copy-Item -Path $highlightJsPath -Destination $highlightJsOutPath -ErrorAction "Stop"
+
+    Write-Information @writeInfoSplat -MessageData "`t| styles\github.min.css-> $($highlightJsCssOutPath)"
+    Copy-Item -Path $highlightJsCssPath -Destination $highlightJsCssOutPath -Recurse -ErrorAction "Stop"
+
+    Write-Information @writeInfoSplat -MessageData "`t| Cleaning up build files"
+    Remove-Item -Path $highlightJsSrcPath -Recurse -Force
 }
-Start-Process @highlightJsBuildProcSplat -FilePath "npm" -ArgumentList @(
-    "install"
-)
-
-Start-Process @highlightJsBuildProcSplat -FilePath "node" -ArgumentList @(
-    "`"$($highlightJsBuildToolPath)`"",
-    ":common",
-    "powershell",
-    "dockerfile"
-)
-
-if (Test-Path -Path $highlightJsOutPath) {
-    Remove-Item -Path $highlightJsOutPath -Recurse -Force
-}
-
-$null = New-Item -Path $highlightJsOutPath -ItemType "Directory"
-$null = New-Item -Path $highlightJsCssOutPath -ItemType "Directory"
-
-Write-Information @writeInfoSplat -MessageData "`t| highlight.min.js-> $($highlightJsOutPath)"
-Copy-Item -Path $highlightJsPath -Destination $highlightJsOutPath -ErrorAction "Stop"
-
-Write-Information @writeInfoSplat -MessageData "`t| styles\github.min.css-> $($highlightJsCssOutPath)"
-Copy-Item -Path $highlightJsCssPath -Destination $highlightJsCssOutPath -Recurse -ErrorAction "Stop"
-
-Write-Information @writeInfoSplat -MessageData "`t| Cleaning up build files"
-Remove-Item -Path $highlightJsSrcPath -Recurse -Force
