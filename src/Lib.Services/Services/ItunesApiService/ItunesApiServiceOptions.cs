@@ -1,12 +1,7 @@
 namespace SmallsOnline.Web.Lib.Services;
 
 public class ItunesApiServiceOptions
-{
-    /// <summary>
-    /// The user agent to use when making HTTP requests.
-    /// </summary>
-    public string UserAgent { get; set; } = null!;
-    
+{   
     /// <summary>
     /// Whether or not to enable logging.
     /// </summary>
