@@ -4,6 +4,8 @@ using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using SmallsOnline.Web.Lib.Models.Odesli;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace SmallsOnline.Web.Lib.Services;
 
@@ -27,9 +29,23 @@ public partial class OdesliService : IOdesliService
     /// </summary>
     /// <param name="logger">Logger for the service.</param>
     /// <param name="httpClientFactory">HTTP client factory for the service.</param>
-    public OdesliService(ILogger<OdesliService> logger, IHttpClientFactory httpClientFactory)
+    public OdesliService(ILogger<OdesliService>? logger, IHttpClientFactory httpClientFactory)
     {
-        _logger = logger;
+        _logger = logger ?? NullLogger<OdesliService>.Instance;
+        _httpClientFactory = httpClientFactory;
+    }
+
+    public OdesliService(ILogger<OdesliService>? logger, IHttpClientFactory httpClientFactory, IOptions<OdesliServiceOptions> options)
+    {
+        if (options.Value.EnableLogging)
+        {
+            _logger = logger ?? NullLogger<OdesliService>.Instance;
+        }
+        else
+        {
+            _logger = NullLogger<OdesliService>.Instance;
+        }
+
         _httpClientFactory = httpClientFactory;
     }
 
