@@ -44,6 +44,20 @@ public class PublishFileAction : AsynchronousCliAction
             return 40;
         }
 
+        string? storageAccountDomainName = parseResult.GetValue<string?>("--storage-account-domain-name") ?? Environment.GetEnvironmentVariable("STORAGE_ACCOUNT_DOMAIN_NAME");
+        if (storageAccountDomainName is null)
+        {
+            await ConsoleUtils.WriteErrorAsync("No storage account domain name was provided.");
+            return 40;
+        }
+
+        string? storageAccountConnectionString = parseResult.GetValue<string?>("--storage-account-connection-string") ?? Environment.GetEnvironmentVariable("STORAGE_ACCOUNT_CONNECTION_STRING");
+        if (storageAccountConnectionString is null)
+        {
+            await ConsoleUtils.WriteErrorAsync("No storage account connection string was provided.");
+            return 40;
+        }
+
         await Console.Out.WriteAsync("\nConnecting to database... ");
 
         CosmosDbService? cosmosDbService;
@@ -62,17 +76,20 @@ public class PublishFileAction : AsynchronousCliAction
             return 45;
         }
 
+        await Console.Out.WriteAsync("\nConnecting to storage account... ");
+        BlobStorageService blobStorageService = new(storageAccountConnectionString, storageAccountDomainName);
+
         Console.ForegroundColor = ConsoleColor.Green;
         await Console.Out.WriteAsync("Connected!");
         Console.ResetColor();
 
         await Console.Out.WriteAsync("\nGetting file content... ");
 
+        string absoluteFilePath = Path.GetFullPath(inputFile);
+
         string? fileContent;
         try
         {
-            string absoluteFilePath = Path.GetFullPath(inputFile);
-
             if (!File.Exists(absoluteFilePath))
             {
                 throw new FileNotFoundException($"The file at the path '{inputFile}' does not exist.");
@@ -132,6 +149,8 @@ public class PublishFileAction : AsynchronousCliAction
             await ConsoleUtils.WriteStackTraceAsync(ex);
             return 44;
         }
+
+        fileContent = await ImageSyntaxParser.ReplaceAndUploadImagesAsync(fileContent, absoluteFilePath, blobStorageService);
 
         BlogEntry? blogEntry;
         try

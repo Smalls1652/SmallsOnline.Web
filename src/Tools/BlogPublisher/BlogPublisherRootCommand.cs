@@ -21,6 +21,18 @@ public class BlogPublisherRootCommand : CliRootCommand
             Recursive = true
         });
 
+        Options.Add(new CliOption<string?>("--storage-account-domain-name")
+        {
+            Description = "The domain name for the storage account.",
+            Recursive = true
+        });
+
+        Options.Add(new CliOption<string?>("--storage-account-connection-string")
+        {
+            Description = "The connection string for authenticating to the storage account.",
+            Recursive = true
+        });
+
         Add(new PublishFileCommand());
     }
 }
