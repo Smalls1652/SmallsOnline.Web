@@ -27,7 +27,7 @@ $bootstrapIconsCssPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\bo
 $bootstrapIconsFontDirPath = Join-Path -Path $scriptRoot -ChildPath "node_modules\bootstrap-icons\font\fonts\"
 $bootstrapIconsOutPath = Join-Path -Path $scriptRoot -ChildPath "wwwroot\css\bootstrap-icons\"
 
-$highlightJsRepoTag = "11.7.0"
+$highlightJsRepoTag = "11.9.0"
 $highlightJsSrcPath = Join-Path -Path $tempPath -ChildPath "highlight.js\"
 $highlightJsBuildToolPath = Join-Path -Path $highlightJsSrcPath -ChildPath "tools\build.js"
 $highlightJsPath = Join-Path -Path $highlightJsSrcPath -ChildPath "build\highlight.min.js"
