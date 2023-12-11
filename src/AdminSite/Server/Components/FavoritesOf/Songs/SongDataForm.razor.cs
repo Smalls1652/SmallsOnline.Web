@@ -120,19 +120,31 @@ public partial class SongDataForm : ComponentBase
         SongData.TrackArtUrl = itunesStreamingEntity.ThumbnailUrl!.ToString();
         SongData.TrackUrl = odesliResult.PageUrl!.ToString();
 
+        await HandleArtworkUploadAsync(false);
+
         _isUpdating = false;
     }
+
+    /// <summary>
+    /// Handles uploading the artwork to blob storage.
+    /// </summary>
+    /// <returns></returns>
+    private async Task HandleArtworkUploadAsync() => await HandleArtworkUploadAsync(true);
 
     /// <summary>
     /// Handle uploading the artwork to blob storage.
     /// </summary>
     /// <returns></returns>
-    private async Task HandleArtworkUploadAsync()
+    private async Task HandleArtworkUploadAsync(bool isRunningStandalone = true)
     {
-        _isUpdating = true;
+        if (isRunningStandalone)
+        {
+            _isUpdating = true;
+        }
 
         Match fileExtMatch = FileExtensionRegex().Match(SongData.TrackArtUrl!);
         string fileExt = fileExtMatch.Groups["fileExtension"].Value;
+        string mimeType = GetImageMimeType(fileExt);
 
         using HttpClient httpClient = HttpClientFactory.CreateClient("GenericClient");
         using HttpResponseMessage response = await httpClient.GetAsync(SongData.TrackArtUrl!);
@@ -147,9 +159,12 @@ public partial class SongDataForm : ComponentBase
 
         string fileName = $"{SongData.SongId}.{fileExt}";
 
-        SongData.TrackArtUrl = await BlobStorageService.UploadImageAsync(fileName, stream);
+        SongData.TrackArtUrl = await BlobStorageService.UploadImageAsync(fileName, mimeType, stream);
 
-        _isUpdating = false;
+        if (isRunningStandalone)
+        {
+            _isUpdating = false;
+        }
     }
 
     /// <summary>
@@ -170,4 +185,25 @@ public partial class SongDataForm : ComponentBase
         pattern: "^(?:https|http):\\/\\/.+\\/.+?\\.(?'fileExtension'.+?)$"
     )]
     private static partial Regex FileExtensionRegex();
+
+    private static string GetImageMimeType(string fileExtension)
+    {
+        string mimeType = fileExtension switch
+        {
+            "png" => "image/png",
+            "jpg" or ".jpeg" => "image/jpeg",
+            "gif" => "image/gif",
+            "bmp" => "image/bmp",
+            "tiff" => "image/tiff",
+            "ico" => "image/x-icon",
+            "svg" => "image/svg+xml",
+            "webp" => "image/webp",
+            "avif" => "image/avif",
+            "heif" => "image/heif",
+            "heic" => "image/heic",
+            _ => throw new NotSupportedException($"The image file extension '{fileExtension}' is not supported.")
+        };
+
+        return mimeType;
+    }
 }

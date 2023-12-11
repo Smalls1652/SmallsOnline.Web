@@ -133,6 +133,8 @@ public partial class AlbumDataForm : ComponentBase
         AlbumData.AlbumArtUrl = itunesStreamingEntity.ThumbnailUrl!.ToString();
         AlbumData.AlbumUrl = odesliResult.PageUrl!.ToString();
 
+        await HandleArtworkUploadAsync(false);
+
         if (AlbumData.SchemaVersion == "2.0")
         {
             ApiSearchResult<SongItem>? itunesSongs = await ItunesApiService.GetAlbumIdLookupSongsResultAsync(itunesStreamingEntity.Id!);
@@ -173,14 +175,24 @@ public partial class AlbumDataForm : ComponentBase
     /// Handles uploading the artwork to the Azure Storage Account blob storage.
     /// </summary>
     /// <returns></returns>
-    private async Task HandleArtworkUploadAsync()
+    private async Task HandleArtworkUploadAsync() => await HandleArtworkUploadAsync(true);
+
+    /// <summary>
+    /// Handles uploading the artwork to the Azure Storage Account blob storage.
+    /// </summary>
+    /// <returns></returns>
+    private async Task HandleArtworkUploadAsync(bool isRunningStandalone = true)
     {
-        _isUpdating = true;
+        if (isRunningStandalone)
+        {
+            _isUpdating = true;
+        }
 
         _updatingStatusText = "Uploading artwork to storage";
 
         Match fileExtMatch = FileExtensionRegex().Match(AlbumData.AlbumArtUrl!);
         string fileExt = fileExtMatch.Groups["fileExtension"].Value;
+        string mimeType = GetImageMimeType(fileExt);
 
         using HttpClient httpClient = HttpClientFactory.CreateClient("GenericClient");
         using HttpResponseMessage response = await httpClient.GetAsync(AlbumData.AlbumArtUrl!);
@@ -195,10 +207,14 @@ public partial class AlbumDataForm : ComponentBase
 
         string fileName = $"{AlbumData.AlbumId}.{fileExt}";
 
-        AlbumData.AlbumArtUrl = await BlobStorageService.UploadImageAsync(fileName, stream);
+        AlbumData.AlbumArtUrl = await BlobStorageService.UploadImageAsync(fileName, mimeType, stream);
 
         _updatingStatusText = null;
-        _isUpdating = false;
+
+        if (isRunningStandalone)
+        {
+            _isUpdating = false;
+        }
     }
 
     /// <summary>
@@ -241,4 +257,25 @@ public partial class AlbumDataForm : ComponentBase
         pattern: "^(?:https|http):\\/\\/.+\\/.+?\\.(?'fileExtension'.+?)$"
     )]
     private static partial Regex FileExtensionRegex();
+
+    private static string GetImageMimeType(string fileExtension)
+    {
+        string mimeType = fileExtension switch
+        {
+            "png" => "image/png",
+            "jpg" or ".jpeg" => "image/jpeg",
+            "gif" => "image/gif",
+            "bmp" => "image/bmp",
+            "tiff" => "image/tiff",
+            "ico" => "image/x-icon",
+            "svg" => "image/svg+xml",
+            "webp" => "image/webp",
+            "avif" => "image/avif",
+            "heif" => "image/heif",
+            "heic" => "image/heic",
+            _ => throw new NotSupportedException($"The image file extension '{fileExtension}' is not supported.")
+        };
+
+        return mimeType;
+    }
 }
