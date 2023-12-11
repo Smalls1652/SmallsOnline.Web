@@ -54,7 +54,7 @@ public partial class BlobStorageService : IBlobStorageService
     }
 
     /// <inheritdoc />
-    public async Task<string> UploadImageAsync(string fileName, Stream data)
+    public async Task<string> UploadImageAsync(string fileName, string mimeType, Stream data)
     {
         await _blobContainerClient.DeleteBlobIfExistsAsync($"top-music/uploaded/{fileName}");
 
@@ -67,7 +67,7 @@ public partial class BlobStorageService : IBlobStorageService
 
         BlobHttpHeaders blobHttpHeaders = new()
         {
-            ContentType = "image/jpeg"
+            ContentType = mimeType
         };
 
         await blobClient.SetHttpHeadersAsync(
