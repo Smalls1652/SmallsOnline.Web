@@ -76,4 +76,27 @@ public partial class BlobStorageService : IBlobStorageService
 
         return $"https://{_storageAccountDomainName}/{blobClient.BlobContainerName}/top-music/uploaded/{fileName}";
     }
+
+    public async Task<string> UploadBlogImageAsync(string fileName, string mimeType, Stream data)
+    {
+        await _blobContainerClient.DeleteBlobIfExistsAsync($"blog-assets/{fileName}");
+
+        BlobContentInfo blobInfo = await _blobContainerClient.UploadBlobAsync(
+            blobName: $"blog-assets/{fileName}",
+            content: data
+        );
+
+        BlobClient blobClient = _blobContainerClient.GetBlobClient($"blog-assets/{fileName}");
+
+        BlobHttpHeaders blobHttpHeaders = new()
+        {
+            ContentType = mimeType
+        };
+
+        await blobClient.SetHttpHeadersAsync(
+            httpHeaders: blobHttpHeaders
+        );
+
+        return $"https://{_storageAccountDomainName}/{blobClient.BlobContainerName}/blog-assets/{fileName}";
+    }
 }

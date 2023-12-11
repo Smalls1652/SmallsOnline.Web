@@ -12,4 +12,6 @@ public interface IBlobStorageService
     /// <param name="data">The image's data.</param>
     /// <returns>The URL for the uploaded image.</returns>
     Task<string> UploadImageAsync(string fileName, Stream data);
+
+    Task<string> UploadBlogImageAsync(string fileName, string mimeType, Stream data);
 }
