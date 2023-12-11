@@ -80,7 +80,7 @@ public partial class SongDataForm : ComponentBase
         _isUpdating = true;
         await CosmosDbService.AddOrUpdateFavoriteSongItemAsync(SongData.ToSongData());
         NavigationManager.NavigateTo(
-            uri: $"/favorite-music-of/list/{SongData.ListYear}",
+            uri: $"/favorite-music-of/list/{SongData.ListYear}/songs",
             forceLoad: false
         );
     }
@@ -176,7 +176,7 @@ public partial class SongDataForm : ComponentBase
         _isUpdating = true;
         await CosmosDbService.RemoveFavoriteSongItemAsync(SongData.Id);
         NavigationManager.NavigateTo(
-            uri: $"/favorite-music-of/list/{SongData.ListYear}",
+            uri: $"/favorite-music-of/list/{SongData.ListYear}/songs",
             forceLoad: false
         );
     }
