@@ -30,7 +30,6 @@ namespace SmallsOnline.Web.PublicSite.Server.JsonSourceGen;
 [JsonSerializable(typeof(DatabaseItem))]
 [JsonSerializable(typeof(AlbumData))]
 [JsonSerializable(typeof(AlbumData[]))]
-[JsonSerializable(typeof(AlbumStandoutSong))]
 [JsonSerializable(typeof(AlbumStandoutSongItem))]
 [JsonSerializable(typeof(SongData))]
 [JsonSerializable(typeof(SongData[]))]

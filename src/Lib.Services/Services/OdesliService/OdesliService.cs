@@ -36,7 +36,7 @@ public partial class OdesliService : IOdesliService
     /// <inheritdoc />
     public async Task<MusicEntityItem?> GetShareLinksAsync(string inputUrl)
     {
-        var httpClient = _httpClientFactory.CreateClient("OdesliApiClient");
+        using var httpClient = _httpClientFactory.CreateClient("OdesliApiClient");
 
         _logger.LogInformation("Getting share links for '{inputUrl}'.", inputUrl);
         string encodedUrl = WebUtility.UrlEncode(inputUrl);

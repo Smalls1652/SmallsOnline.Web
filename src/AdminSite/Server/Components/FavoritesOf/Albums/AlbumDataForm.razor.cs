@@ -1,11 +1,9 @@
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components.Forms;
 using SmallsOnline.Web.AdminSite.Server.Models.FavoritesOf.Albums;
-using SmallsOnline.Web.AdminSite.Server.Models.FavoritesOf.Songs;
 using SmallsOnline.Web.Lib.Models.Itunes;
 using SmallsOnline.Web.Lib.Models.Odesli;
 using SmallsOnline.Web.Lib.Services;
-using System.Collections.Generic;
 using SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 using System.Text;
 
@@ -117,7 +115,6 @@ public partial class AlbumDataForm : ComponentBase
         StateHasChanged();
         ApiSearchResult<AlbumItem>? itunesAlbumData = await ItunesApiService.GetAlbumIdLookupResultAsync(itunesStreamingEntity.Id!);
 
-
         if (itunesAlbumData is null)
         {
             _updatingStatusText = null;
@@ -135,40 +132,43 @@ public partial class AlbumDataForm : ComponentBase
 
         await HandleArtworkUploadAsync(false);
 
-        if (AlbumData.SchemaVersion == "2.0")
-        {
-            ApiSearchResult<SongItem>? itunesSongs = await ItunesApiService.GetAlbumIdLookupSongsResultAsync(itunesStreamingEntity.Id!);
-
-            if (itunesSongs is not null && itunesSongs.Results is not null)
-            {
-                SongItem[]? songs = Array.FindAll(itunesSongs.Results, song => song.WrapperType == "track");
-
-                AlbumStandoutSongItem[] songItems = new AlbumStandoutSongItem[songs.Length];
-
-                for (int i = 0; i < songs.Length; i++)
-                {
-                    _updatingStatusText = $"Getting data for song: {i + 1} / {songs.Length}";
-                    StateHasChanged();
-                    SongItem song = songs[i];
-
-                    MusicEntityItem? songOdesliResult = await OdesliService.GetShareLinksAsync(song.TrackViewUrl!);
-
-                    songItems[i] = new AlbumStandoutSongItem
-                    {
-                        Name = song.TrackName,
-                        DiscNumber = song.DiscNumber,
-                        SongNumber = song.TrackNumber,
-                        SongUrl = songOdesliResult!.PageUrl!.ToString(),
-                        IsStandout = false
-                    };
-                }
-
-                AlbumData.StandoutSongs = songItems;
-            }
-        }
+        AlbumData.StandoutSongs = await GetAlbumSongsAsync(itunesStreamingEntity.Id!);
 
         _updatingStatusText = null;
         _isUpdating = false;
+    }
+
+    private async Task<AlbumStandoutSongItem[]?> GetAlbumSongsAsync(string albumId)
+    {
+        AlbumStandoutSongItem[]? songItems = null;
+        ApiSearchResult<SongItem>? itunesSongs = await ItunesApiService.GetAlbumIdLookupSongsResultAsync(albumId);
+
+        if (itunesSongs is not null && itunesSongs.Results is not null)
+        {
+            SongItem[]? songs = Array.FindAll(itunesSongs.Results, song => song.WrapperType == "track");
+
+            songItems = new AlbumStandoutSongItem[songs.Length];
+
+            for (int i = 0; i < songs.Length; i++)
+            {
+                _updatingStatusText = $"Getting data for song - {i + 1} / {songs.Length}";
+                StateHasChanged();
+                SongItem song = songs[i];
+
+                MusicEntityItem? songOdesliResult = await OdesliService.GetShareLinksAsync(song.TrackViewUrl!);
+
+                songItems[i] = new AlbumStandoutSongItem
+                {
+                    Name = song.TrackName,
+                    DiscNumber = song.DiscNumber,
+                    SongNumber = song.TrackNumber,
+                    SongUrl = songOdesliResult!.PageUrl!.ToString(),
+                    IsStandout = false
+                };
+            }
+        }
+
+        return songItems;
     }
 
     /// <summary>
@@ -189,6 +189,7 @@ public partial class AlbumDataForm : ComponentBase
         }
 
         _updatingStatusText = "Uploading artwork to storage";
+        StateHasChanged();
 
         Match fileExtMatch = FileExtensionRegex().Match(AlbumData.AlbumArtUrl!);
         string fileExt = fileExtMatch.Groups["fileExtension"].Value;
@@ -215,15 +216,6 @@ public partial class AlbumDataForm : ComponentBase
         {
             _isUpdating = false;
         }
-    }
-
-    /// <summary>
-    /// Handles adding a standout song to the album.
-    /// </summary>
-    private void HandleAddStandoutSong()
-    {
-        AlbumData.AddStandoutSong();
-        StateHasChanged();
     }
 
     /// <summary>

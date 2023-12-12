@@ -41,18 +41,10 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
     {
         Id = albumData.Id;
         PartitionKey = albumData.PartitionKey;
-
-        SchemaVersion = albumData.SchemaVersion is null && albumData.StandoutTracks is null || albumData.StandoutSongs is not null ? "2.0" : "1.0";
-
+        SchemaVersion = albumData.SchemaVersion is null ? "2.0" : albumData.SchemaVersion;
         Title = albumData.Title;
         Artist = albumData.Artist;
         StandoutSongs = albumData.StandoutSongs;
-
-        if (albumData.StandoutTracks is not null)
-        {
-            _standoutTracks = new(albumData.StandoutTracks);
-        }
-
         AlbumArtUrl = albumData.AlbumArtUrl;
         AlbumUrl = albumData.AlbumUrl;
         IsBest = albumData.IsBest;
@@ -87,14 +79,6 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
     /// <remarks>Does not return when converted to JSON.</remarks>
     [JsonIgnore]
     public IEnumerable<AlbumStandoutSongItem>? OnlyStandoutSongs => GetOnlyStandoutSongs();
-
-    /// <inheritdoc />
-    [JsonPropertyName("albumStandoutTracks")]
-    public IEnumerable<AlbumStandoutSong>? StandoutTracks
-    {
-        get => _standoutTracks;
-        set => _standoutTracks = value is not null ? new(value) : null;
-    }
 
     /// <inheritdoc />
     [Required]
@@ -154,29 +138,7 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
         }
     }
 
-    private List<AlbumStandoutSong>? _standoutTracks;
     private List<AlbumStandoutSongItem>? _standoutSongs;
-
-    /// <summary>
-    /// Add an empty standout song to the album.
-    /// </summary>
-    [Obsolete("Only works for schema version 1.0. Use AddStandoutSongItem() instead.")]
-    public void AddStandoutSong() => AddStandoutSong(new());
-
-    /// <summary>
-    /// Add a standout song to the album.
-    /// </summary>
-    /// <param name="standoutSong">The song to add.</param>
-    [Obsolete("Only works for schema version 1.0. Use AddStandoutSongItem() instead.")]
-    public void AddStandoutSong(AlbumStandoutSong standoutSong)
-    {
-        if (_standoutTracks is null)
-        {
-            _standoutTracks = new();
-        }
-
-        _standoutTracks.Add(standoutSong);
-    }
 
     /// <summary>
     /// Add a standout song item to the album.
@@ -254,7 +216,6 @@ public class AlbumDataFormItem : DatabaseItem, IAlbumData
         Title = Title,
         Artist = Artist,
         StandoutSongs = StandoutSongs,
-        StandoutTracks = StandoutTracks,
         AlbumArtUrl = AlbumArtUrl,
         AlbumUrl = AlbumUrl,
         IsBest = IsBest,
