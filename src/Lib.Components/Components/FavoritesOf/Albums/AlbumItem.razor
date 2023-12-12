@@ -51,56 +51,15 @@
                     </div>
                     <hr>
                     <h4>Standout Songs</h4>
-                    @if (ItemData.SchemaVersion != "2.0")
+                    @if (ItemData.OnlyStandoutSongs is not null && ItemData.OnlyStandoutSongs.Count() > 0)
                     {
-                        <div class="list-group">
-                            @if (ItemData.StandoutTracks is not null)
-                            {
-                                @foreach (AlbumStandoutSong standoutSongItem in ItemData.StandoutTracks)
-                                {
-                                    <div class="list-group-item list-group-item-action">
-                                        <a class="text-decoration-none stretched-link" href="@standoutSongItem.TrackUrl"
-                                            rel="noopener noreferrer" target="_blank">
-                                            @standoutSongItem.Name
-                                        </a>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <div class="list-group-item">
-                                    No songs have been selected for this album.
-                                </div>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        @if (ItemData.OnlyStandoutSongs is not null && ItemData.OnlyStandoutSongs.Count() > 0)
+                        @if (_discNumbers is not null && _discNumbers.Count() > 1)
                         {
-                            @if (_discNumbers is not null && _discNumbers.Count() > 1)
+                            @foreach (var discNumber in _discNumbers)
                             {
-                                @foreach (var discNumber in _discNumbers)
-                                {
-                                    <h5>Disc @discNumber</h5>
-                                    <div class="list-group pb-2">
-                                    @foreach (AlbumStandoutSongItem standoutSongItem in Array.FindAll<AlbumStandoutSongItem>(ItemData.OnlyStandoutSongs.ToArray(), item => item.DiscNumber == discNumber))
-                                    {
-                                        <div class="list-group-item list-group-item-action">
-                                            <span class="font-monospace">@standoutSongItem.GetSongNumberAsString()</span> <a
-                                                class="text-decoration-none stretched-link" href="@standoutSongItem.SongUrl"
-                                                rel="noopener noreferrer" target="_blank">
-                                                @standoutSongItem.Name
-                                            </a>
-                                        </div>
-                                    }
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <div class="list-group">
-                                @foreach (AlbumStandoutSongItem standoutSongItem in ItemData.OnlyStandoutSongs)
+                                <h5>Disc @discNumber</h5>
+                                <div class="list-group pb-2">
+                                @foreach (AlbumStandoutSongItem standoutSongItem in Array.FindAll<AlbumStandoutSongItem>(ItemData.OnlyStandoutSongs.ToArray(), item => item.DiscNumber == discNumber))
                                 {
                                     <div class="list-group-item list-group-item-action">
                                         <span class="font-monospace">@standoutSongItem.GetSongNumberAsString()</span> <a
@@ -116,11 +75,26 @@
                         else
                         {
                             <div class="list-group">
-                                <div class="list-group-item">
-                                    No songs have been selected for this album.
+                            @foreach (AlbumStandoutSongItem standoutSongItem in ItemData.OnlyStandoutSongs)
+                            {
+                                <div class="list-group-item list-group-item-action">
+                                    <span class="font-monospace">@standoutSongItem.GetSongNumberAsString()</span> <a
+                                        class="text-decoration-none stretched-link" href="@standoutSongItem.SongUrl"
+                                        rel="noopener noreferrer" target="_blank">
+                                        @standoutSongItem.Name
+                                    </a>
                                 </div>
+                            }
                             </div>
                         }
+                    }
+                    else
+                    {
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                No songs have been selected for this album.
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
