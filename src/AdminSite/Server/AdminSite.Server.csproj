@@ -107,7 +107,7 @@
             <SharedCssFiles Include="..\..\Css\**\*" />
         </ItemGroup>
 
-        <CallTarget Targets="InstallWebDependencies" />
+        <CallTarget Targets="InstallWebDependencies" Condition="'$(Configuration)'=='Release'" />
 
         <Copy
             SourceFiles="@(SharedCssFiles)"
