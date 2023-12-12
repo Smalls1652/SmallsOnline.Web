@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace SmallsOnline.Web.Lib.Models.FavoritesOf.Albums;
 
 /// <summary>
@@ -36,12 +34,6 @@ public interface IAlbumData
     IEnumerable<AlbumStandoutSongItem>? OnlyStandoutSongs { get; }
 
     /// <summary>
-    /// A collection of <see cref="AlbumSongItem">standout tracks</see> for the album.
-    /// </summary>
-    /// <remarks>Used for legacy data.</remarks>
-    IEnumerable<AlbumStandoutSong>? StandoutTracks { get; set; }
-
-    /// <summary>
     /// The URL to the album's artwork.
     /// </summary>
     string? AlbumArtUrl { get; set; }
@@ -76,7 +68,4 @@ public interface IAlbumData
     /// Unique identifier for the album based on the artist and title.
     /// </summary>
     string? AlbumId { get; }
-
-    void AddStandoutSong();
-    void AddStandoutSong(AlbumStandoutSong standoutSong);
 }
