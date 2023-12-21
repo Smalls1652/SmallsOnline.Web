@@ -32,7 +32,7 @@ RUN dotnet msbuild ./src/PublicSite/Server/ -t:"InitProject_Combined"; \
     dotnet restore ./src/PublicSite/Server/; \
     dotnet publish ./src/PublicSite/Server/ --configuration Release --output out
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy-chiseled
 
 # Temporary workaround for installing the bleeding edge release of .NET 8
 # RUN apt-get update; \
