@@ -40,7 +40,41 @@
 
 <body>
 
-    <Routes @rendermode="@(new InteractiveServerRenderMode(false))" />
+    <div class="pageroutes">
+        <div id="components-reconnect-modal">
+            <div class="container-xl pt-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="card page-card shadow fade-slide-in">
+                            <div class="card-header page-card-header">
+                                <h1>
+                                    <i class="bi bi-bug-fill"></i> Server connection lost
+                                </h1>
+                            </div>
+                            <div class="card-body page-card-body">
+                                <p class="h2">
+                                    Attempting to reconnect to the server...
+                                </p>
+                                <div class="progress" role="progressbar" aria-label="Reconnection progress bar"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                        style="width: 100%"></div>
+                                </div>
+                                <div>
+                                    Current reconnect attempt: <span id="components-reconnect-current-attempt"
+                                        class="font-monospace"></span> / <span id="components-reconnect-max-retries"
+                                        class="font-monospace"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-maincontent">
+            <Routes @rendermode="@(new InteractiveServerRenderMode(false))" />
+        </div>
+    </div>
 
     <script src="js/bootstrap/bootstrap.bundle.min.js" suppress-error="BL9992"></script>
     <script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
