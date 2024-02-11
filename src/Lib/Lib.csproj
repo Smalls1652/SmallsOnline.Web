@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.34.0" />
-    <PackageReference Include="YamlDotNet" Version="15.1.0" />
+    <PackageReference Include="YamlDotNet" Version="15.1.1" />
   </ItemGroup>
 
 </Project>
