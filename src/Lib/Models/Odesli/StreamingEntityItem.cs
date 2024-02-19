@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using SmallsOnline.Web.Lib.Models.Json;
 
 namespace SmallsOnline.Web.Lib.Models.Odesli;
 
@@ -9,6 +10,7 @@ public class StreamingEntityItem : IStreamingEntityItem
 {
     /// <inheritdoc cref="IStreamingEntityItem.Id" />
     [JsonPropertyName("id")]
+    [JsonConverter(typeof(NumberToStringConverter))]
     public string? Id { get; set; }
 
     /// <inheritdoc cref="IStreamingEntityItem.Title" />
