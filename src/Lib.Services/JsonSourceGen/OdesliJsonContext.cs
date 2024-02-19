@@ -16,8 +16,6 @@ namespace SmallsOnline.Web.Lib.Services;
 [JsonSerializable(typeof(PlatformEntityLink))]
 [JsonSerializable(typeof(MusicEntityItem))]
 [JsonSerializable(typeof(MusicEntityItem[]))]
-[JsonSerializable(typeof(Dictionary<string, IPlatformEntityLink>))]
-[JsonSerializable(typeof(Dictionary<string, IStreamingEntityItem>))]
 [JsonSerializable(typeof(Dictionary<string, PlatformEntityLink>))]
 [JsonSerializable(typeof(Dictionary<string, StreamingEntityItem>))]
 internal partial class OdesliJsonContext : JsonSerializerContext
