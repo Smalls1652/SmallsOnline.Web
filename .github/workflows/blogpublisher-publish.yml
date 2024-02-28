@@ -44,10 +44,10 @@ jobs:
       - name: 'dotnet: Create package'
         shell: pwsh
         run: |
-          dotnet pack ./src/Tools/BlogPublisher/ --configuration Release --no-restore --output ./src/Tools/BlogPublisher/
+          dotnet pack ./src/Tools/BlogPublisher/ --configuration Release --no-restore
 
       - name: 'dotnet: Publish package to registry'
         shell: pwsh
-        working-directory: ./src/Tools/BlogPublisher/
+        working-directory: ./nupkg/
         run: |
           dotnet nuget push "./*.nupkg" --api-key "${{ secrets.GITHUB_TOKEN }}"
