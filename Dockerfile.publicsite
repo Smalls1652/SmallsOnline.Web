@@ -16,6 +16,9 @@ RUN dotnet tool install --global PowerShell; \
     dotnet workload install wasm-tools
 
 WORKDIR /app
+COPY ./SmallsOnline.Web.sln ./
+COPY ./Directory.Build.props ./
+COPY ./global.json ./
 COPY ./cleanBuildOutput.ps1 ./
 COPY ./nuget.config /
 COPY ./src/Css/ ./src/Css/
@@ -26,12 +29,12 @@ COPY ./src/PublicSite/ ./src/PublicSite/
 
 RUN dotnet msbuild ./src/PublicSite/Server/ -t:"InitProject_Combined"; \
     dotnet restore ./src/PublicSite/Server/; \
-    dotnet publish ./src/PublicSite/Server/ --configuration Release --output out
+    dotnet publish ./src/PublicSite/Server/ --configuration Release
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy-chiseled
 
 WORKDIR /app
 
-COPY --from=build-env /app/out .
+COPY --from=build-env /app/artifacts/publish/PublicSite.Server/release .
 ENTRYPOINT [ "dotnet", "SmallsOnline.Web.PublicSite.Server.dll" ]
 EXPOSE 8080

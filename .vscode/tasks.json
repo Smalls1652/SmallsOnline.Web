@@ -75,6 +75,35 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
+			"label": "Publish project",
+			"detail": "Publish a project.",
+			"icon": {
+				"id": "package",
+				"color": "terminal.ansiMagenta"
+			},
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"publish",
+				"${workspaceFolder}/${input:publishProject}",
+				"--configuration",
+				"${input:dotnetConfiguration}"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true,
+				"close": false
+			},
+			"problemMatcher": "$msCompile"
+		},
+		{
 			"label": "Clean project",
 			"detail": "Clean a project.",
 			"icon": {
@@ -290,6 +319,26 @@
 				{
 					"label": "AdminSite: Server",
 					"value": "src/AdminSite/Server"
+				}
+			]
+		},
+		{
+			"id": "publishProject",
+			"description": "Select a project to publish.",
+			"type": "pickString",
+			"default": "src/PublicSite/Server",
+			"options": [
+				{
+					"label": "PublicSite: Server",
+					"value": "src/PublicSite/Server"
+				},
+				{
+					"label": "AdminSite: Server",
+					"value": "src/AdminSite/Server"
+				},
+				{
+					"label": "Tools: BlogPublisher",
+					"value": "src/Tools/BlogPublisher"
 				}
 			]
 		}

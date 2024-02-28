@@ -20,6 +20,7 @@ popper/
 .env.production
 .dotnet/
 *.bicepparam
+nupkg/
 
 src/AdminSite/Server/wwwroot/css/
 src/PublicSite/Server/wwwroot/css/
