@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublicSite", "PublicSite", "{A9CAF3AC-8BB9-4601-A352-9C6FA1874ED2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "src\PublicSite\Server\Server.csproj", "{44FA8F0D-2391-4339-A0AA-356850F0AD76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicSite.Server", "src\PublicSite\Server\PublicSite.Server.csproj", "{44FA8F0D-2391-4339-A0AA-356850F0AD76}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A84E7457-A1E1-4297-8FB4-0587944A28C0}"
 EndProject
@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Components", "src\Lib.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Services", "src\Lib.Services\Lib.Services.csproj", "{09CBFB1A-079D-4702-BD5E-BF5AF688DEE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "src\PublicSite\Client\Client.csproj", "{F376E677-76A8-402C-8769-A9A53FD5B807}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicSite.Client", "src\PublicSite\Client\PublicSite.Client.csproj", "{F376E677-76A8-402C-8769-A9A53FD5B807}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{26C704A5-DEB3-424C-A5CF-1FBBBE7AD400}"
 EndProject
