@@ -27,14 +27,8 @@ public partial class CosmosDbService : ICosmosDbService
         string coreQuery = $"WHERE c.partitionKey = \"blog-entry\" AND c.blogIsPublished = true ORDER BY c.blogPostedDate DESC OFFSET {offsetNum} LIMIT 5";
         QueryDefinition resultsQuery = new($"SELECT c.id, c.partitionKey, c.blogUrlId, c.blogTitle, c.blogPostedDate, c.blogContent, c.blogTags, c.blogIsPublished FROM c {coreQuery}");
 
-        // Get the count of the results that will be returned from the query.
-        int resultsCount = await GetResultCount(
-            container: container,
-            coreQuery: coreQuery
-        );
-
         // Initialize a list to hold the blog entries.
-        BlogEntry[] blogEntries = new BlogEntry[resultsCount];
+        BlogEntry[]? blogEntries = null;
 
         using FeedIterator feedIterator = container.GetItemQueryStreamIterator(
             queryDefinition: resultsQuery,
@@ -53,6 +47,11 @@ public partial class CosmosDbService : ICosmosDbService
                 utf8Json: response.Content,
                 jsonTypeInfo: CoreJsonContext.Default.CosmosDbResponseBlogEntry
             );
+
+            if (blogEntries is null)
+            {
+                blogEntries = new BlogEntry[blogEntriesResponse!.Count];
+            }
 
             int i = 0;
             // Loop through each database entry retrieved.
@@ -106,6 +105,6 @@ public partial class CosmosDbService : ICosmosDbService
             }
         }
 
-        return blogEntries;
+        return blogEntries!;
     }
 }
