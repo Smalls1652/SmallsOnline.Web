@@ -10,6 +10,9 @@ namespace SmallsOnline.Web.Lib.Components.Blog;
 /// </summary>
 public partial class BlogEntryCard : ComponentBase
 {
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; } = null!;
+
     /// <summary>
     /// Logger for the component.
     /// </summary>
@@ -32,19 +35,7 @@ public partial class BlogEntryCard : ComponentBase
 
     protected override void OnParametersSet()
     {
-        // Handle whether or not the NavigationManager parameter was set.
-        if (InputNavigationManager is not null)
-        {
-            // If NavigationManager was set,
-            // then we need to modify the footnote links in the blog entry and set '_contentHtml' to the modified value.
-            _contentHtml = FixFootnoteLinks();
-        }
-        else
-        {
-            // If NavigationManager was not set,
-            // then we can just set '_contentHtml' to the value of 'BlogEntry.ContentHtml'.
-            _contentHtml = BlogEntry.ContentHtml;
-        }
+        _contentHtml = FixFootnoteLinks();
 
         base.OnParametersSet();
     }
@@ -74,30 +65,10 @@ public partial class BlogEntryCard : ComponentBase
             {
                 ComponentLogger.LogInformation("Fixing footnote link: '{text}'", footnoteLinkMatch.Value);
 
-                // Logic for handling the different types of footnote links.
-                if (!string.IsNullOrEmpty(footnoteLinkMatch.Groups["idProperty"].Value) &&
-                    !string.IsNullOrEmpty(footnoteLinkMatch.Groups["footnoteAnchorTag"].Value))
-                {
-                    // If the match has the 'idProperty' group,
-                    // then replace the found match with an updated value that uses the current page's URL
-                    // and includes the 'id' property.
-                    modifiedEntryContent = modifiedEntryContent.Replace(
-                        oldValue: footnoteLinkMatch.Value,
-                        newValue:
-                        $"<a id=\"{footnoteLinkMatch.Groups["id"].Value}\" href=\"{InputNavigationManager!.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
-                    );
-                }
-                else
-                {
-                    // If the match does not have the 'idProperty' group,
-                    // then replace the found match with an updated value that uses the current page's URL
-                    // and does not include the 'id' property.
-                    modifiedEntryContent = modifiedEntryContent.Replace(
-                        oldValue: footnoteLinkMatch.Value,
-                        newValue:
-                        $"<a href=\"{InputNavigationManager!.Uri}{footnoteLinkMatch.Groups["footnoteAnchorTag"].Value}\" class=\"{footnoteLinkMatch.Groups["class"].Value}\">"
-                    );
-                }
+                modifiedEntryContent = modifiedEntryContent.Replace(
+                    oldValue: footnoteLinkMatch.Value,
+                    newValue: $"href=\"{NavigationManager.ToBaseRelativePath(NavigationManager.Uri)}{footnoteLinkMatch.Groups["href"].Value}\""
+                );
 
                 // Find the next match.
                 footnoteLinkMatch = footnoteLinkMatch.NextMatch();
@@ -113,7 +84,7 @@ public partial class BlogEntryCard : ComponentBase
     }
 
     [GeneratedRegex(
-        pattern: "<a (?'idProperty'id=\"(?'id'(?:fnref|fn):.+?)\" |)href=\"(?'footnoteAnchorTag'#(?:fnref|fn):.+?\") class=\"(?'class'.+?)\">"
+        pattern: @"href=""(?'href'#.+?)"""
     )]
     private static partial Regex FootnoteLinkRegex();
 }
