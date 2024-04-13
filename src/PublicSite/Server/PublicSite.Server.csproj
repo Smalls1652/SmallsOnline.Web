@@ -26,6 +26,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+        <PackageReference Include="System.ServiceModel.Syndication" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj" />
         <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
         <ProjectReference Include="..\..\Lib\Lib.csproj" />
@@ -79,12 +84,6 @@
         <None Remove="node_modules\**\*" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server"
-            Version="8.0.*" />
-        <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.*" />
-    </ItemGroup>
-
     <Target Name="CopyCssContentFiles" BeforeTargets="Build">
         <ItemGroup>
             <SharedCssFiles Include="..\..\Css\**\*" />
@@ -92,8 +91,7 @@
 
         <CallTarget Targets="InstallWebDependencies" Condition="'$(Configuration)'=='Release'" />
 
-        <Copy
-            SourceFiles="@(SharedCssFiles)"
+        <Copy SourceFiles="@(SharedCssFiles)"
             DestinationFiles="@(SharedCssFiles -> 'wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)')" />
     </Target>
 

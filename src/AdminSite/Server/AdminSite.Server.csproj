@@ -27,6 +27,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+        <PackageReference Include="Microsoft.Identity.Web" />
+        <PackageReference Include="Microsoft.Identity.Web.UI" />
+        <PackageReference Include="System.ServiceModel.Syndication" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\Client\AdminSite.Client.csproj" />
         <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj" />
         <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
@@ -82,20 +92,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <!-- <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server"
-        Version="8.0.0-*"/> -->
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.*" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect"
-            Version="8.0.*" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.*" />
-        <PackageReference Include="Microsoft.Identity.Web" Version="2.17.4" />
-        <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.17.4" />
-        <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.*" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server"
-            Version="8.0.*" />
-    </ItemGroup>
-
-    <ItemGroup>
         <AdditionalFiles Include="Components\Navigation\NavbarCollapseSection.razor" />
         <AdditionalFiles Include="Components\Navigation\NavbarItems.razor" />
         <AdditionalFiles Include="Components\Navigation\NavbarLogo.razor" />
@@ -109,8 +105,7 @@
 
         <CallTarget Targets="InstallWebDependencies" Condition="'$(Configuration)'=='Release'" />
 
-        <Copy
-            SourceFiles="@(SharedCssFiles)"
+        <Copy SourceFiles="@(SharedCssFiles)"
             DestinationFiles="@(SharedCssFiles -> 'wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)')" />
     </Target>
 

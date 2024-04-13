@@ -1,133 +1,13 @@
 version: 2
 updates:
-  # NuGet config for SmallsOnline.Web.Lib
+  # Config for NuGet
   - package-ecosystem: "nuget"
-    directory: "/src/Lib/"
+    directory: "/"
     target-branch: "main"
     schedule:
       interval: "daily"
     labels:
-      - "library"
       - "dependency update"
-    assignees:
-      - "Smalls1652"
-  
-  # NuGet config for SmallsOnline.Web.Lib.Components
-  - package-ecosystem: "nuget"
-    directory: "/src/Lib.Components/"
-    target-branch: "main"
-    schedule:
-      interval: "daily"
-    labels:
-      - "library"
-      - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
-    assignees:
-      - "Smalls1652"
-
-  # NuGet config for SmallsOnline.Web.Lib.Services
-  - package-ecosystem: "nuget"
-    directory: "/src/Lib.Services"
-    target-branch: "main"
-    schedule:
-      interval: "daily"
-    labels:
-      - "middleware"
-      - "library"
-      - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
-    assignees:
-      - "Smalls1652"
-
-  # NuGet config for SmallsOnline.Web.PublicSite.Client
-  - package-ecosystem: "nuget"
-    directory: "/src/PublicSite/Client"
-    target-branch: "main"
-    schedule:
-      interval: "daily"
-    labels:
-      - "website"
-      - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
-    assignees:
-      - "Smalls1652"
-
-  # NuGet config for SmallsOnline.Web.PublicSite.Server
-  - package-ecosystem: "nuget"
-    directory: "/src/PublicSite/Server"
-    target-branch: "main"
-    schedule:
-      interval: "daily"
-    labels:
-      - "website"
-      - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
-      - dependency-name: "Microsoft.Azure.Cosmos"
-    assignees:
-      - "Smalls1652"
-
-  # NPM config for SmallsOnline.Web.PublicSite.Server
-  - package-ecosystem: "npm"
-    directory: "/src/PublicSite/Server"
-    target-branch: "main"
-    schedule:
-      interval: "daily"
-    labels:
-      - "website"
-      - "dependency update"
-    assignees:
-      - "Smalls1652"
-
-  # NuGet config for SmallsOnline.Web.AdminSite.Server
-  - package-ecosystem: "nuget"
-    directory: "/src/AdminSite/Server"
-    target-branch: "main"
-    schedule:
-      interval: "daily"
-    labels:
-      - "website"
-      - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
-      - dependency-name: "Microsoft.Azure.Cosmos"
-    assignees:
-      - "Smalls1652"
-
-  # NPM config for SmallsOnline.Web.AdminSite.Server
-  - package-ecosystem: "npm"
-    directory: "/src/AdminSite/Server"
-    target-branch: "main"
-    schedule:
-      interval: "daily"
-    labels:
-      - "website"
-      - "dependency update"
-    assignees:
-      - "Smalls1652"
-
-  # NuGet config for SmallsOnline.Web.Tools.BlogPublisher
-  - package-ecosystem: "nuget"
-    directory: "/src/Tools/BlogPublisher"
-    target-branch: "main"
-    schedule:
-      interval: "daily"
-    labels:
-      - "tools"
-      - "blogpublisher"
-      - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
-      - dependency-name: "Microsoft.Azure.Cosmos"
     assignees:
       - "Smalls1652"
 
@@ -139,8 +19,5 @@ updates:
       interval: "daily"
     labels:
       - "dependency update"
-    ignore:
-      - dependency-name: "Markdig"
-      - dependency-name: "YamlDotNet"
     assignees:
       - "Smalls1652"
