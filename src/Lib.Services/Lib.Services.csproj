@@ -1,45 +1,34 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <!-- Core properties -->
   <PropertyGroup>
+    <RootNamespace>SmallsOnline.Web.Lib</RootNamespace>
+    <AssemblyName>SmallsOnline.Web.Lib.Services</AssemblyName>
     <TargetFramework>net8.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <PublishedTrimmed>true</PublishedTrimmed>
-    <TrimMode>partial</TrimMode>
-    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
-  </PropertyGroup>
-
+  <!-- Package properties -->
   <PropertyGroup>
     <PackageId>SmallsOnline.Web.Lib.Services</PackageId>
-    <Authors>Timothy Small</Authors>
-    <Company>Smalls.Online</Company>
-    <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web</RepositoryUrl>
     <Description>
       Class library that defines classes used across multiple projects for https://smalls.online.
     </Description>
+    <Authors>Timothy Small</Authors>
+    <Company>Smalls.Online</Company>
+    <Copyright>© 2022-2024 Smalls.Online</Copyright>
+    <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web</RepositoryUrl>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <RootNamespace>SmallsOnline.Web.Lib</RootNamespace>
-    <AssemblyName>SmallsOnline.Web.Lib.Services</AssemblyName>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Lib\Lib.csproj" />
-  </ItemGroup>
-  
+  <!-- Dependencies -->
   <ItemGroup>
     <PackageReference Include="Azure.Identity" />
     <PackageReference Include="Azure.Storage.Blobs" />
     <PackageReference Include="Microsoft.Azure.Cosmos" />
-    <PackageReference Include="Microsoft.Extensions.Http" PrivateAssets="all"/>
-    <PackageReference Include="Microsoft.Extensions.Logging" PrivateAssets="all"/>
+    <PackageReference Include="Microsoft.Extensions.Http" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Logging" PrivateAssets="all" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\Lib\Lib.csproj" />
+  </ItemGroup>
 </Project>
