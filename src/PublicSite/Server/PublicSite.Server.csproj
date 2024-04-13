@@ -1,128 +1,153 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
+    <!-- Core properties -->
     <PropertyGroup>
+        <RootNamespace>SmallsOnline.Web.PublicSite.Server</RootNamespace>
+        <AssemblyName>SmallsOnline.Web.PublicSite.Server</AssemblyName>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>latest</LangVersion>
         <RazorLangVersion>8.0</RazorLangVersion>
-        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-        <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     </PropertyGroup>
-
+    <!-- Package properties -->
     <PropertyGroup>
         <PackageId>SmallsOnline.Web.PublicSite.Server</PackageId>
-        <Authors>Timothy Small</Authors>
-        <Company>Smalls.Online</Company>
-        <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web</RepositoryUrl>
         <Description>
             The codebase for the public website of https://smalls.online.
         </Description>
+        <Authors>Timothy Small</Authors>
+        <Company>Smalls.Online</Company>
+        <Copyright>© 2022-2024 Smalls.Online</Copyright>
+        <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Web</RepositoryUrl>
     </PropertyGroup>
-
+    <!-- Additional settings -->
     <PropertyGroup>
-        <RootNamespace>SmallsOnline.Web.PublicSite.Server</RootNamespace>
-        <AssemblyName>SmallsOnline.Web.PublicSite.Server</AssemblyName>
+        <DirSeparator>$([System.IO.Path]::DirectorySeparatorChar)</DirSeparator>
+        <UserSecretsId>bba9c8d8-3dd6-4f7e-8849-47fa483908df</UserSecretsId>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     </PropertyGroup>
-
+    <!-- Dependencies -->
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
         <PackageReference Include="System.ServiceModel.Syndication" />
     </ItemGroup>
-
     <ItemGroup>
         <ProjectReference Include="..\..\Lib.Components\Lib.Components.csproj" />
         <ProjectReference Include="..\..\Lib.Services\Lib.Services.csproj" />
         <ProjectReference Include="..\..\Lib\Lib.csproj" />
         <ProjectReference Include="..\Client\PublicSite.Client.csproj" />
     </ItemGroup>
-
-    <PropertyGroup>
-        <DirSeparator>$([System.IO.Path]::DirectorySeparatorChar)</DirSeparator>
-        <UserSecretsId>bba9c8d8-3dd6-4f7e-8849-47fa483908df</UserSecretsId>
-    </PropertyGroup>
-
+    <!-- Bootstrap files -->
     <ItemGroup>
         <BootstrapFiles Include="$(Bootstrap_CssPath);$(Bootstrap_CssMapPath)" />
     </ItemGroup>
-
+    <!-- Files to include/exclude -->
     <ItemGroup>
+        <!-- Include files in 'Data\'' -->
         <None Include="Data\**\*">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-
+        <!-- Exclude 'installWebDependencies.ps1' -->
         <None Include="installWebDependencies.ps1">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
-
+        <!-- Exclude 'package.json' -->
         <Content Update="package.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </Content>
-
+        <!-- Exclude 'package-lock.json' -->
         <Content Update="package-lock.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </Content>
-
+        <!-- Exclude 'appsettings.Development.json' when configuration is "Release" -->
         <Content Condition="'$(Configuration)'=='Release'" Update="appsettings.Development.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </Content>
-
+        <!-- Exclude 'wwwroot\appsettings.Development.json' when configuration is "Release" -->
         <None Condition="'$(Configuration)'=='Release'"
             Include="wwwroot\appsettings.Development.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
-
+        <!-- Exclude files in 'node_modules\' -->
         <None Include="node_modules\**\*">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
         <None Remove="node_modules\**\*" />
     </ItemGroup>
+    <!-- Custom targets -->
+    <!-- 
+    Name:
+        CopyCssContentFiles
 
+    Description:
+        Copies CSS files to the 'wwwroot\css\' directory.
+    -->
     <Target Name="CopyCssContentFiles" BeforeTargets="Build">
         <ItemGroup>
             <SharedCssFiles Include="..\..\Css\**\*" />
         </ItemGroup>
-
         <CallTarget Targets="InstallWebDependencies" Condition="'$(Configuration)'=='Release'" />
-
         <Copy SourceFiles="@(SharedCssFiles)"
             DestinationFiles="@(SharedCssFiles -> 'wwwroot\css\%(RecursiveDir)%(Filename)%(Extension)')" />
     </Target>
+    <!-- 
+    Name:
+        InitProject_Combined
 
+    Description:
+    -->
     <Target Name="InitProject_Combined">
         <Message Importance="high" Text="-------------------------------------------------" />
         <Message Importance="high" Text="Running initialization for Blazor web app" />
         <Message Importance="high" Text="-------------------------------------------------" />
         <CallTarget Targets="Clean;Restore;InitWebDependencies" />
     </Target>
+    <!-- 
+    Name:
+        BuildProject_Combined
 
+    Description:
+    -->
     <Target Name="BuildProject_Combined">
         <Message Importance="high" Text="---------------------------------------" />
         <Message Importance="high" Text="Running build for Blazor web app" />
         <Message Importance="high" Text="---------------------------------------" />
         <CallTarget Targets="Clean;Restore;InitWebDependencies;Build" />
     </Target>
+    <!-- 
+    Name:
+        InitWebDependencies
 
+    Description:
+        Runs the targets 'InitNPM' and 'InstallWebDependencies'.
+    -->
     <Target Name="InitWebDependencies">
         <CallTarget Targets="InitNPM;InstallWebDependencies" />
     </Target>
+    <!-- 
+    Name:
+        InitNPM
 
+    Description:
+        Runs 'npm install'.
+    -->
     <Target Name="InitNPM">
         <Message Importance="high" Text="- Running 'npm install'" />
         <Exec Command="npm install" />
     </Target>
+    <!-- 
+    Name:
+        InstallWebDependencies
 
-    <Target Name="UpdateBootstrap">
-        <Message Importance="high" Text="- Running 'npm update'" />
-        <Exec Command="npm update bootstrap" />
-    </Target>
-
+    Description:
+        Installs CSS/JS dependencies to the project.
+    -->
     <Target Name="InstallWebDependencies">
         <Message Importance="high" Text="- Installing CSS/JS dependencies to project" />
         <Exec Command="pwsh -NoProfile -File installWebDependencies.ps1" />
