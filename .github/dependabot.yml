@@ -10,6 +10,28 @@ updates:
       - "dependency update"
     assignees:
       - "Smalls1652"
+  
+  # NPM config for SmallsOnline.Web.PublicSite.Server
+  - package-ecosystem: "npm"
+    directory: "/src/PublicSite/Server"
+    target-branch: "main"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependency update"
+    assignees:
+      - "Smalls1652"
+
+  # NPM config for SmallsOnline.Web.AdminSite.Server
+  - package-ecosystem: "npm"
+    directory: "/src/AdminSite/Server"
+    target-branch: "main"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependency update"
+    assignees:
+      - "Smalls1652"
 
   # Config for GitHub Actions
   - package-ecosystem: "github-actions"
