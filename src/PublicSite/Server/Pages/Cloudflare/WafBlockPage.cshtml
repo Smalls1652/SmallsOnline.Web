@@ -46,13 +46,13 @@
 
     <header>
         <div class="background-img"></div>
-        <component render-mode="Static" type="typeof(SiteNavbar)" />
+        <component render-mode="Static" type="typeof(SiteNavbarSlim)" />
     </header>
 
     <main>
         <div class="container-xl pb-3">
             <div class="row py-3 justify-content-center">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9" id="pagecontent">
+                <div class="col" id="pagecontent">
                     <div class="card page-card shadow">
                         <div class="card-header page-card-header">
                             <h1 class="mb-0">
@@ -107,10 +107,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    class="col-10 col-sm-6 col-md-5 col-lg-3 col-xl-3 col-xxl flex-lg-grow-0 pt-4 pt-lg-0 order-lg-first">
-                    <component render-mode="Static" type="typeof(SidebarItemStatic)" />
                 </div>
             </div>
         </div>
