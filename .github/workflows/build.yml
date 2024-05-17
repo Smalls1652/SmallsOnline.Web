@@ -28,12 +28,7 @@ jobs:
       fail-fast: true
       matrix:
         projectPath: [
-          "./src/AdminSite/Client/",
           "./src/AdminSite/Server/",
-          "./src/Lib/",
-          "./src/Lib.Components/",
-          "./src/Lib.Services/",
-          "./src/PublicSite/Client/",
           "./src/PublicSite/Server/",
           "./src/Tools/BlogPublisher/",
           "./src/Tools/NginxTemplateCustomizer/"
