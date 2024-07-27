@@ -1,9 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/GitTools/GitVersion/main/schemas/6.0/GitVersion.configuration.json
 assembly-versioning-scheme: MajorMinorPatchTag
 mode: ContinuousDeployment
 increment: Inherit
-continuous-delivery-fallback-tag: 'preview'
 branches: {}
 ignore:
   sha: []
-  commits-before: 2023-08-27T00:00:00
+  commits-before: 2023-08-27T00:00:00Z
 merge-message-formats: {}
