@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/GitTools/GitVersion/main/schemas/6.0/GitVersion.configuration.json
 assembly-versioning-scheme: MajorMinorPatchTag
 mode: ContinuousDeployment
 increment: Inherit
