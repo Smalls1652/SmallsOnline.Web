@@ -1,0 +1,65 @@
+name: "Publish"
+
+on:
+  # Automatically trigger it when detected changes in repo
+  # for tagged releases matching 'v*.*.*'
+  push:
+    tags: ["v*.*.*", "v*.*.*-*"]
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish_webapps:
+    name: "Publish web apps"
+    uses: ./.github/workflows/publish-container.yml
+    strategy:
+      matrix:
+        webapp_image: [ "publicsite", "adminsite" ]
+    
+    with:
+      image_name: ${{ matrix.webapp_image }}
+  
+  publish_blogpublisher:
+    name: "Publish BlogPublisher"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "Setup .NET SDK"
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          source-url: "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Install .NET tools"
+        run: |
+          dotnet tool restore
+
+      - name: "Update project files with gitversion"
+        run: |
+          dotnet tool run dotnet-gitversion /updateprojectfiles
+
+      - name: "Run dotnet restore"
+        run: |
+          dotnet restore "./src/Tools/BlogPublisher/"
+
+      - name: "Create package"
+        run: |
+          dotnet pack "./src/Tools/BlogPublisher/" --configuration "Release" --no-restore
+
+      - name: "Publish package to registry"
+        run: |
+          dotnet nuget push "./artifacts/package/release/*.nupkg" --api-key "${{ secrets.GITHUB_TOKEN }}"
