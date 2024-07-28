@@ -32,6 +32,7 @@
   </PropertyGroup>
   <!-- Dependencies -->
   <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" PrivateAssets="all" />
     <PackageReference Include="System.CommandLine" />
   </ItemGroup>
   <ItemGroup>

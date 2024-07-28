@@ -30,6 +30,7 @@
     </PropertyGroup>
     <!-- Dependencies -->
     <ItemGroup>
+        <PackageReference Include="GitVersion.MsBuild" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" />

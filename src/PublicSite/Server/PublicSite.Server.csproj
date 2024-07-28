@@ -28,6 +28,7 @@
     </PropertyGroup>
     <!-- Dependencies -->
     <ItemGroup>
+        <PackageReference Include="GitVersion.MsBuild" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
         <PackageReference Include="System.ServiceModel.Syndication" />
     </ItemGroup>

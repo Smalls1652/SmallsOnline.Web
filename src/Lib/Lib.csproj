@@ -22,6 +22,7 @@
   </PropertyGroup>
   <!-- Dependencies -->
   <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" PrivateAssets="all" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="YamlDotNet" />
   </ItemGroup>
