@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   publish_webapps:
@@ -25,10 +26,6 @@ jobs:
   publish_blogpublisher:
     name: "Publish BlogPublisher"
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: "Checkout GitHub Action"
