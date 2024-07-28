@@ -22,6 +22,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: "Create image name string variants"
+        id: image_name_variants
+        shell: pwsh
+        run: |
+          "lowercase=$("${{ inputs.image_name }}".ToLower())" >> $env:GITHUB_OUTPUT
+
       - name: "Setup .NET SDK"
         uses: actions/setup-dotnet@v4
         with:
@@ -54,7 +60,7 @@ jobs:
         id: image_metadata
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.actor }}/smallsonline-${{ inputs.image_name }}
+          images: ghcr.io/${{ github.actor }}/smallsonline-${{ steps.image_name_variants.outputs.lowercase }}
           tags: |
             type=ref,event=tag
             type=ref,event=branch

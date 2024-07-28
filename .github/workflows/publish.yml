@@ -18,7 +18,7 @@ jobs:
     uses: ./.github/workflows/publish-container.yml
     strategy:
       matrix:
-        webapp_image: [ "publicsite", "adminsite" ]
+        webapp_image: [ "PublicSite", "AdminSite" ]
     
     with:
       image_name: ${{ matrix.webapp_image }}
