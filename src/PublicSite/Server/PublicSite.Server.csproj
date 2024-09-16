@@ -59,7 +59,7 @@
   -->
   <Target Name="BuildTailwindCss">
     <PropertyGroup>
-      <TailwindCss_MainCssFile>main.css</TailwindCss_MainCssFile>
+      <TailwindCss_MainCssFile>main.publicsite.css</TailwindCss_MainCssFile>
       <TaildwindCss_OutputPath>$(MSBuildProjectDirectory)\wwwroot\css\main.css</TaildwindCss_OutputPath>
     </PropertyGroup>
     <Exec Command="npx postcss --output '$(TaildwindCss_OutputPath)' '$(TailwindCss_MainCssFile)'" WorkingDirectory="..\..\Css\" />

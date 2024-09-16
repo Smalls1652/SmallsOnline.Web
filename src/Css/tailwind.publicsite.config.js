@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  "content": [],
+  "content": [
+    "../Lib.Components/**/*.{razor,cshtml,html}",
+    "../PublicSite/Server/**/*.{razor,cshtml,html}"
+  ],
   "theme": {
     "container": {
       "padding": {

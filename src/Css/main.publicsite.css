@@ -1,0 +1,10 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "core.css";
+
+@import "./node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "blazor.css";
+
+@config "tailwind.publicsite.config.js";
