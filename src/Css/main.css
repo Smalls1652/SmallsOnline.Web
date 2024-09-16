@@ -1,0 +1,70 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "blazor.css";
+
+@config "tailwind.config.js";
+
+@layer base {
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply mb-3;
+    }
+
+    h1 {
+        @apply text-5xl;
+    }
+
+    h2 {
+        @apply text-4xl font-semibold;
+    }
+
+    h3 {
+        @apply text-3xl;
+    }
+
+    h4 {
+        @apply text-2xl font-bold;
+    }
+
+    h5 {
+        @apply text-xl font-bold;
+    }
+
+    h6 {
+        @apply text-lg font-bold;
+    }
+
+    p {
+        @apply mt-0 mb-4;
+    }
+
+    dl, ol, ul {
+        @apply list-disc;
+        @apply pl-8 mb-4;
+    }
+
+    dl dl, ol ol, ul ul {
+        @apply mb-0;
+    }
+
+    a {
+        @apply text-blue-600 cursor-pointer underline;
+        @apply transition-colors ease-in-out duration-200;
+    }
+
+    a:hover {
+        @apply text-blue-900;
+    }
+}
+
+:root {
+    --gutter-x: 1.5rem;
+    --gutter-y: 0;
+}
+
+html {
+    height: 100%;
+}

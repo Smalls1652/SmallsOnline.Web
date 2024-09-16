@@ -46,4 +46,30 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+  <Target Name="CopyCssFiles" BeforeTargets="Build">
+    <CallTarget Targets="BuildTailwindCss;CopyBootstrapIconsFonts" />
+  </Target>
+  <!-- Custom targets -->
+  <!-- 
+    Name:
+        BuildTailwindCss
+
+    Description:
+        Builds and Copies Tailwind CSS files to the 'wwwroot\css\' directory.
+  -->
+  <Target Name="BuildTailwindCss">
+    <PropertyGroup>
+      <TailwindCss_MainCssFile>main.css</TailwindCss_MainCssFile>
+      <TaildwindCss_OutputPath>$(MSBuildProjectDirectory)\wwwroot\css\main.css</TaildwindCss_OutputPath>
+    </PropertyGroup>
+    <Exec Command="npx postcss --output '$(TaildwindCss_OutputPath)' '$(TailwindCss_MainCssFile)'" WorkingDirectory="..\..\Css\" />
+  </Target>
+
+  <Target Name="CopyBootstrapIconsFonts">
+    <PropertyGroup>
+      <BootStrapIcons_FontFiles>..\..\Css\node_modules\bootstrap-icons\font\fonts\</BootStrapIcons_FontFiles>
+      <BootStrapIcons_OutputPath>$(MSBuildProjectDirectory)\wwwroot\css\fonts\</BootStrapIcons_OutputPath>
+    </PropertyGroup>
+    <Copy SourceFolders="$(BootStrapIcons_FontFiles)" DestinationFolder="$(BootStrapIcons_OutputPath)"/>
+  </Target>
 </Project>

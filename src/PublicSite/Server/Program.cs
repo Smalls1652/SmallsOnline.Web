@@ -1,4 +1,4 @@
-using Server.Components;
+using SmallsOnline.Web.PublicSite.Server.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
