@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS prebuild-env
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS prebuild-env
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ COPY ./src/Tools/NginxTemplateCustomizer/NginxTemplateCustomizer.csproj ./src/To
 
 RUN dotnet restore
 
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
 
 ARG TARGETOS
 ARG TARGETARCH
@@ -53,7 +53,7 @@ RUN dotnet msbuild "./src/AdminSite/Server/" -t:"InitProject_Combined"; \
     dotnet restore "./src/AdminSite/Server/"; \
     dotnet publish "./src/AdminSite/Server/" --configuration "Release" --os "${TARGETOS}" --arch "${TARGETARCH}" --no-restore
 
-FROM --platform=$TARGETPLATFORM mcr.microsoft.com/dotnet/aspnet:8.0-jammy-chiseled AS app
+FROM --platform=$TARGETPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0-noble-chiseled AS app
 
 ARG TARGETOS
 ARG TARGETARCH
