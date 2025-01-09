@@ -1,6 +1,10 @@
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS prebuild-env
 
+ARG TARGETARCH
+
 WORKDIR /app
+
+ENV CONTAINER_IMAGE_BUILD=true
 
 COPY ./global.json ./
 COPY ./SmallsOnline.Web.sln ./
@@ -18,7 +22,7 @@ COPY ./src/PublicSite/Server/PublicSite.Server.csproj ./src/PublicSite/Server/
 COPY ./src/Tools/BlogPublisher/BlogPublisher.csproj ./src/Tools/BlogPublisher/
 COPY ./src/Tools/NginxTemplateCustomizer/NginxTemplateCustomizer.csproj ./src/Tools/NginxTemplateCustomizer/
 
-RUN dotnet restore
+RUN dotnet restore --arch "${TARGETARCH}"
 
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
 
@@ -49,8 +53,7 @@ ADD --keep-git-dir=true ./ ./
 COPY --from=prebuild-env /root/.nuget/packages /root/.nuget/packages
 COPY --from=prebuild-env /app/artifacts /app/artifacts
 
-RUN dotnet msbuild "./src/PublicSite/Server/" -t:"InitProject_Combined"; \
-    dotnet restore "./src/PublicSite/Server/"; \
+RUN dotnet msbuild "./src/PublicSite/Server/" -t:"InitWebDependencies"; \
     dotnet publish "./src/PublicSite/Server/" --configuration "Release" --os "${TARGETOS}" --arch "${TARGETARCH}" --no-restore
 
 FROM --platform=$TARGETPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0-noble-chiseled AS app
