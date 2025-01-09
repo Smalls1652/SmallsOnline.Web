@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>SmallsOnline.Web.Lib</RootNamespace>
     <AssemblyName>SmallsOnline.Web.Lib.Services</AssemblyName>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>

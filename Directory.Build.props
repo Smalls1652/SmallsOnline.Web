@@ -7,5 +7,7 @@
 
     <ArtifactsPivots Condition="'$(CONTAINER_IMAGE_BUILD)'=='true'">$(Configuration.ToLower())</ArtifactsPivots>
 
+    <AzureCosmosDisableNewtonsoftJsonCheck>true</AzureCosmosDisableNewtonsoftJsonCheck>
+
   </PropertyGroup>
 </Project>
