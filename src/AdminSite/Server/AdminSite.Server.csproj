@@ -3,7 +3,7 @@
     <PropertyGroup>
         <RootNamespace>SmallsOnline.Web.AdminSite.Server</RootNamespace>
         <AssemblyName>SmallsOnline.Web.AdminSite.Server</AssemblyName>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>latest</LangVersion>
@@ -30,6 +30,7 @@
     </PropertyGroup>
     <!-- Dependencies -->
     <ItemGroup>
+        <PackageReference Include="GitVersion.MsBuild" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" />

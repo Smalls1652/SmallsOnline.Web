@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>SmallsOnline.Web.Lib</RootNamespace>
     <AssemblyName>SmallsOnline.Web.Lib.Components</AssemblyName>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RazorLangVersion>8.0</RazorLangVersion>
@@ -29,6 +29,7 @@
   </PropertyGroup>
   <!-- Dependencies -->
   <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
   </ItemGroup>
   <ItemGroup>

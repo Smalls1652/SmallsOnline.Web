@@ -1,0 +1,65 @@
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS prebuild-env
+
+WORKDIR /app
+
+COPY ./global.json ./
+COPY ./SmallsOnline.Web.sln ./
+COPY ./Directory.Build.props ./
+COPY ./Directory.Packages.props ./
+COPY ./nuget.config ./
+
+COPY ./src/AdminSite/Client/AdminSite.Client.csproj ./src/AdminSite/Client/
+COPY ./src/AdminSite/Server/AdminSite.Server.csproj ./src/AdminSite/Server/
+COPY ./src/Lib/Lib.csproj ./src/Lib/
+COPY ./src/Lib.Components/Lib.Components.csproj ./src/Lib.Components/
+COPY ./src/Lib.Services/Lib.Services.csproj ./src/Lib.Services/
+COPY ./src/PublicSite/Client/PublicSite.Client.csproj ./src/PublicSite/Client/
+COPY ./src/PublicSite/Server/PublicSite.Server.csproj ./src/PublicSite/Server/
+COPY ./src/Tools/BlogPublisher/BlogPublisher.csproj ./src/Tools/BlogPublisher/
+COPY ./src/Tools/NginxTemplateCustomizer/NginxTemplateCustomizer.csproj ./src/Tools/NginxTemplateCustomizer/
+
+RUN dotnet restore
+
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
+
+ARG TARGETOS
+ARG TARGETARCH
+
+ENV CONTAINER_IMAGE_BUILD=true
+
+ENV NODE_MAJOR=20
+
+RUN apt-get update; \
+    apt-get install -y ca-certificates curl gnupg; \
+    mkdir -p /etc/apt/keyrings; \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg; \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list; \
+    apt-get update; \
+    apt-get install -y nodejs python3 libc++1 libatomic1; \
+    curl -qL https://www.npmjs.com/install.sh | sh ;\
+    apt-get clean
+
+RUN dotnet tool install --global PowerShell; \
+    dotnet workload install wasm-tools
+
+WORKDIR /app
+
+ADD --keep-git-dir=true ./ ./
+
+COPY --from=prebuild-env /root/.nuget/packages /root/.nuget/packages
+COPY --from=prebuild-env /app/artifacts /app/artifacts
+
+RUN dotnet msbuild "./src/PublicSite/Server/" -t:"InitProject_Combined"; \
+    dotnet restore "./src/PublicSite/Server/"; \
+    dotnet publish "./src/PublicSite/Server/" --configuration "Release" --os "${TARGETOS}" --arch "${TARGETARCH}" --no-restore
+
+FROM --platform=$TARGETPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0-noble-chiseled AS app
+
+ARG TARGETOS
+ARG TARGETARCH
+
+WORKDIR /app
+
+COPY --from=build-env /app/artifacts/publish/PublicSite.Server/release .
+ENTRYPOINT [ "dotnet", "SmallsOnline.Web.PublicSite.Server.dll" ]
+EXPOSE 8080

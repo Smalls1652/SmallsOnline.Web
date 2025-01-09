@@ -3,10 +3,16 @@ root = true
 # All files
 [*]
 indent_style = space
+end_of_line = lf
+insert_final_newline = true
 
 # Xml files
 [*.xml]
 indent_size = 2
+
+# Razor files
+[*.razor]
+end_of_line = crlf
 
 # C# files
 [*.cs]
@@ -19,7 +25,6 @@ tab_width = 4
 
 # New line preferences
 end_of_line = crlf
-insert_final_newline = false
 
 #### .NET Coding Conventions ####
 [*.{cs,vb}]
@@ -361,4 +366,3 @@ dotnet_naming_style.s_camelcase.required_prefix = s_
 dotnet_naming_style.s_camelcase.required_suffix = 
 dotnet_naming_style.s_camelcase.word_separator = 
 dotnet_naming_style.s_camelcase.capitalization = camel_case
-
