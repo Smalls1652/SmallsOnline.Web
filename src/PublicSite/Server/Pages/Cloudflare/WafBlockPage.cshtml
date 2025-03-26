@@ -1,0 +1,118 @@
+@page "/cloudflare/waf-block"
+@namespace SmallsOnline.Web.PublicSite.Server.Pages.Cloudflare
+@using SmallsOnline.Web.PublicSite.Server.Shared.Navigation
+@using SmallsOnline.Web.PublicSite.Server.Shared.Sidebar
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="/" />
+
+    <meta charset="utf-8" />
+
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+
+    <title>Smalls.Online - Access denied</title>
+
+    <!-- Theme color attribute. Primarily for theming supported web browsers. -->
+    <meta content="#435c76" name="theme-color" />
+
+    <!-- Twitter Posting Format -->
+    <meta content="summary" name="twitter:card" />
+    <meta content="@@thetimmysmalls" name="twitter:creator" />
+
+    <!-- OpenGraph Data -->
+    <meta content="https://smalls.online/smalls.png" property="og:image" />
+    <meta property="og:locale" content="en_US" />
+
+    <link href="favicon.ico" rel="icon" type="image/ico" />
+
+    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="/css/bootstrap-icons-custom.css" rel="stylesheet" />
+    <link href="/css/bootstrap-custom.css" rel="stylesheet" />
+    <link href="/css/app.css" rel="stylesheet" />
+    <link href="/css/animation/animation.css" rel="stylesheet" />
+    <link href="/SmallsOnline.Web.PublicSite.Server.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <header>
+        <div class="background-img"></div>
+        <component render-mode="Static" type="typeof(SiteNavbarSlim)" />
+    </header>
+
+    <main>
+        <div class="container-xl pb-3">
+            <div class="row py-3 justify-content-center">
+                <div class="col" id="pagecontent">
+                    <div class="card page-card shadow">
+                        <div class="card-header page-card-header">
+                            <h1 class="mb-0">
+                                <i class="bi bi-dash-circle-fill"></i> Access denied
+                            </h1>
+                        </div>
+                        <div class="card-body page-card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        Your connection was blocked by the Web Application Firewall (WAF).
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    Name
+                                                </th>
+                                                <th scope="col">
+                                                    Value
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">
+                                                    IP address
+                                                </th>
+                                                <td>
+                                                    <code>
+                                                        ::CLIENT_IP::
+                                                    </code>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">
+                                                    Ray ID
+                                                </th>
+                                                <td>
+                                                    <code>
+                                                        ::RAY_ID::
+                                                    </code>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/bootstrap/bootstrap.bundle.min.js" suppress-error="BL9992"></script>
+</body>
+
+</html>
